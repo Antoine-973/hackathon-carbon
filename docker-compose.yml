@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+
+  front:
+    image: node:alpine
+    tty: true
+    stdin_open: true
+    working_dir: /usr/src/server
+    volumes:
+      - ./front:/usr/src/server
+    ports:
+      - ${PORT_FRONT}:${PORT_FRONT}
+
+  back:
+    image: node:alpine
+    tty: true
+    stdin_open: true
+    working_dir: /usr/src/server
+    volumes:
+      - ./back:/usr/src/server
+    ports:
+        - ${PORT_BACK}:${PORT_BACK}
