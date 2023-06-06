@@ -14,6 +14,7 @@ export class PassService {
       });
     } catch (error) {
       console.error(error) ;
+      return error;
     }
   }
 
@@ -23,6 +24,7 @@ export class PassService {
     }
     catch (error) {
         console.error(error) ;
+        return error;
     }
   }
 
@@ -38,6 +40,7 @@ export class PassService {
     }
     catch (error) {
         console.error(error) ;
+        return error;
     }
   }
 
@@ -53,6 +56,7 @@ export class PassService {
 
     } catch (error) {
         console.error(error) ;
+        return error;
     }
   }
 
@@ -65,6 +69,7 @@ export class PassService {
         });
     } catch (error) {
         console.error(error) ;
+        return error;
     }
   }
 }
