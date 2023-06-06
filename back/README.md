@@ -4,6 +4,7 @@
 
 ```bash
 docker compose exec back prisma migrate 
+docker compose exec back prisma generate
 ```
 
 ```bash

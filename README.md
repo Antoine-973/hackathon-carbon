@@ -5,10 +5,5 @@ Remplacer les .env.example par des .env et les remplir
 docker compose up -d
 ````
 
-````bash
-docker compose exec back npm i && npm run start:dev
-````
-
-````bash
-docker compose exec front npm i && npm run start
-````
+Voir le ReadME dans le dossier front pour lancer le front
+Voir le ReadME dans le dossier back pour lancer le back
