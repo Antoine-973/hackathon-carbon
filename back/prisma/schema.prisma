@@ -94,6 +94,7 @@ model Comment {
 
 model Pass {
   id        Int      @id @default(autoincrement())
+  title     String
   startAt   DateTime
   endAt     DateTime
   createdAt DateTime @default(now())
