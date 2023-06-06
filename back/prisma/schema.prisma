@@ -13,6 +13,7 @@ model User {
   firstname     String
   lastname      String
   role          String
+  password      String?
   salary        Int
   niveau        Int
   recruitmentAt DateTime
