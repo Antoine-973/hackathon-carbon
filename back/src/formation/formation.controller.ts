@@ -1,9 +1,7 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException} from '@nestjs/common';
 import {FormationService} from './formation.service';
 import {CreateFormationDto} from './dto/create-formation.dto';
-import {UpdateFormationDto} from './dto/update-formation.dto';
-import {ApiOkResponse} from "@nestjs/swagger";
-
+import {UpdateFormationDto} from "./dto/update-formation.dto";
 @Controller('formation')
 export class FormationController {
     constructor(private readonly formationService: FormationService) {
@@ -21,11 +19,11 @@ export class FormationController {
 
     @Get(':id')
     async findOne(@Param('id') id: string) {
-        const article = await this.formationService.findOne(+id);
-        if (!article) {
+        const formation = await this.formationService.findOne(+id);
+        if (!formation) {
             throw new NotFoundException(`Article with ${id} does not exist.`);
         }
-        return article;
+        return formation;
     }
 
     @Patch(':id')

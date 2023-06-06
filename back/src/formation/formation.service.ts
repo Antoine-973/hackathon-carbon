@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {CreateFormationDto} from './dto/create-formation.dto';
 import {UpdateFormationDto} from './dto/update-formation.dto';
 import {PrismaClient} from '@prisma/client'
@@ -27,16 +27,10 @@ export class FormationService {
     }
 
     findOne(id: number) {
-        // if there is no value find with the id, return an 404 error
         try {
-            prisma.formation.findUnique({
+            return prisma.formation.findUnique({
                 where: {
                     id: id
-                }
-            }).then((data) => {
-                console.log(data)
-                if (!data) {
-                    return new Error('404');
                 }
             })
         }catch (e){
