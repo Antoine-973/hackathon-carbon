@@ -3,7 +3,7 @@
 ### How to run
 
 ```bash
-docker compose exec back npx prisma migrate 
+docker compose exec back npx prisma migrate dev
 docker compose exec back npx prisma generate
 ```
 
