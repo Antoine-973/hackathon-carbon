@@ -53,7 +53,7 @@ model Formation {
   id           Int      @id @default(autoincrement())
   title        String
   description  String
-  date         DateTime
+  date         DateTime?
   participants User[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
