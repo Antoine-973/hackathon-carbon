@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, HttpCode} from '@nestjs/common';
 import { PassService } from './pass.service';
 import { CreatePassDto } from './dto/create-pass.dto';
 import { UpdatePassDto } from './dto/update-pass.dto';
@@ -20,7 +20,14 @@ export class PassController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.passService.findOne(+id);
+      const pass  = this.passService.findOne(+id);
+      if (pass === null) {
+          return response.status(HttpStatus.NOT_FOUND).json({
+              statusCode: HttpStatus.NOT_FOUND,
+              message: 'Pass not found',
+          }).send();
+      }
+      return pass;
   }
 
   @Patch(':id')
@@ -35,6 +42,7 @@ export class PassController {
     return  this.passService.update(+id, updatePassDto);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const pass  = this.passService.findOne(+id);

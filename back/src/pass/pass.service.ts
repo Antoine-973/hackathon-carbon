@@ -33,10 +33,11 @@ export class PassService {
         return prisma.pass.findUnique({
           where: {
             id: id
-          }
-        }).then((data) => {
-            if(!data) throw new NotFoundException(`Pass with id ${id} not found`) ;
-        });
+          },
+            include: {
+                stages: true
+            }
+        }) ;
     }
     catch (error) {
         console.error(error) ;

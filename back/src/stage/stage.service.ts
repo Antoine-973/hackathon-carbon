@@ -1,7 +1,7 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import { CreateStageDto } from './dto/create-stage.dto';
 import { UpdateStageDto } from './dto/update-stage.dto';
-import { PrismaClient } from '@prisma/client';
+import {Pass, PrismaClient} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -9,8 +9,18 @@ const prisma = new PrismaClient();
 export class StageService {
   create(createStageDto: CreateStageDto) {
     try {
+
         return prisma.stage.create({
-            data: createStageDto
+            data: {
+                title: createStageDto.title,
+                description: createStageDto.description,
+                position: createStageDto.position,
+                pass: {
+                    connect: {
+                        id: createStageDto.passId
+                    }
+                }
+            }
         });
     }
     catch (error) {
@@ -21,7 +31,12 @@ export class StageService {
 
   findAll() {
     try {
-      return prisma.stage.findMany();
+      return prisma.stage.findMany({
+        include: {
+            pass: true,
+            rewards: true
+        }
+      });
     } catch (error) {
       console.error(error) ;
         return error;
@@ -33,10 +48,11 @@ export class StageService {
         return prisma.stage.findUnique({
             where: {
             id: id
+            },
+            include: {
+                pass: true,
+                rewards: true
             }
-        }).then((stage) => {
-            if(!stage)
-                throw new NotFoundException(`Stage with id ${id} not found`);
         });
     } catch (error) {
       console.error(error) ;
