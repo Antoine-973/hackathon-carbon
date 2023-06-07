@@ -31,4 +31,14 @@ export class EventsController {
   remove(@Param('id') id: string) {
     return this.eventsService.remove(+id);
   }
+
+  @Patch(':id/join')
+  join(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
+    return this.eventsService.join(+id, updateEventDto);
+  }
+
+  @Patch(':id/leave')
+  leave(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
+    return this.eventsService.leave(+id, updateEventDto);
+  }
 }

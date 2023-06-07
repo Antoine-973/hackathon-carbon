@@ -11,6 +11,4 @@ export class CreateFormationDto {
     @ApiProperty({required: false})
     date: Date;
 
-    // @ApiProperty({required: false})
-    // participants: Array<User>;
 }
