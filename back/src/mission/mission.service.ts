@@ -57,24 +57,33 @@ export class MissionService {
 
   update(id: number, updateMissionDto: UpdateMissionDto) {
     try {
+      const data = {};
+      if (updateMissionDto.title) {
+        data['title'] = updateMissionDto.title;
+      }
+      if (updateMissionDto.description) {
+        data['description'] = updateMissionDto.description;
+      }
+      if (updateMissionDto.clientId) {
+        data['client'] = {
+          connect: {
+            id: updateMissionDto.clientId,
+          },
+        };
+      }
+      if (updateMissionDto.userId) {
+        data['user'] = {
+          connect: {
+            id: updateMissionDto.userId,
+          },
+        };
+      }
+
       return prisma.mission.update({
         where: {
           id: id,
         },
-        data: {
-          title: updateMissionDto.title,
-          description: updateMissionDto.description,
-          client: {
-            connect: {
-              id: updateMissionDto.clientId,
-            },
-          },
-          user: {
-            connect: {
-              id: updateMissionDto.userId,
-            },
-          },
-        },
+        data: data,
       });
     } catch (e) {
       console.error(e);
