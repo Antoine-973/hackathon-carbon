@@ -16,7 +16,7 @@ export const useRoutes = () => {
             path: "/",
             name: "Home",
             element:
-            <SecuredPage scopes={[SCOPES.ADMIN]}>
+            <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                 <HomePage/>
             </SecuredPage>
 
