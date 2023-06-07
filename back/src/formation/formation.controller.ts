@@ -49,4 +49,9 @@ export class FormationController {
     joinFormation(@Param('id') id: string, @Body() updateFormationDto: UpdateFormationDto) {
         return this.formationService.joinFormation(+id, updateFormationDto);
     }
+
+    @Patch(':id/leave')
+    leaveFormation(@Param('id') id: string, @Body() updateFormationDto: UpdateFormationDto) {
+        return this.formationService.leaveFormation(+id, updateFormationDto);
+    }
 }

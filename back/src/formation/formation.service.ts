@@ -95,12 +95,21 @@ export class FormationService {
         }
     }
 
-    // async leaveFormation(id: number, updateFormationDto: UpdateFormationDto) {
-    //     try {
-    //
-    //     } catch (e) {
-    //         console.error(e)
-    //         return e;
-    //     }
-    // }
+    async leaveFormation(id: number, updateFormationDto: UpdateFormationDto) {
+        try {
+            return await prisma.formation.update({
+                where: {id: id},
+                data: {
+                    participants: {
+                        disconnect: updateFormationDto.participants.map(
+                            id => ({id})
+                        )
+                    }
+                },
+            });
+        } catch (e) {
+            console.error(e)
+            return e;
+        }
+    }
 }
