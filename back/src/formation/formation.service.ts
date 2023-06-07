@@ -2,6 +2,7 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import {CreateFormationDto} from './dto/create-formation.dto';
 import {UpdateFormationDto} from './dto/update-formation.dto';
 import {PrismaClient} from '@prisma/client'
+import {JoinFormationDto} from "./dto/join-formation.dto";
 
 const prisma = new PrismaClient()
 
