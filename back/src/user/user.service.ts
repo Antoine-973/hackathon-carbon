@@ -55,11 +55,10 @@ export class UserService {
         id,
       },
       data: {
-        email: updateUserDto.email,
         firstname: updateUserDto.firstname,
         lastname: updateUserDto.lastname,
         role: updateUserDto.role,
-        password: updateUserDto.password,
+        password: await bcrypt.hash(updateUserDto.password, 10),
         salary: updateUserDto.salary,
         niveau: updateUserDto.niveau,
         recruitmentAt: updateUserDto.recruitmentAt,
@@ -67,6 +66,24 @@ export class UserService {
     });
   }
 
+  async updatePassword(id: number, { currentPassword, newPassword }) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    } else if (!(await bcrypt.compare(currentPassword, user.password))) {
+      throw new NotFoundException(`Current password is incorrect`);
+    } else {
+      return this.prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          password: await bcrypt.hash(newPassword, 10),
+        },
+      });
+    }
+  }
   remove(id: number) {
     return this.prisma.user.delete({
       where: {
