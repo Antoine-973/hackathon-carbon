@@ -106,7 +106,7 @@ export default function Header(props: Props)  {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Profil', 'Forum', 'Formation', 'Evenement','Consultants'].map((text, index) => (
+                    {['Profil', 'Forum', 'Formation', 'Evenement','Consultants'].map((text) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemText primary={text} />
