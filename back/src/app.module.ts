@@ -8,9 +8,10 @@ import { EventsModule } from './events/events.module';
 import { FormationModule } from './formation/formation.module';
 import { TopicModule } from './topic/topic.module';
 import { ClientModule } from './client/client.module';
+import { MissionModule } from './mission/mission.module';
 
 @Module({
-  imports: [FormationModule, TopicModule, ClientModule, EventsModule,PassModule, StageModule, RewardModule],
+  imports: [FormationModule, TopicModule, ClientModule, EventsModule,PassModule, StageModule, RewardModule, MissionModule],
   controllers: [AppController],
   providers: [AppService],
 })
