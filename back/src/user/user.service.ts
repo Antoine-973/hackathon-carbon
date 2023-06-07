@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -34,39 +34,22 @@ export class UserService {
       },
     });
   }
-  //objet pour postman
-  // {
-  //   "email": "test@test.com",
-  //   "firstname": "Raida",
-  //   "lastname": "SADIK",
-  //   "role": "Consultant",
-  //   "password": "test",
-  //   "salary": 3000,
-  //   "niveau": 1,
-  //   "recruitmentAt": "2021-10-13T09:00:00.000Z"
-  //   "missions": [
-  //     {
-  //       "id": 1,
-  //       "name": "Mission 1",
-  //       "description": "Description 1",
-  //       "startAt": "2021-10-13T09:00:00.000Z",
-  //       "endAt": "2021-10-13T09:00:00.000Z",
-  //       "createdAt": "2021-10-13T09:00:00.000Z",
-  //       "updatedAt": "2021-10-13T09:00:00.000Z",
-  //       "userId": 1
-  //     }
-  //   ],
-  //   "formations": ,
-  //   "events": ,
-  //   "topics": ,
-  //   "comments": ,
-  // }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
     return this.prisma.user.update({
       where: {
         id,
@@ -80,11 +63,6 @@ export class UserService {
         salary: updateUserDto.salary,
         niveau: updateUserDto.niveau,
         recruitmentAt: updateUserDto.recruitmentAt,
-        missions: { create: [] },
-        formations: { create: [] },
-        events: { create: [] },
-        topics: { create: [] },
-        comments: { create: [] },
       },
     });
   }
@@ -97,11 +75,6 @@ export class UserService {
     });
   }
 
-  /**
-   * Find all users
-   *
-   * @returns {Promise[User]} All users
-   */
   async findMany(): Promise<User[]> {
     return this.prisma.user.findMany();
   }
