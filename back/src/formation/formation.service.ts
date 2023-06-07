@@ -2,16 +2,21 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import {CreateFormationDto} from './dto/create-formation.dto';
 import {UpdateFormationDto} from './dto/update-formation.dto';
 import {PrismaClient} from '@prisma/client'
+import {JoinFormationDto} from "./dto/join-formation.dto";
 
 const prisma = new PrismaClient()
 
 @Injectable()
 export class FormationService {
 
-    create(createFormationDto: CreateFormationDto){
+    create(createFormationDto: CreateFormationDto) {
         try {
             return prisma.formation.create({
-                data: createFormationDto
+                data: {
+                    title: createFormationDto.title,
+                    description: createFormationDto.description,
+                    date: createFormationDto.date,
+                }
             })
         } catch (e) {
             return e;
@@ -33,7 +38,7 @@ export class FormationService {
                     id: id
                 }
             })
-        }catch (e){
+        } catch (e) {
             return e;
         }
     }
@@ -44,9 +49,18 @@ export class FormationService {
                 where: {
                     id: id
                 },
-                data: updateFormationDto
+                data: {
+                    title: updateFormationDto.title,
+                    description: updateFormationDto.description,
+                    date: updateFormationDto.date,
+                    participants: {
+                        connect: updateFormationDto.participants.map(
+                            id => ({id})
+                        )
+                    }
+                }
             })
-        }catch (e){
+        } catch (e) {
             return e;
         }
     }
@@ -58,21 +72,35 @@ export class FormationService {
                     id: id
                 }
             })
-        }catch (e){
+        } catch (e) {
             return e;
         }
     }
 
-    addParticipant(id: number, updateFormationDto: UpdateFormationDto) {
+    async joinFormation(id: number, updateFormationDto: UpdateFormationDto) {
         try {
-            return prisma.formation.update({
-                where: {
-                    id: id
+            return await prisma.formation.update({
+                where: {id: id},
+                data: {
+                    participants: {
+                        connect: updateFormationDto.participants.map(
+                            id => ({id})
+                        )
+                    }
                 },
-                data: updateFormationDto
-            })
-        }catch (e){
+            });
+        } catch (e) {
+            console.error(e)
             return e;
         }
     }
+
+    // async leaveFormation(id: number, updateFormationDto: UpdateFormationDto) {
+    //     try {
+    //
+    //     } catch (e) {
+    //         console.error(e)
+    //         return e;
+    //     }
+    // }
 }

@@ -2,6 +2,7 @@ import {Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException} fr
 import {FormationService} from './formation.service';
 import {CreateFormationDto} from './dto/create-formation.dto';
 import {UpdateFormationDto} from "./dto/update-formation.dto";
+import {JoinFormationDto} from "./dto/join-formation.dto";
 @Controller('formation')
 export class FormationController {
     constructor(private readonly formationService: FormationService) {
@@ -44,12 +45,8 @@ export class FormationController {
         return this.formationService.remove(+id);
     }
 
-    @Patch(':id/participants')
-    async addParticipant(@Param('id') id: string, @Body() updateFormationDto: UpdateFormationDto) {
-        const formation = await this.formationService.findOne(+id);
-        if (!formation) {
-            throw new NotFoundException(`Formation with id ${id} does not exist.`);
-        }
-        return this.formationService.addParticipant(+id, updateFormationDto);
+    @Patch(':id/join')
+    joinFormation(@Param('id') id: string, @Body() updateFormationDto: UpdateFormationDto) {
+        return this.formationService.joinFormation(+id, updateFormationDto);
     }
 }
