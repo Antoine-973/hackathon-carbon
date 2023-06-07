@@ -54,7 +54,7 @@ model Formation {
   id           Int      @id @default(autoincrement())
   title        String
   description  String
-  date         DateTime
+  date         DateTime?
   participants User[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -73,6 +73,8 @@ model Event {
 model Topic {
   id          Int       @id @default(autoincrement())
   title       String
+  content     String
+  note        Float
   createdBy   User      @relation(fields: [createdById], references: [id])
   createdById Int
   client      Client?   @relation(fields: [clientId], references: [id])
@@ -95,8 +97,10 @@ model Comment {
 
 model Pass {
   id        Int      @id @default(autoincrement())
+  title     String
   startAt   DateTime
   endAt     DateTime
+  stages    Stage[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -105,7 +109,10 @@ model Stage {
   id          Int      @id @default(autoincrement())
   position    Int
   title       String
+  pass        Pass     @relation(fields: [passId], references: [id])
+  passId      Int
   description String
+  rewards     Reward[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -115,6 +122,8 @@ model Reward {
   title       String
   description String
   image       String
+  stage       Stage?   @relation(fields: [stageId], references: [id])
+  stageId     Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
