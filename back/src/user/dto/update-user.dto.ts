@@ -1,53 +1,29 @@
 import { Comment, Event, Formation, Mission, Topic } from '@prisma/client';
-import { IsEmail } from 'class-validator';
-
-// model User {
-//   id            Int         @id @default(autoincrement())
-//   email         String      @unique
-//   firstname     String
-//   lastname      String
-//   role          String
-//   password      String?
-//   salary        Int
-//   niveau        Int
-//   recruitmentAt DateTime
-//   missions      Mission[]
-//   formations    Formation[]
-//   events        Event[]
-//   topics        Topic[]
-//   comments      Comment[]
-//   createdAt     DateTime    @default(now())
-//   updatedAt     DateTime    @updatedAt
-//   //mentor User?
-// }
-
-//creer selon model prisma
+import { IsEmail, IsOptional } from 'class-validator';
 
 export class UpdateUserDto {
   @IsEmail()
-  email: string;
+  @IsOptional()
+  email?: string;
 
-  firstname: string;
+  @IsOptional()
+  firstname?: string;
 
-  lastname: string;
+  @IsOptional()
+  lastname?: string;
 
-  role: string;
+  @IsOptional()
+  role?: string;
 
-  password: string;
+  @IsOptional()
+  password?: string;
 
-  salary: number;
+  @IsOptional()
+  salary?: number;
 
-  niveau: number;
+  @IsOptional()
+  niveau?: number;
 
-  recruitmentAt: Date;
-
-  missions: Mission[];
-
-  formations: Formation[];
-
-  events: Event[];
-
-  topics: Topic[];
-
-  comments: Comment[];
+  @IsOptional()
+  recruitmentAt?: Date;
 }
