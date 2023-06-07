@@ -69,6 +69,11 @@ export class MissionService {
               id: updateMissionDto.clientId,
             },
           },
+          user: {
+            connect: {
+              id: updateMissionDto.userId,
+            },
+          },
         },
       });
     } catch (e) {
