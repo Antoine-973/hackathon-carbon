@@ -1,4 +1,4 @@
-import {Grid, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 
 interface CardFooterProps {
     title: string;
@@ -11,7 +11,7 @@ export const CardFooter = (props:CardFooterProps ) => {
     const {title, firstLink, secondLink} = props;
 
     return(
-        <Grid xs={6} style={{marginBottom:15}}>
+        <Box style={{marginBottom:15}}>
             <Typography component={'h4'} variant={'h6'} color={"#E53F49"}>
                 {title}
             </Typography>
@@ -33,6 +33,6 @@ export const CardFooter = (props:CardFooterProps ) => {
                     {secondLink}
                 </a>
             </Typography>
-        </Grid>
+        </Box>
     )
 }

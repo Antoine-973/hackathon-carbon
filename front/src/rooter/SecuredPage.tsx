@@ -7,7 +7,7 @@ interface Permission {
     permissions: string[];
     scopes: string[];
 }
-export default function ({children , scopes= []}: {children: ReactNode , scopes: string[]}) {
+export default function ({children , scopes= []}: {children: Element | Element[] , scopes: string[]}) {
      const { user } = useAuthContext() ;
      const role: string | null  = useRole(user) ;
 

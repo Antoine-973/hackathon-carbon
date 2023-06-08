@@ -2,15 +2,20 @@ import {ReactNode, Suspense} from "react";
 import HomePage from "../pages/HomePage.tsx";
 import {Route, Routes} from "react-router-dom";
 import SecuredPage from "./SecuredPage.tsx";
-import { SCOPES} from "./permissions.ts";
+import {SCOPES} from "./permissions.ts";
+import ProfilePage from "../pages/ProfilePage.tsx";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
 import EventsPage from "../pages/EventsPage.tsx";
+import NotFoundPage from "../pages/error/NotFoundPage.tsx";
+import ForumPage from "../pages/forum/ForumPage.tsx";
+import {FormationPage} from "../pages/FormationPage";
+import {Login} from "../pages/Login";
 
 interface Route {
     path: string;
     name: string;
-    element: ReactNode;
+    element: Element | ReactNode ;
 }
 
 export const useRoutes = () => {
@@ -19,13 +24,13 @@ export const useRoutes = () => {
             path: "/",
             name: "Home",
             element:
-            <SecuredPage scopes={[SCOPES.CONSULTANT]}>
-                <HomePage/>
-            </SecuredPage>
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <HomePage/>
+                </SecuredPage>
         },
         {
-            path: "/consultants",
-            name: "Consultants",
+            path: "/consultant",
+            name: "Consultant",
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <ProfileListPage/>
@@ -38,8 +43,41 @@ export const useRoutes = () => {
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <EventsPage/>
                 </SecuredPage>
+        },
+        {
+            path: "/profile/:id",
+            name: "Profile",
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <ProfilePage/>
+                </SecuredPage>
+        },
+        {
+            path:'/forum',
+            name:'Forum',
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <ForumPage/>
+                </SecuredPage>
+        },
+        {
+            path:'/formations',
+            name:'Formations',
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <FormationPage/>
+                </SecuredPage>
+        },
+        {
+            path:'/login',
+            name:'Login',
+            element: <Login/>
+        },
+        {
+            path:'*',
+            name:'Not Found',
+            element: <NotFoundPage/>
         }
-
     ] ;
 
     return routes.map((route: Route) => {

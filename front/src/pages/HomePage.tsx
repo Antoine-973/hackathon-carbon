@@ -1,9 +1,11 @@
 import {CircularStatic} from '../components/assets/progressBar';
 import {RewardCard} from '../components/assets/rewardCard';
 import {Box, Container, Grid, Typography} from "@mui/material";
+import {useEffect, useState} from "react";
+import {FormationServices} from "../services/FormationServices";
+import {ArticlesServices} from "../services/ArticlesServices";
 
 export default function HomePage() {
-
     const reward = {
         name: "Récompense 1",
         img: "https://picsum.photos/200/300"
@@ -14,22 +16,26 @@ export default function HomePage() {
         img: "https://picsum.photos/200/300"
     }
 
-    const lastFormation = {
-        title: "Formation 1",
-        img: "https://picsum.photos/600/300",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod,  " +
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed"
-    }
+    const [formations, setFormations] = useState([]);
+    const [article, setArticle] = useState({});
+    const [loading, setLoading] = useState(true);
 
-    const article = {
-        title: "Article 1",
-        img: "https://picsum.photos/600/300",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod,  " +
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed",
-        author: "Auteur 1"
-    }
+    useEffect(() => {
+        FormationServices.getFormations().then((data) => {
+            setFormations(data);
+        }).finally(() => {
+            setLoading(false);
+        });
+
+        ArticlesServices.getLast().then((data) => {
+            setArticle(data);
+        }).finally(() => {
+            setLoading(false);
+        });
+    },[])
 
     return (
+        loading ? <div>Chargement...</div> :
         <>
             <Grid container spacing={2} style={{marginTop: 100}}>
                 <Grid sx={{
@@ -39,7 +45,7 @@ export default function HomePage() {
                     justifyContent: 'spawce-between',
                     alignItems: 'center',
                 }}>
-                    <CircularStatic level={10}/>
+                    <CircularStatic level={100}/>
                     <Grid container spacing={5} justifyContent={'center'}>
                         <Grid item xs={12} md={3}>
                             <RewardCard comingReward={reward}/>
@@ -69,7 +75,6 @@ export default function HomePage() {
                     height: 'fit-content',
                     backgroundColor: "rgba(255, 255, 255, 0.3)",
                 }}>
-
                     <Typography
                         variant={'h4'}
                         style={{
@@ -92,38 +97,41 @@ export default function HomePage() {
                             Formation en cours
                         </Typography>
                         <Typography variant={'h6'} sx={{color: '#282C2B'}}>
-                            {lastFormation.title}
+                            { formations.length > 0 &&  formations[0].title}
                         </Typography>
                         <Typography align={'justify'}>
-                            {lastFormation.description}
+                            {formations.length > 0 && formations[0].description}
                         </Typography>
                     </Grid>
                     <Grid item sm={0} md={1}></Grid>
                     <Grid item xs={12} md={5}>
-                        <img src={lastFormation.img} width={500}/>
+                        <img src={"https://picsum.photos/1920/1080"} width={500}/>
                     </Grid>
                 </Grid>
+                {
+                    article && article.title &&
+                    <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
+                        <Grid item sm={12} md={5}>
+                            <img src={article.img} width={500}/>
+                        </Grid>
+                        <Grid item xs={0} md={1}></Grid>
+                        <Grid item xs={12} md={6}>
+                            <Typography variant={'h5'} sx={{color: '#282C2B', fontWeight: 'bold', textAlign: 'right'}}>
+                                Informations & technologies
+                            </Typography>
+                            <Typography variant={'h6'} sx={{color: '#282C2B', textAlign: 'right'}}>
+                                {article.title}
+                            </Typography>
+                            <Typography align={'justify'} sx={{textAlign: 'right', marginBottom: '10'}}>
+                                {article.description}
+                            </Typography>
+                            <Typography align={'justify'} style={{textAlign: 'right', fontStyle: "italic"}}>
+                                {article.author}
+                            </Typography>
+                        </Grid>
+                    </Grid>
 
-                <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
-                    <Grid item sm={12} md={5}>
-                        <img src={article.img} width={500}/>
-                    </Grid>
-                    <Grid item xs={0} md={1}></Grid>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant={'h5'} sx={{color: '#282C2B', fontWeight: 'bold', textAlign: 'right'}}>
-                            Informations & technologies
-                        </Typography>
-                        <Typography variant={'h6'} sx={{color: '#282C2B', textAlign: 'right'}}>
-                            {article.title}
-                        </Typography>
-                        <Typography align={'justify'} sx={{textAlign: 'right', marginBottom: '10'}}>
-                            {article.description}
-                        </Typography>
-                        <Typography align={'justify'} style={{textAlign: 'right', fontStyle: "italic"}}>
-                            {article.author}
-                        </Typography>
-                    </Grid>
-                </Grid>
+                }
             </Container>
 
         </>
