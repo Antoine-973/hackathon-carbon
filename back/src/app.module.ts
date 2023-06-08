@@ -13,7 +13,6 @@ import { TopicModule } from './topic/topic.module';
 import { ClientModule } from './client/client.module';
 import { CommentModule } from './comment/comment.module';
 import { MissionModule } from './mission/mission.module';
-import { RolesGuard } from './user/role/guard/role.guard';
 import { ArticleModule } from './article/article.module';
 
 @Module({
@@ -34,10 +33,6 @@ import { ArticleModule } from './article/article.module';
   ],
   controllers: [AppController],
   providers: [
-    // {
-    //   provide: 'APP_GUARD',
-    //   useClass: RolesGuard,
-    // },
     AppService,
   ],
 })
