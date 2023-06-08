@@ -3,13 +3,7 @@ import {RewardCard} from '../components/assets/rewardCard';
 import {Box, Container, Grid, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {FormationServices} from "../services/FormationServices";
-
-// interface Formations {
-//     id: number;
-//     title: string;
-//     description: string;
-//     img: string;
-// }
+import {ArticlesServices} from "../services/ArticlesServices";
 
 export default function HomePage() {
     const reward = {
@@ -22,19 +16,19 @@ export default function HomePage() {
         img: "https://picsum.photos/200/300"
     }
 
-    const article = {
-        title: "Article 1",
-        img: "https://picsum.photos/600/300",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod,  " +
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed",
-        author: "Auteur 1"
-    }
     const [formations, setFormations] = useState([]);
+    const [article, setArticle] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         FormationServices.getFormations().then((data) => {
             setFormations(data);
+            setLoading(false);
+        })
+
+        ArticlesServices.getLast().then((data) => {
+            console.log(data)
+            setArticle(data);
             setLoading(false);
         })
     },[])
@@ -80,8 +74,6 @@ export default function HomePage() {
                     height: 'fit-content',
                     backgroundColor: "rgba(255, 255, 255, 0.3)",
                 }}>
-
-
                     <Typography
                         variant={'h4'}
                         style={{
@@ -116,27 +108,30 @@ export default function HomePage() {
                     </Grid>
                 </Grid>
 
+                {
+                    article &&
+                    <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
+                        <Grid item sm={12} md={5}>
+                            <img src={article.img} width={500}/>
+                        </Grid>
+                        <Grid item xs={0} md={1}></Grid>
+                        <Grid item xs={12} md={6}>
+                            <Typography variant={'h5'} sx={{color: '#282C2B', fontWeight: 'bold', textAlign: 'right'}}>
+                                Informations & technologies
+                            </Typography>
+                            <Typography variant={'h6'} sx={{color: '#282C2B', textAlign: 'right'}}>
+                                {article.title}
+                            </Typography>
+                            <Typography align={'justify'} sx={{textAlign: 'right', marginBottom: '10'}}>
+                                {article.description}
+                            </Typography>
+                            <Typography align={'justify'} style={{textAlign: 'right', fontStyle: "italic"}}>
+                                {article.author}
+                            </Typography>
+                        </Grid>
+                    </Grid>
 
-                <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
-                    <Grid item sm={12} md={5}>
-                        <img src={article.img} width={500}/>
-                    </Grid>
-                    <Grid item xs={0} md={1}></Grid>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant={'h5'} sx={{color: '#282C2B', fontWeight: 'bold', textAlign: 'right'}}>
-                            Informations & technologies
-                        </Typography>
-                        <Typography variant={'h6'} sx={{color: '#282C2B', textAlign: 'right'}}>
-                            {article.title}
-                        </Typography>
-                        <Typography align={'justify'} sx={{textAlign: 'right', marginBottom: '10'}}>
-                            {article.description}
-                        </Typography>
-                        <Typography align={'justify'} style={{textAlign: 'right', fontStyle: "italic"}}>
-                            {article.author}
-                        </Typography>
-                    </Grid>
-                </Grid>
+                }
             </Container>
 
         </>

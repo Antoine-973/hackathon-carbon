@@ -1,26 +1,76 @@
-import { Injectable } from '@nestjs/common';
-import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+import {CreateArticleDto} from "./dto/create-article.dto";
+import {UpdateArticleDto} from "./dto/update-article.dto";
+
+const prisma = new PrismaClient();
 
 @Injectable()
 export class ArticleService {
-  create(createArticleDto: CreateArticleDto) {
-    return 'This action adds a new article';
-  }
+    create(createArticleDto: CreateArticleDto) {
+        try {
+            return prisma.article.create({
+                data: createArticleDto,
+            });
+        } catch (e) {
+            return e;
+        }
+    }
 
-  findAll() {
-    return `This action returns all article`;
-  }
+    findAll() {
+        try {
+            return prisma.article.findMany();
+        } catch (e) {
+            return e;
+        }
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} article`;
-  }
+    findOne(id: number) {
+        try {
+            return prisma.article.findUnique({
+                where: {
+                    id: id,
+                }
+            });
+        } catch (e) {
+            return e;
+        }
+    }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`;
-  }
+    update(id: number, updateArticleDto: UpdateArticleDto) {
+        try {
+            return prisma.article.update({
+                where: {
+                    id: id,
+                },
+                data: updateArticleDto,
+            });
+        } catch (e) {
+            return e;
+        }
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
-  }
+    remove(id: number) {
+        try {
+            return prisma.article.delete({
+                where: {
+                    id: id,
+                },
+            });
+        } catch (e) {
+            return e;
+        }
+    }
+
+    findLastArticle() {
+        try {
+            return prisma.article.findFirst({
+                orderBy: {
+                    id: 'desc',
+                },
+            });
+        } catch (e) {
+            return e;
+        }
+    }
 }
