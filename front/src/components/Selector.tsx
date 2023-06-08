@@ -1,3 +1,4 @@
+// @ts-ignore
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import { ChangeEvent } from "react";
 
@@ -19,9 +20,6 @@ export default function Selector({values, title, value, handleChange} : Props) {
                 onChange={handleChange}
                 label={`${title}`}
             >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
                 {
                     values && values.length > 0 &&
                     values.map((value: any) => {

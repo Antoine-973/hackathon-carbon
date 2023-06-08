@@ -8,6 +8,7 @@ import {Fragment, ReactElement, useState} from "react";
 import {Notifications} from "@mui/icons-material";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import styles from "./Header.module.css";
 import {
     Drawer,
     IconButton,
@@ -19,6 +20,7 @@ import {
     ListItemButton,
     ListItemText
 } from "@mui/material";
+import { NavLink, useNavigate} from 'react-router-dom';
 
 interface Props {
     /**
@@ -68,20 +70,94 @@ export default function Header(props: Props)  {
         setOpen(false);
     };
 
+    const navigate = useNavigate();
+    const links = [
+        {name:'Profil', path:'/profil'},
+        {name:'Forum', path:'/forum'},
+        {name:'Formation', path:'/formation'},
+        {name:'Evenement', path:'/evenement'} ,
+        {name:'Consultants', path:'/consultants'}
+    ];
+
+    interface Link {
+        isPending: boolean,
+        isActive: boolean
+    }
+
     return (
         <Fragment>
             <CssBaseline/>
             <HideOnScroll {...props}>
                 <AppBar>
                     <Toolbar>
-                            <img width={'100px'}  src="/carbon-logo.png" alt="Logo de l'entreprise Carbon IT"/>
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            width: '100%'
+                        }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    width: '100%'
+                                }}
+                            >
+                                <img
+                                    style={{
+                                        cursor: 'pointer',
+                                        marginRight: '40px'
+                                    }}
+                                    width={'100px'}
+                                    onClick={() => {
+                                        navigate('/')
+                                    }}
+                                    src="/carbon-logo.png" alt="Logo de l'entreprise Carbon IT"
+                                />
+                                <Box
+                                    sx={{
+                                        display: {xs:'none', md:'flex'},
+                                    }}
+                                >
+                                    {
+                                        links.map( (link) => {
+                                            return (
+                                                <NavLink
+                                                    className={({ isActive, isPending }: Link) =>
+                                                        isPending ? "" : isActive ? styles.active : ""
+                                                    }
+                                                    to={link.path} key={link.name}
+                                                    style={{
+                                                        color: theme.palette.secondary.main,
+                                                        textDecoration: 'none',
+                                                        margin: '0 10px',
+                                                    }}
+                                                >
+                                                    {link.name}
+                                                </NavLink>
+                                            )
+                                        })
+                                    }
+                                </Box>
+                            </Box>
+                            <Box sx={{
+                                display: 'flex',
+                            }}>
+                                <IconButton sx={{color: theme.palette.secondary.main}}>
+                                    <Notifications/>
+                                </IconButton>
+                                <IconButton  onClick={() => handleDrawerOpen()} sx={{
+                                    color: theme.palette.secondary.main,
+                                    display: {xs:'block', md:'none'}
+                                }} >
+                                    <DragHandleIcon/>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+
                             <Box flex={1}/>
-                            <IconButton sx={{color: theme.palette.secondary.main}}>
-                                <Notifications/>
-                            </IconButton>
-                            <IconButton onClick={() => handleDrawerOpen()} sx={{color: theme.palette.secondary.main}} >
-                                <DragHandleIcon/>
-                            </IconButton>
+
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
@@ -106,10 +182,14 @@ export default function Header(props: Props)  {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Profil', 'Forum', 'Formation', 'Evenement','Consultants'].map((text) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary={text} />
+                    {
+                        links.map((text) => (
+                        <ListItem key={text.name} disablePadding>
+                            <ListItemButton onClick={() => {
+                                navigate(text.path)
+                            }}>
+                                <ListItemText primary={text.name}>
+                                </ListItemText>
                             </ListItemButton>
                         </ListItem>
                     ))}

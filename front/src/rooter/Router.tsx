@@ -2,13 +2,13 @@ import {ReactNode, Suspense} from "react";
 import HomePage from "../pages/HomePage.tsx";
 import {Route, Routes} from "react-router-dom";
 import SecuredPage from "./SecuredPage.tsx";
-import { SCOPES} from "./permissions.ts";
+import {SCOPES} from "./permissions.ts";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 
 interface Route {
     path: string;
     name: string;
-    element: ReactNode;
+    element: Element | ReactNode ;
 }
 
 export const useRoutes = () => {
@@ -17,9 +17,9 @@ export const useRoutes = () => {
             path: "/",
             name: "Home",
             element:
-            <SecuredPage scopes={[SCOPES.CONSULTANT]}>
-                <HomePage/>
-            </SecuredPage>
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <HomePage/>
+                </SecuredPage>
         },
         {
             path: "/consultants",

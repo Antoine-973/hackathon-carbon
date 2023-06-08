@@ -2,7 +2,9 @@ export default function HomePage () {
 
     return (
 
-            <div>
+            <div style={{
+                height: '200vh'
+            }}>
                 <h1>HomePage</h1>
             </div>
 
