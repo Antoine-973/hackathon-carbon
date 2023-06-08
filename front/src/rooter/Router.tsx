@@ -6,7 +6,14 @@ import {SCOPES} from "./permissions.ts";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
+<<<<<<< Updated upstream
 import ForumPage from "../pages/forum/ForumPage.tsx";
+import { FormationPage } from "../pages/FormationPage";
+=======
+import {FormationPage} from "../pages/FormationPage";
+import ForumPage from "../pages/forum/ForumPage";
+
+>>>>>>> Stashed changes
 
 interface Route {
     path: string;
@@ -44,8 +51,15 @@ export const useRoutes = () => {
             path:'*',
             name:'Not Found',
             element: <NotFoundPage/>
-        }
-
+        },
+        {
+            path: "/formations",
+            name: "Formations",
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <FormationPage/>
+                </SecuredPage>
+        },
     ] ;
 
     return routes.map((route: Route) => {
