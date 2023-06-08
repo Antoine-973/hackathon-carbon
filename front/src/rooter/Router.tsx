@@ -7,6 +7,7 @@ import ProfilePage from "../pages/ProfilePage.tsx";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
+
 import ForumQuizz from "../pages/forum/ForumQuizz.tsx";
 import { FormationPage } from "../pages/FormationPage";
 import ForumPage from "../pages/forum/ForumPage";
@@ -53,11 +54,20 @@ export const useRoutes = () => {
                 </SecuredPage>
         },
         {
+
             path: '/forum/:id',
             name: 'Topic',
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <ForumQuizz/>
+                </SecuredPage>
+        },
+        {
+            path:'/formations',
+            name:'Formations',
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <FormationPage/>
                 </SecuredPage>
         },
         {

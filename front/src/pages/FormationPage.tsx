@@ -1,8 +1,9 @@
-import {Box, Container, Grid, Typography} from "@mui/material";
+import {Box, Card, CardMedia, Container, Grid, Typography} from "@mui/material";
 import {CardFormation} from "../components/formation/CardFormation";
 import {useEffect, useState} from "react";
 import {FormationServices} from "../services/FormationServices";
 import SideNav from "../components/SideNav/SideNav";
+import AliceCarousel from "react-alice-carousel";
 
 interface Formation {
     id: number;
@@ -43,84 +44,109 @@ const formationConseilles = [
     }
 ]
 
+const responsive = {
+    0: {items: 1},
+    568: {items: 2},
+    1024: {items: 3},
+};
+
 export const FormationPage = () => {
     const [formations, setFormations] = useState<Formation[]>([])
     const [loading, setLoading] = useState(true);
-
+    const [carousel, setCarousel] = useState({});
+    // const [formationConseilles, setFormationConseilles] = useState<Formation[]>([])
+  
     useEffect(() => {
         FormationServices.getFormations().then((data) => {
             setFormations(data);
             setLoading(false);
         })
-    },[])
-    // const [formationConseilles, setFormationConseilles] = useState<Formation[]>([])
+    }, [])
+
+    useEffect(() => {
+        setCarousel(
+            formationConseilles.map((stage) => {
+                return (<>
+                        <Card sx={{marginX: 1}}>
+                            <CardMedia
+                                sx={{height: 250}}
+                                image="https://picsum.photos/250/200"
+                                title={stage.title}
+                            />
+                        </Card>
+                        <Box style={{marginLeft:10, maxWidth:250}}>
+                            <Typography variant="h6" component="h2">
+                                {stage.title}
+                            </Typography>
+                            <Typography color="textSecondary">
+                                {stage.date[0]}
+                            </Typography>
+                            <Typography variant={'p'} style={{width:'100%'}}>
+                                {stage.description}
+                            </Typography>
+                        </Box>
+                    </>
+                )
+            })
+        )
+
+    }, [formations])
     return (
         loading ? <div>Chargement...</div> :
-        <>
-            <Container>
-                <Grid container>
-                    <Grid item xs={3}>
-                        <SideNav links={[
-                            {name:'Général', path:'/forum'},
-                            {name:'Utilisateur', path:'/forum/user/:id'},
-                            {name:'Client', path:'/forum/client/:id'},
-                        ]}/>
-                    </Grid>
-                    <Grid item xs={9}>
-                        {/*<Grid>*/}
-                            {/*<FilterBar selectors={''} resetFilter={} handleSearchChange={}/>*/}
-                        {/*</Grid>*/}
-                        <Grid style={{marginBottom:40}}>
-                            <Typography style={{fontWeight: 'bold'}} variant={'h6'}>
-                                Conseillé pour vous
-                            </Typography>
-                            <Grid
-                                display="flex"
-                                direction="row"
-                                justifyContent="space-around"
-                            >
-                                {
-                                    formationConseilles.map((formationConseille: Formation, key) => {
-                                        return (
-                                            <Grid key={key} style={{
-                                                maxWidth: 250,
-                                            }}>
-                                                <CardFormation formation={formationConseille}/>
-                                            </Grid>
-
-                                        )
-                                    })
-                                }
-                            </Grid>
+            <>
+                <Container>
+                    <Grid container>
+                        <Grid item xs={3}>
+                            <SideNav links={[
+                                {name: 'Général', path: '/forum'},
+                                {name: 'Utilisateur', path: '/forum/user/:id'},
+                                {name: 'Client', path: '/forum/client/:id'},
+                            ]}/>
                         </Grid>
-                        <Box>
+                        <Grid item xs={9}>
+                            {/*<Grid>*/}
+                            {/*<FilterBar selectors={''} resetFilter={} handleSearchChange={}/>*/}
+                            {/*</Grid>*/}
+                            <Grid style={{marginBottom: 40}}>
+                                <Typography style={{fontWeight: 'bold', marginBottom:10}} variant={'h6'}>
+                                    Conseillé pour vous
+                                </Typography>
+                                <AliceCarousel
+                                    mouseTracking
+                                    items={carousel}
+                                    responsive={responsive}
+                                    controlsStrategy="default"
+                                />
+                            </Grid>
                             <Box style={{justifyContent: 'center', display: 'flex'}}>
                                 <hr style={{width: '60%'}}/>
                             </Box>
-                            <Typography style={{fontWeight: 'bold'}} variant={'h6'}>
-                                Liste des formations
-                            </Typography>
-                            <Grid
-                                display="flex"
-                                direction="row"
-                                justifyContent="space-around"
-                                alignItems="stretch"
-                            >
-                                {
-                                    formations.map((formation: Formation, key) => {
-                                        return (
-                                            <Grid key={key} style={{}}>
-                                                <CardFormation formation={formation}/>
-                                            </Grid>
-
-                                        )
-                                    })
-                                }
+                            <Grid>
+                                <Typography style={{fontWeight: 'bold'}} variant={'h6'}>
+                                    Liste des formations
+                                </Typography>
+                                <Grid container >
+                                    <Grid style={{
+                                        display: "grid",
+                                        gridTemplateColumns: "repeat(3, 1fr)",
+                                        gap: "10px",
+                                        gridAutoRows: "minmax(100px, auto)"
+                                    }}>
+                                        {
+                                            formations.map((formation: Formation, key) => {
+                                                return (
+                                                    <Grid key={key}>
+                                                        <CardFormation formation={formation}/>
+                                                    </Grid>
+                                                )
+                                            })
+                                        }
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                        </Box>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Container>
-        </>
+                </Container>
+            </>
     )
 }

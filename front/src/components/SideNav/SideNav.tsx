@@ -12,7 +12,9 @@ export default function SideNav ({links}: {links?: Links[]}){
 
     return (
         <Grid item xs={2}>
-            <Stack>
+            <Stack sx={{
+                position: 'fixed',
+            }}>
                 <Box display={'flex'} width={'100%'}>
                     <CircularStatic
                         level={80}

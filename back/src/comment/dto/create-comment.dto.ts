@@ -9,6 +9,6 @@ export class CreateCommentDto {
     createdBy: number;
 
     @ApiProperty()
-    topic: number;
+    topicId: number;
 
 }

@@ -17,6 +17,7 @@ export default function AuthProvider ({children }: {children: ReactNode})  {
     const [user, setUser] = useState<User>
     ({
         role:"admin",
+        id:1
     } as User) ;
 
     if(!user) {

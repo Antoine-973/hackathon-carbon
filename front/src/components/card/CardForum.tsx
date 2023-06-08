@@ -1,55 +1,44 @@
-import {Card, CardContent, CardHeader, Typography, Stack, Box, Chip, CardActionArea} from "@mui/material";
+import {Card, CardContent, Typography, Stack, Box, Chip, CardActionArea} from "@mui/material";
+import {useEffect, useState} from "react";
 
 interface Forum {
     title: string;
     description: string;
-    chips: string[];
     author: string;
     createdAt: Date;
     repondu: boolean;
-    action: () => void;
+    action: Function;
 }
-export default function CardForum({title, description, chips, author, createdAt, repondu, action}: Forum) {
+export default function CardForum({title, description,  author, createdAt, repondu, action}: Forum) {
+
 
     return (
         <Card sx={{
             width: '100%',
             mb:4
         }}>
-            <CardActionArea onClick={action}>
+            <CardActionArea onClick={() =>action()}>
                 <CardContent>
                     <Stack>
                         <Typography variant={'h5'} component={'h2'}>
                             {title}
                         </Typography>
-                        <Typography>
-                            {description}
-                        </Typography>
+                        <span dangerouslySetInnerHTML={{__html: description}}>
+                        </span>
                         <Box mt={2} display={'flex'} justifyContent={'space-between'}>
                             <Box display={'flex'}>
                                 {
                                     repondu &&
                                     <Chip
+                                        sx={{mr:1}}
                                         label={'Répondu'}
                                         color={'success'}
                                         size={'small'}
                                     />
                                 }
-                                {
-                                    chips.map((chip: string) => {
-                                        return (
-                                            <Chip
-                                                key={chip}
-                                                label={chip}
-                                                color={'secondary'}
-                                                size={'small'}
-                                            />
-                                        )
-                                    })
-                                }
                             </Box>
                             <Typography>
-                                {author} - déposé le {createdAt.toLocaleDateString()}
+                                {author.firstname} {author.lastname} - déposé le {createdAt.toLocaleDateString()}
                             </Typography>
                         </Box>
                     </Stack>
