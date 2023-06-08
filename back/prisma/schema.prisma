@@ -85,16 +85,17 @@ model Topic {
 }
 
 model Comment {
-  id            Int      @id @default(autoincrement())
-  content       String
-  createdBy     User     @relation(fields: [createdById], references: [id])
-  createdById   Int
-  positiveVote  Int?
-  negativeVote  Int?
-  topic         Topic    @relation(fields: [topicId], references: [id])
-  topicId       Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  content           String
+  createdBy         User     @relation(fields: [createdById], references: [id])
+  createdById       Int
+  final_response    boolean  @default(false)
+  positiveVote      Int?
+  negativeVote      Int?
+  topic             Topic    @relation(fields: [topicId], references: [id])
+  topicId           Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Pass {
