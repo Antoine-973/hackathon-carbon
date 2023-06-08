@@ -1,4 +1,4 @@
-import {Card, CardContent, Typography} from "@mui/material";
+import {Card, CardContent, Grid, Typography} from "@mui/material";
 
 interface Formation {
     id: number;
@@ -10,21 +10,17 @@ interface Formation {
 
 export const CardFormation = ({formation}: { formation: Formation }) => {
     return (
-        <Card variant="outlined" style={{ height: "100%" }}>
-            <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                    {formation.title}
-                </Typography>
-                <Typography variant="h5" component="h2">
-                    Sarah Doria
-                </Typography>
-                <Typography color="textSecondary">Position</Typography>
-                <Typography variant="body2" component="p">
-                    Company
-                    <br />
-                    {'"a benevolent smile"'}
-                </Typography>
-            </CardContent>
-        </Card>
+        <Grid style={{margin:20}}>
+            <img src={"https://picsum.photos/250/200"}/>
+            <Typography variant="h6" component="h2">
+                {formation.title}
+            </Typography>
+            <Typography color="textSecondary">
+                {formation.date[0]}
+            </Typography>
+            <Typography variant={'p'} style={{width:'100%'}}>
+                {formation.description}
+            </Typography>
+        </Grid>
     );
 }
