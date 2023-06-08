@@ -24,7 +24,16 @@ export class FormationService {
     }
 
     findAll() {
-        return prisma.formation.findMany().then((data) => {
+        return prisma.formation.findMany({
+            include: {
+                participants: {
+                    select: {
+                        firstname: true,
+                        lastname: true,
+                    }
+                }
+            }
+        }).then((data) => {
             return data;
         }).catch((err) => {
             return err;
@@ -36,6 +45,8 @@ export class FormationService {
             return prisma.formation.findUnique({
                 where: {
                     id: id
+                }, include: {
+                    participants: true
                 }
             })
         } catch (e) {
