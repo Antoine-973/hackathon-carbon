@@ -1,13 +1,10 @@
 import ReactDOM from 'react-dom/client'
 import Router from './rooter/Router'
 import './index.css'
-import {ThemeProvider, createTheme} from '@mui/material/styles'
+import {createTheme, ThemeProvider} from '@mui/material/styles'
 import AuthProvider from "./providers/AuthProvider.tsx";
-import {BrowserRouter} from "react-router-dom";
-import Header from "./layouts/Header";
-import Box from "@mui/material/Box";
-import {useLayoutEffect, StrictMode} from "react";
-import {useLocation} from "react-router-dom";
+import {BrowserRouter, useLocation} from "react-router-dom";
+import {StrictMode, useLayoutEffect} from "react";
 
 
 const theme = createTheme({

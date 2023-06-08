@@ -23,14 +23,15 @@ export default function HomePage() {
     useEffect(() => {
         FormationServices.getFormations().then((data) => {
             setFormations(data);
+        }).finally(() => {
             setLoading(false);
-        })
+        });
 
         ArticlesServices.getLast().then((data) => {
-            console.log(data)
             setArticle(data);
+        }).finally(() => {
             setLoading(false);
-        })
+        });
     },[])
 
     return (
@@ -109,7 +110,7 @@ export default function HomePage() {
                 </Grid>
 
                 {
-                    article &&
+                    article && article.title &&
                     <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
                         <Grid item sm={12} md={5}>
                             <img src={article.img} width={500}/>
