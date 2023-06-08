@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import SecuredPage from "./SecuredPage.tsx";
 import {SCOPES} from "./permissions.ts";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
+import AppLayout from "../layouts/AppLayout";
 
 interface Route {
     path: string;
@@ -42,9 +43,11 @@ export default function Router() {
    return (
        <Suspense>
            <Routes>
-               {
-                   routes.map(route => route)
-               }
+               <Route path={'/'} element={<AppLayout/>}>
+                   {
+                       routes.map(route => route)
+                   }
+               </Route>
            </Routes>
        </Suspense>
    )

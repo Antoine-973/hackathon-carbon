@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import {useLayoutEffect, StrictMode} from "react";
 import {useLocation} from "react-router-dom";
 
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -58,14 +59,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <ThemeProvider theme={theme}>
               <BrowserRouter>
                   <Wrapper>
-                      <Header/>
-                      <Box  sx={{paddingTop:'100px'}} >
-                          <Router >
-                          </Router>
-                      </Box>
+                      <Router >
+                      </Router>
                   </Wrapper>
               </BrowserRouter>
           </ThemeProvider>
       </AuthProvider>
   </StrictMode>,
+
 )
