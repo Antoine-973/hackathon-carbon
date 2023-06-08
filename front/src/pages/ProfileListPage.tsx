@@ -215,6 +215,7 @@ export default function ProfileListPage() {
                                     expertise={profile.expertise}
                                     photo={profile.photo}
                                     dispo={profile.dispo}
+                                    action={() => {}}
                                     client={profile.client}
                                  />
                             </Grid>

@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage.tsx";
 import {Route, Routes} from "react-router-dom";
 import SecuredPage from "./SecuredPage.tsx";
 import {SCOPES} from "./permissions.ts";
+import ProfilePage from "../pages/ProfilePage.tsx";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
@@ -31,6 +32,14 @@ export const useRoutes = () => {
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <ProfileListPage/>
+                </SecuredPage>
+        },
+        {
+            path: "/profile/:id",
+            name: "Profile",
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <ProfilePage/>
                 </SecuredPage>
         },
         {

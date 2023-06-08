@@ -45,7 +45,7 @@ export default function HomePage() {
                     justifyContent: 'spawce-between',
                     alignItems: 'center',
                 }}>
-                    <CircularStatic level={10}/>
+                    <CircularStatic level={100}/>
                     <Grid container spacing={5} justifyContent={'center'}>
                         <Grid item xs={12} md={3}>
                             <RewardCard comingReward={reward}/>

@@ -1,11 +1,9 @@
-import {Box, Container, Divider, Grid, IconButton, InputBase} from "@mui/material";
+import {Container, Grid} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import SideNav from "../../components/SideNav/SideNav";
-import Selector from "../../components/Selector.tsx";
-import {SetStateAction} from "react";
-import {FilterAltOff} from "@mui/icons-material";
-import {useState} from "react";
+import {SetStateAction, useState} from "react";
 import FilterBar from "../../components/filter/FilterBar";
+import CardForum from "../../components/card/CardForum";
 
 export default function () {
 
@@ -67,9 +65,16 @@ export default function () {
                             setTag('');
                         }}
                         handleSearchChange={(evt) => {setSearch(evt.target.value)}}
-                    >
+                    ></FilterBar>
+                    <CardForum
+                        title={'Titre du post'}
+                        createdAt={new Date()}
+                        description={'Description du post'}
+                        chips={['tag1', 'tag2', 'tag3']}
+                        author={"Arthur"}
 
-                    </FilterBar>
+                    >
+                    </CardForum>
                 </Grid>
             </Grid>
         </Container>
