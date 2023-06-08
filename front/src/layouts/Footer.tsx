@@ -46,7 +46,7 @@ export default function Footer() {
                     </Typography>
                 </Grid>
                 <Grid item xs={5}>
-                    <Grid container sm={12}>
+                    <Grid container >
                         <CardFooter
                             title={'Nos évènements'}
                             firstLink={"M’inscrire pour les prochains"}

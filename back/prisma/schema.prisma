@@ -130,3 +130,12 @@ model Reward {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Article {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  image       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

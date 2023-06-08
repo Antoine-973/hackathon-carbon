@@ -1,9 +1,17 @@
 import {CircularStatic} from '../components/assets/progressBar';
 import {RewardCard} from '../components/assets/rewardCard';
 import {Box, Container, Grid, Typography} from "@mui/material";
+import {useEffect, useState} from "react";
+import {FormationServices} from "../services/FormationServices";
+
+// interface Formations {
+//     id: number;
+//     title: string;
+//     description: string;
+//     img: string;
+// }
 
 export default function HomePage() {
-
     const reward = {
         name: "Récompense 1",
         img: "https://picsum.photos/200/300"
@@ -14,13 +22,6 @@ export default function HomePage() {
         img: "https://picsum.photos/200/300"
     }
 
-    const lastFormation = {
-        title: "Formation 1",
-        img: "https://picsum.photos/600/300",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod,  " +
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed"
-    }
-
     const article = {
         title: "Article 1",
         img: "https://picsum.photos/600/300",
@@ -28,8 +29,18 @@ export default function HomePage() {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed",
         author: "Auteur 1"
     }
+    const [formations, setFormations] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        FormationServices.getFormations().then((data) => {
+            setFormations(data);
+            setLoading(false);
+        })
+    },[])
 
     return (
+        loading ? <div>Chargement...</div> :
         <>
             <Grid container spacing={2} style={{marginTop: 100}}>
                 <Grid sx={{
@@ -93,15 +104,15 @@ export default function HomePage() {
                             Formation en cours
                         </Typography>
                         <Typography variant={'h6'} sx={{color: '#282C2B'}}>
-                            {lastFormation.title}
+                            {formations[0].title}
                         </Typography>
                         <Typography align={'justify'}>
-                            {lastFormation.description}
+                            {formations[0].description}
                         </Typography>
                     </Grid>
                     <Grid item sm={0} md={1}></Grid>
                     <Grid item xs={12} md={5}>
-                        <img src={lastFormation.img} width={500}/>
+                        <img src={"https://picsum.photos/1920/1080"} width={500}/>
                     </Grid>
                 </Grid>
 

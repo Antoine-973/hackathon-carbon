@@ -13,6 +13,7 @@ import { TopicModule } from './topic/topic.module';
 import { ClientModule } from './client/client.module';
 import { CommentModule } from './comment/comment.module';
 import { MissionModule } from './mission/mission.module';
+import { ArticleModule } from './article/article.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { MissionModule } from './mission/mission.module';
     PrismaModule,
     AuthenticationModule,
     MissionModule,
-    CommentModule
+    CommentModule,
+    ArticleModule
   ],
   controllers: [AppController],
   providers: [AppService],
