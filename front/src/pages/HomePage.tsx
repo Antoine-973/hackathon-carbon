@@ -108,7 +108,6 @@ export default function HomePage() {
                         <img src={"https://picsum.photos/1920/1080"} width={500}/>
                     </Grid>
                 </Grid>
-
                 {
                     article && article.title &&
                     <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
