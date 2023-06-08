@@ -6,6 +6,7 @@ import {ThemeProvider, createTheme} from '@mui/material/styles'
 import AuthProvider from "./providers/AuthProvider.tsx";
 import {BrowserRouter} from "react-router-dom";
 import Header from "./layouts/Header";
+import Box from "@mui/material/Box";
 
 const theme = createTheme({
     palette: {
@@ -39,8 +40,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <AuthProvider>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-                    <Header/>
-                    <Router />
+                  <Header/>
+                  <Box  sx={{paddingTop:'100px'}} >
+                      <Router />
+                  </Box>
               </BrowserRouter>
           </ThemeProvider>
       </AuthProvider>

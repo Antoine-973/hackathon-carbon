@@ -5,7 +5,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Box from '@mui/material/Box';
 import Slide from '@mui/material/Slide';
 import {Fragment, ReactElement, useState} from "react";
-import NotificationsIcon from "@mui/icons-material/notifications";
+import {Notifications} from "@mui/icons-material";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import {
@@ -74,10 +74,10 @@ export default function Header(props: Props)  {
             <HideOnScroll {...props}>
                 <AppBar>
                     <Toolbar>
-                            <img width={'100px'}  src="./carbon-logo.png" alt="Logo de l'entreprise Carbon IT"/>
+                            <img width={'100px'}  src="/carbon-logo.png" alt="Logo de l'entreprise Carbon IT"/>
                             <Box flex={1}/>
                             <IconButton sx={{color: theme.palette.secondary.main}}>
-                                <NotificationsIcon/>
+                                <Notifications/>
                             </IconButton>
                             <IconButton onClick={() => handleDrawerOpen()} sx={{color: theme.palette.secondary.main}} >
                                 <DragHandleIcon/>

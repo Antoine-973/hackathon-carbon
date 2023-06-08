@@ -13,7 +13,7 @@ import {
 
 export default function ProfileListPage() {
     return (
-        <Box  sx={{paddingTop:'100px'}} >
+
             <Container>
                 <Grid container>
                     <Grid item xs={12} sm={2}>
