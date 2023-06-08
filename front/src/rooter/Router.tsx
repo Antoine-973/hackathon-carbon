@@ -5,6 +5,7 @@ import SecuredPage from "./SecuredPage.tsx";
 import { SCOPES} from "./permissions.ts";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
+import EventsPage from "../pages/EventsPage.tsx";
 
 interface Route {
     path: string;
@@ -28,6 +29,14 @@ export const useRoutes = () => {
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <ProfileListPage/>
+                </SecuredPage>
+        },
+        {
+            path: "/events",
+            name: "Events",
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <EventsPage/>
                 </SecuredPage>
         }
 
