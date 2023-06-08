@@ -104,10 +104,10 @@ export default function HomePage() {
                             Formation en cours
                         </Typography>
                         <Typography variant={'h6'} sx={{color: '#282C2B'}}>
-                            {formations[0].title}
+                            { formations.length > 0 &&  formations[0].title}
                         </Typography>
                         <Typography align={'justify'}>
-                            {formations[0].description}
+                            {formations.length > 0 && formations[0].description}
                         </Typography>
                     </Grid>
                     <Grid item sm={0} md={1}></Grid>

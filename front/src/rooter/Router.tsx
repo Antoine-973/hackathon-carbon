@@ -5,6 +5,7 @@ import SecuredPage from "./SecuredPage.tsx";
 import {SCOPES} from "./permissions.ts";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
+import NotFoundPage from "../pages/error/NotFoundPage.tsx";
 
 interface Route {
     path: string;
@@ -29,6 +30,11 @@ export const useRoutes = () => {
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <ProfileListPage/>
                 </SecuredPage>
+        },
+        {
+            path:'*',
+            name:'Not Found',
+            element: <NotFoundPage/>
         }
 
     ] ;
