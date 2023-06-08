@@ -76,7 +76,7 @@ export default function Header(props: Props)  {
         {name:'Forum', path:'/forum'},
         {name:'Formation', path:'/formation'},
         {name:'Evenement', path:'/evenement'} ,
-        {name:'Consultants', path:'/consultants'}
+        {name:'Consultant', path:'/consultant'}
     ];
 
     interface Link {

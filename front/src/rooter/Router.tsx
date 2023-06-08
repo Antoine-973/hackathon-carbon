@@ -24,8 +24,8 @@ export const useRoutes = () => {
                 </SecuredPage>
         },
         {
-            path: "/consultants",
-            name: "Consultants",
+            path: "/consultant",
+            name: "Consultant",
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <ProfileListPage/>
