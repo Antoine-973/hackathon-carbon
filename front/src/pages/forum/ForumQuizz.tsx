@@ -9,7 +9,7 @@ interface ForumQuizz {
     createdAt: Date;
     ended : boolean;
 }
-export default function ForumQuizz ({chips = ['chip 1'], title = "Test topic j'ai besoin d'aide", description = "lorem lorem lorem lorem lorem lorem lorem lorem lorem loremloremlorem lorem loremlorem lorem lorem", createdAt = new Date(), author = "JE suis l'authour", ended = false} : ForumQuizz) {
+export default function ForumQuizz ({chips = ['chip 1'], title = "Test topic j'ai besoin d'aide", description = "lorem lorem lorem lorem lorem lorem lorem lorem lorem loremloremlorem lorem loremlorem lorem lorem", createdAt = new Date(), author = "JE suis l'authour nik é ", ended = false} : ForumQuizz) {
 
     return (
         <Container>
