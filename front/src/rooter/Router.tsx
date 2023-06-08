@@ -7,11 +7,10 @@ import ProfilePage from "../pages/ProfilePage.tsx";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
-
 import ForumQuizz from "../pages/forum/ForumQuizz.tsx";
-import { FormationPage } from "../pages/FormationPage";
-import ForumPage from "../pages/forum/ForumPage";
-
+import ForumPage from "../pages/forum/ForumPage.tsx";
+import {FormationPage} from "../pages/FormationPage";
+import {Login} from "../pages/Login";
 
 interface Route {
     path: string;
@@ -71,18 +70,15 @@ export const useRoutes = () => {
                 </SecuredPage>
         },
         {
+            path:'/login',
+            name:'Login',
+            element: <Login/>
+        },
+        {
             path:'*',
             name:'Not Found',
             element: <NotFoundPage/>
-        },
-        {
-            path: "/formations",
-            name: "Formations",
-            element:
-                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
-                    <FormationPage/>
-                </SecuredPage>
-        },
+        }
     ] ;
 
     return routes.map((route: Route) => {

@@ -14,6 +14,10 @@ interface User {
 const AuthContext = createContext<AuthContextInterface>({} as AuthContextInterface) ;
 export default function AuthProvider ({children }: {children: ReactNode})  {
 
+    if (!localStorage.getItem('token') && window.location.pathname !== "/login") {
+        window.location.href = "/login"
+    }
+
     const [user, setUser] = useState<User>
     ({
         role:"admin",
