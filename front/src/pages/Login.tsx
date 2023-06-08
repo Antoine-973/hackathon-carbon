@@ -1,29 +1,32 @@
 import {Box, Button, Grid, TextField} from "@mui/material";
 import carbonLogo from "../../public/carbon-logo.png";
 import AuthService from "../services/AuthService";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {useAuthContext} from "../providers/AuthProvider.tsx";
+import {useNavigate} from "react-router-dom";
 
 export const Login = () => {
 
     const [password, setPassword] = useState<string>('')
     const [email, setEmail] = useState<string>('')
+    const {setUser} = useAuthContext() ;
+    const navigate = useNavigate() ;
 
     const validateForm = () => {
         AuthService.login(email, password).then((response) => {
+            setUser(response) ;
             if (response.access_token) {
                 localStorage.setItem('token', response.access_token)
-                window.location.href = "/"
+                navigate('/') ;
             }
         })
     }
 
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-    }, [])
+
 
     return (
         <div style={{
-            overflow: 'fixed',
+            overflow: 'hidden',
         }}>
             <Grid container>
                 <Grid item xs={12} sx={{

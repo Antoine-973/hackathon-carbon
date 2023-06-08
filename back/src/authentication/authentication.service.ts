@@ -26,7 +26,9 @@ export class AuthenticationService {
       email: user.email,
       role: user.role,
     };
+    user['password'] = undefined;
     return {
+      ...user,
       access_token: this.jwtService.sign(payload),
     };
   }
