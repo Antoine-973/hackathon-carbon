@@ -1,30 +1,73 @@
-import {StrictMode} from 'react'
+import CssBaseline from "@mui/material/CssBaseline";
+import {createRoot} from 'react-dom/client'
 import ReactDOM from 'react-dom/client'
 import Router from './rooter/Router'
 import './index.css'
-import {ThemeProvider, createTheme} from '@mui/material/styles'
+import {createTheme, ThemeProvider} from '@mui/material/styles'
 import AuthProvider from "./providers/AuthProvider.tsx";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, useLocation} from "react-router-dom";
+import {StrictMode, useLayoutEffect} from "react";
+import Header from "./layouts/Header";
+import Box from "@mui/material/Box";
+
 
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#f44336',
+            main: '#FDFDFD',
+            dark: '#FDFDFD',
         },
         secondary: {
-            main: '#3f51b5',
+            main: '#282C2B',
+            dark: '#282C2B',
+        },
+        success: {
+            main: '#00A99D',
+            dark: '#00A99D',
+        },
+        info: {
+            main: '#5B98D2',
+            dark: '#5B98D276',
+        },
+        error: {
+            main:'#E53F49',
+            dark: '#E53F49',
         }
+    },
+    typography: {
+        fontFamily: [
+            'Roboto',
+            'sans-serif',
+        ].join(','),
     }
 });
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
-      <AuthProvider>
-          <ThemeProvider theme={theme}>
+interface Props {
+    children: Element | null
+}
+
+const Wrapper = ({children} : Props) => {
+    const location = useLocation();
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
+    return children
+}
+const container = document.getElementById('root');
+const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+root.render(
+    <StrictMode>
+        <AuthProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
               <BrowserRouter>
-                    <Router />
+                  <Wrapper>
+                      <Router >
+                      </Router>
+                  </Wrapper>
               </BrowserRouter>
           </ThemeProvider>
       </AuthProvider>
   </StrictMode>,
+
 )

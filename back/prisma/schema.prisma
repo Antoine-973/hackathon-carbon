@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id            Int         @id @default(autoincrement())
-  email         String      @unique
+  id            Int          @id @default(autoincrement())
+  email         String       @unique
   firstname     String
   lastname      String
   role          String
@@ -17,14 +17,25 @@ model User {
   salary        Int
   niveau        Int
   recruitmentAt DateTime
+  technologies  Technology[]
   missions      Mission[]
   formations    Formation[]
   events        Event[]
   topics        Topic[]
   comments      Comment[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  //mentor User?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Technology {
+  id          Int         @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  users       User[]
+  topics      Topic[]
+  formations  Formation[]
 }
 
 model Mission {
@@ -51,13 +62,15 @@ model Client {
 }
 
 model Formation {
-  id           Int       @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   title        String
   description  String
   date         DateTime?
   participants User[]
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  technology   Technology? @relation(fields: [technologyId], references: [id])
+  technologyId Int?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
 model Event {
@@ -71,30 +84,33 @@ model Event {
 }
 
 model Topic {
-  id          Int       @id @default(autoincrement())
-  title       String
-  content     String
-  note        Float
-  createdBy   User      @relation(fields: [createdById], references: [id])
-  createdById Int
-  client      Client?   @relation(fields: [clientId], references: [id])
-  clientId    Int?
-  comments    Comment[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id           Int         @id @default(autoincrement())
+  title        String
+  content      String
+  note         Float
+  createdBy    User        @relation(fields: [createdById], references: [id])
+  createdById  Int
+  client       Client?     @relation(fields: [clientId], references: [id])
+  clientId     Int?
+  technologyId Int?
+  technology   Technology? @relation(fields: [technologyId], references: [id])
+  comments     Comment[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
 model Comment {
-  id            Int      @id @default(autoincrement())
-  content       String
-  createdBy     User     @relation(fields: [createdById], references: [id])
-  createdById   Int
-  positiveVote  Int?
-  negativeVote  Int?
-  topic         Topic    @relation(fields: [topicId], references: [id])
-  topicId       Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  content        String
+  createdBy      User     @relation(fields: [createdById], references: [id])
+  createdById    Int
+  final_response Boolean  @default(false)
+  positiveVote   Int?
+  negativeVote   Int?
+  topic          Topic    @relation(fields: [topicId], references: [id])
+  topicId        Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Pass {
@@ -126,6 +142,16 @@ model Reward {
   image       String
   stage       Stage?   @relation(fields: [stageId], references: [id])
   stageId     Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Article {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  image       String
+  author      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
