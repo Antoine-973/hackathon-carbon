@@ -9,10 +9,7 @@ import {
     Typography,
     useTheme
 } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import EmailIcon from '@mui/icons-material/Email';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import {Edit,ExpandMore,Email,LocalPhone} from '@mui/icons-material';
 import {SyntheticEvent, useState} from "react";
 import CarbonPass from "../components/CarbonPass";
 
@@ -80,7 +77,7 @@ export default function ProfilePage() {
                         </Grid>
                         <Grid item container paddingY={5} paddingX={2} spacing={2} position={"relative"}>
                             <IconButton aria-label="delete" sx={{position: "absolute", top: 20, right: 20}}>
-                                <EditIcon color={"info"}/>
+                                <Edit color={"info"}/>
                             </IconButton>
                             <Grid item xl={10}>
                                 <Grid item>
@@ -88,10 +85,10 @@ export default function ProfilePage() {
                                         <Typography variant="h5"
                                                     fontWeight={"bold"}>{user.firstName} {user.lastName}</Typography>
                                         <a href={"mailto:" + user.email}>
-                                            <EmailIcon fontSize={"small"} color={"info"}/>
+                                            <Email fontSize={"small"} color={"info"}/>
                                         </a>
                                         <a href={"tel:" + user.phone}>
-                                            <LocalPhoneIcon fontSize={"small"} color={"info"}/>
+                                            <LocalPhone fontSize={"small"} color={"info"}/>
                                         </a>
                                     </Grid>
                                 </Grid>
@@ -127,7 +124,7 @@ export default function ProfilePage() {
             <Grid item xl={12}>
                 <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
+                        expandIcon={<ExpandMore />}
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >

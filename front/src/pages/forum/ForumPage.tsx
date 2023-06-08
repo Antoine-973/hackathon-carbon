@@ -1,4 +1,4 @@
-import {Container, Grid} from "@mui/material";
+import {Box, Button, Container, Grid, Stack} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import SideNav from "../../components/SideNav/SideNav";
 import {SetStateAction, useState} from "react";
@@ -66,15 +66,48 @@ export default function () {
                         }}
                         handleSearchChange={(evt) => {setSearch(evt.target.value)}}
                     ></FilterBar>
-                    <CardForum
-                        title={'Titre du post'}
-                        createdAt={new Date()}
-                        description={'Description du post'}
-                        chips={['tag1', 'tag2', 'tag3']}
-                        author={"Arthur"}
+                    <Box my={2} display={'flex'} justifyContent={'flex-end'}>
+                        <Button variant={'contained'} color={'secondary'}>Demander un carbon</Button>
+                    </Box>
+                    <Stack>
+                        <CardForum
+                            title={'Titre du post'}
+                            createdAt={new Date()}
+                            description={'Description du post'}
+                            chips={['tag1', 'tag2', 'tag3']}
+                            author={"Arthur"}
+                            action={() => {}}
+                            repondu={false}
+                        />
+                        <CardForum
+                            title={'Titre du post'}
+                            createdAt={new Date()}
+                            description={'Description du post'}
+                            chips={['tag1', 'tag2', 'tag3']}
+                            author={"Arthur"}
+                            action={() => {}}
+                            repondu={false}
+                        />
+                        <CardForum
+                            title={'Titre du post'}
+                            createdAt={new Date()}
+                            description={'Description du post'}
+                            chips={['tag1', 'tag2', 'tag3']}
+                            author={"Arthur"}
+                            action={() => {}}
+                            repondu={false}
+                        />
+                        <CardForum
+                            title={'Titre du post'}
+                            createdAt={new Date()}
+                            description={'Description du post'}
+                            chips={['tag1', 'tag2', 'tag3']}
+                            author={"Arthur"}
+                            action={() => {}}
+                            repondu={true}
+                        />
+                    </Stack>
 
-                    >
-                    </CardForum>
                 </Grid>
             </Grid>
         </Container>

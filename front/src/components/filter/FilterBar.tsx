@@ -71,7 +71,7 @@ export default function FilterBar ({selectors, resetFilter, handleSearchChange}:
                     <Divider sx={{ height: 28, borderColor: theme.palette.secondary.main }} orientation="vertical" />
                 </Box>
             </Box>
-            <Divider sx={{p:2}}/>
+            <Divider  sx={{my: 4, p:2}}/>
         </>
     )
 }
