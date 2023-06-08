@@ -6,14 +6,8 @@ import {SCOPES} from "./permissions.ts";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
-<<<<<<< Updated upstream
-import ForumPage from "../pages/forum/ForumPage.tsx";
-import { FormationPage } from "../pages/FormationPage";
-=======
 import {FormationPage} from "../pages/FormationPage";
 import ForumPage from "../pages/forum/ForumPage";
-
->>>>>>> Stashed changes
 
 interface Route {
     path: string;
