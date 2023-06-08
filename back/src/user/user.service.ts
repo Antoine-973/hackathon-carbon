@@ -42,6 +42,7 @@ export class UserService {
       },
     });
   }
+  
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.prisma.user.findUnique({ where: { id } });

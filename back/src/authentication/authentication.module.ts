@@ -7,18 +7,21 @@ import { AuthenticationService } from './authentication.service';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { UserService } from 'src/user/user.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
     JwtModule.register({
+      global: true,
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '3600s' },
     }),
   ],
   controllers: [AuthenticationController],
-  providers: [AuthenticationService, LocalStrategy, JwtStrategy],
+  providers: [AuthenticationService, LocalStrategy, JwtStrategy, UserService, PrismaService],
   exports: [AuthenticationService],
 })
-export class AuthenticationModule {}
+export class AuthenticationModule { }
