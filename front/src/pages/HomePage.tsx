@@ -70,6 +70,7 @@ export default function HomePage() {
                     backgroundColor: "rgba(255, 255, 255, 0.3)",
                 }}>
 
+
                     <Typography
                         variant={'h4'}
                         style={{
@@ -103,6 +104,7 @@ export default function HomePage() {
                         <img src={lastFormation.img} width={500}/>
                     </Grid>
                 </Grid>
+
 
                 <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
                     <Grid item sm={12} md={5}>
