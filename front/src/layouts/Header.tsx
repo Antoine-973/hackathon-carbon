@@ -5,7 +5,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Box from '@mui/material/Box';
 import Slide from '@mui/material/Slide';
 import {Fragment, ReactElement, useState} from "react";
-import {Notifications} from "@mui/icons-material";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "./Header.module.css";
@@ -61,6 +61,7 @@ export default function Header(props: Props)  {
 
     const theme = useTheme() ;
     const [open, setOpen] = useState(false);
+    const logo = "./carbon-logo.png" ;
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -144,7 +145,7 @@ export default function Header(props: Props)  {
                                 display: 'flex',
                             }}>
                                 <IconButton sx={{color: theme.palette.secondary.main}}>
-                                    <Notifications/>
+                                    <NotificationsIcon/>
                                 </IconButton>
                                 <IconButton  onClick={() => handleDrawerOpen()} sx={{
                                     color: theme.palette.secondary.main,

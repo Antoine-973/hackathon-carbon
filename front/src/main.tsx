@@ -1,3 +1,5 @@
+import CssBaseline from "@mui/material/CssBaseline";
+import {createRoot} from 'react-dom/client'
 import ReactDOM from 'react-dom/client'
 import Router from './rooter/Router'
 import './index.css'
@@ -5,6 +7,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles'
 import AuthProvider from "./providers/AuthProvider.tsx";
 import {BrowserRouter, useLocation} from "react-router-dom";
 import {StrictMode, useLayoutEffect} from "react";
+import Header from "./layouts/Header";
+import Box from "@mui/material/Box";
 
 
 const theme = createTheme({
@@ -22,7 +26,7 @@ const theme = createTheme({
             dark: '#00A99D',
         },
         info: {
-            main :'#5B98D2',
+            main: '#5B98D2',
             dark: '#5B98D276',
         },
         error: {
@@ -49,11 +53,13 @@ const Wrapper = ({children} : Props) => {
     }, [location.pathname]);
     return children
 }
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
-      <AuthProvider>
-          <ThemeProvider theme={theme}>
+const container = document.getElementById('root');
+const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+root.render(
+    <StrictMode>
+        <AuthProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
               <BrowserRouter>
                   <Wrapper>
                       <Router >
