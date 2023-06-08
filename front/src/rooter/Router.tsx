@@ -62,7 +62,15 @@ export const useRoutes = () => {
             path:'*',
             name:'Not Found',
             element: <NotFoundPage/>
-        }
+        },
+        {
+            path: "/formations",
+            name: "Formations",
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <FormationPage/>
+                </SecuredPage>
+        },
     ] ;
 
     return routes.map((route: Route) => {

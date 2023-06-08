@@ -56,7 +56,7 @@ export const FormationPage = () => {
     const [loading, setLoading] = useState(true);
     const [carousel, setCarousel] = useState({});
     // const [formationConseilles, setFormationConseilles] = useState<Formation[]>([])
-
+  
     useEffect(() => {
         FormationServices.getFormations().then((data) => {
             setFormations(data);
