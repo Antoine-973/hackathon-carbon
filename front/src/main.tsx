@@ -63,7 +63,7 @@ root.render(
                     <ModalProvider>
                         <BrowserRouter>
                             <Wrapper>
-                                <Router >
+                                <Router>
                                 </Router>
                             </Wrapper>
                         </BrowserRouter>

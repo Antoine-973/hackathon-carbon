@@ -15,7 +15,7 @@ model User {
   role          String
   password      String?
   salary        Int?         @default(autoincrement())
-  niveau        Int          @default(0)
+  niveau        Int?         @default(0)
   recruitmentAt DateTime
   technologies  Technology[]
   missions      Mission[]
