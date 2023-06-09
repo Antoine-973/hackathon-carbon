@@ -1,4 +1,4 @@
-import {Box, Card, CardActionArea, CardContent, Chip, Stack, Typography} from "@mui/material";
+import {Box, Card, CardActionArea, CardContent, Chip, Stack, Typography, useTheme} from "@mui/material";
 
 interface Forum {
     title: string;
@@ -14,7 +14,8 @@ export default function CardForum({title, description,  author, createdAt, repon
     return (
         <Card sx={{
             width: '100%',
-            mb:4
+            mb:4,
+            background: "linear-gradient(150deg, rgba(255,255,255,1) 0%, rgba(40,44,43,0.5) 100%)"
         }}>
             <CardActionArea onClick={() =>action()}>
                 <CardContent>
@@ -36,8 +37,8 @@ export default function CardForum({title, description,  author, createdAt, repon
                                     />
                                 }
                             </Box>
-                            <Typography>
-                                {author.firstname} {author.lastname} - déposé le {createdAt.toLocaleDateString()}
+                            <Typography >
+                                {author?.firstname} {author?.lastname} - déposé le { createdAt && createdAt?.toLocaleDateString()}
                             </Typography>
                         </Box>
                     </Stack>

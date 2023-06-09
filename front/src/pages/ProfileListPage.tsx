@@ -1,6 +1,6 @@
-import {Box, Container, Divider, IconButton, InputBase, Grid} from "@mui/material";
+import {Box, Container, Divider, Grid, IconButton, InputBase} from "@mui/material";
 import Selector from "../components/Selector";
-import { FilterAltOff, Search} from "@mui/icons-material";
+import {FilterAltOff} from "@mui/icons-material";
 import {SetStateAction, useMemo, useState} from "react";
 import {useTheme} from "@mui/material/styles";
 import CardProfile from "../components/card/CardProfile.tsx";
@@ -19,6 +19,13 @@ interface Profile {
 
 export default function ProfileListPage() {
 
+    const expertiseValues = [
+        "Argile Fragile",
+        "Terre Cuite",
+        "Céramique Etincelante",
+        "Carbon Fiber",
+    ]
+
     const [client, setClient] = useState('');
     const [techno, setTechno] = useState('');
     const [expertise, setExpertise] = useState('');
@@ -30,7 +37,7 @@ export default function ProfileListPage() {
             prenom: 'Antoine',
             nom: 'CHEF',
             techno: [ 'Vue'],
-            expertise: 'Expert',
+            expertise: 'Céramique Etincelante',
             dispo: 'Disponible',
             client: 'Darty',
             photo: 'https://picsum.photos/50/50'
@@ -40,7 +47,7 @@ export default function ProfileListPage() {
             prenom: 'Alexandre',
             nom: 'BAUDRY',
             techno: ['React'],
-            expertise: 'Confirmé',
+            expertise: 'Carbon Fiber',
             dispo: 'Disponible',
             client: 'Fnac',
             photo: 'https://picsum.photos/50/50'
@@ -51,7 +58,7 @@ export default function ProfileListPage() {
             prenom: 'Jean',
             nom: 'Dupont',
             techno: [ 'Angular'],
-            expertise: 'Junior',
+            expertise: 'Argile Fragile',
             dispo: 'Disponible',
             client: 'Darty',
             photo: 'https://picsum.photos/50/50'
@@ -61,7 +68,7 @@ export default function ProfileListPage() {
             prenom: 'Arthur',
             nom: 'GRATTON',
             techno: [ 'React', 'Angular'],
-            expertise: 'Expert',
+            expertise: 'Terre Cuite',
             dispo: 'Disponible',
             client: 'Pmu',
             photo: 'https://picsum.photos/50/50'
@@ -71,7 +78,7 @@ export default function ProfileListPage() {
             prenom: 'Aymeric',
             nom: 'Merci',
             techno: [ 'Vue'],
-            expertise: 'Confirmé',
+            expertise: 'Terre Cuite',
             dispo: 'Disponible',
             client: 'Fnac',
             photo: 'https://picsum.photos/50/50'
@@ -171,7 +178,7 @@ export default function ProfileListPage() {
                     <Selector
                         title={'Expertise'}
                         value={expertise}
-                        values={['Genins ', 'Chuunins', 'Jounins ', 'Kage']}
+                        values={expertiseValues}
                         handleChange={(event: { target: { value: SetStateAction<undefined>; }; }) => handleExpertiseChange(event)}
                     />
                     <Selector

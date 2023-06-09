@@ -31,6 +31,8 @@ export default function AuthProvider({children}: { children: ReactNode }) {
 
         AuthService.profile().then((response: SetStateAction<User | undefined>) => {
             setUser(response) ;
+        }).catch((error) => {
+            localStorage.removeItem("token");
         });
 
     },[])
