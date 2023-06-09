@@ -40,6 +40,19 @@ export class UserService {
       where: {
         id,
       },
+      include: {
+        missions: true,
+        formations: true,
+        pass: {
+            include: {
+                stages: {
+                    include: {
+                        rewards: true
+                    }
+                }
+            }
+        }
+      }
     });
   }
   

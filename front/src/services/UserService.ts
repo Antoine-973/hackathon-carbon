@@ -1,15 +1,15 @@
 const getAll = async () => {
-    return fetch('http://localhost:4000/api/users')
+    return fetch('http://localhost:4000/user')
         .then(res => res.json())
 }
 
 const get = async (id: number) => {
-    return fetch(`http://localhost:4000/api/users/${id}`)
+    return fetch(`http://localhost:4000/user/${id}`)
         .then(res => res.json())
 }
 
 const create = async (user: any) => {
-    return fetch('http://localhost:4000/api/users', {
+    return fetch('http://localhost:4000/user', {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -20,7 +20,7 @@ const create = async (user: any) => {
 }
 
 const update = async (user: any) => {
-    return fetch('http://localhost:4000/api/users', {
+    return fetch('http://localhost:4000/user', {
         method: 'PUT',
         body: JSON.stringify(user),
         headers: {
@@ -31,13 +31,13 @@ const update = async (user: any) => {
 }
 
 const remove = async (id: number) => {
-    return fetch(`http://localhost:4000/api/users/${id}`, {
+    return fetch(`http://localhost:4000/user/${id}`, {
         method: 'DELETE'
     })
         .then(res => res.json())
 }
 
-const UserService = {
+const userervice = {
     getAll,
     get,
     create,
@@ -45,4 +45,4 @@ const UserService = {
     remove,
 };
 
-export default UserService;
+export default userervice;

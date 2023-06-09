@@ -11,8 +11,6 @@ export class StageService {
     try {
       return prisma.stage.create({
         data: {
-          title: createStageDto.title,
-          description: createStageDto.description,
           position: createStageDto.position,
           pass: {
             connect: {
