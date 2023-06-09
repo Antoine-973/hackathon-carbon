@@ -6,7 +6,7 @@ import {SCOPES} from "./permissions.ts";
 import ProfilePage from "../pages/ProfilePage.tsx";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
-import EventsPage from "../pages/EventsPage.tsx";
+import EvenementPage from "../pages/EvenementPage.tsx";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
 import ForumPage from "../pages/forum/ForumPage.tsx";
 import {FormationPage} from "../pages/FormationPage";
@@ -37,11 +37,11 @@ export const useRoutes = () => {
                 </SecuredPage>
         },
         {
-            path: "/events",
-            name: "Events",
+            path: "/evenement",
+            name: "Evenement",
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
-                    <EventsPage/>
+                    <EvenementPage/>
                 </SecuredPage>
         },
         {
