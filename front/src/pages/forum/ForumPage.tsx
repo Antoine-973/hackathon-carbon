@@ -100,7 +100,7 @@ export default function () {
                             openModal({
                                 title: 'Demander un carbon',
                                 content:
-                                   <NewForum/>
+                                   <NewForum forums={forums}/>
                                 })
                             }
                         }

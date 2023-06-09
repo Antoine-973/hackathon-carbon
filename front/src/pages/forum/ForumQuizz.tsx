@@ -43,7 +43,7 @@ export default function ForumQuizz () {
     const addResponse = () => {
         openModal({
             title: 'Répondre à la question',
-            content: <NewResponseForm forumId={params.id}/>
+            content: <NewResponseForm responses={forum.comments} forumId={params.id}/>
         }) ;
     }
 

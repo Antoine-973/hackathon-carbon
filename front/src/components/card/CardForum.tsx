@@ -1,5 +1,4 @@
-import {Card, CardContent, Typography, Stack, Box, Chip, CardActionArea} from "@mui/material";
-import {useEffect, useState} from "react";
+import {Box, Card, CardActionArea, CardContent, Chip, Stack, Typography} from "@mui/material";
 
 interface Forum {
     title: string;

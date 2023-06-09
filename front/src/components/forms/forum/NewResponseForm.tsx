@@ -6,7 +6,7 @@ import { useAuthContext } from '../../../providers/AuthProvider';
 import {ForumServices} from "../../../services/ForumServices.ts";
 import 'react-quill/dist/quill.snow.css';
 
-export default function NewForum ({forumId} : {forumId: number}) {
+export default function NewForum ({ responses, forumId} : { responses : any, forumId: number}) {
 
 
     const [value, setValue] = useState('');
@@ -26,6 +26,7 @@ export default function NewForum ({forumId} : {forumId: number}) {
                 message: 'Forum créé avec succès',
                 type: 'success',
             });
+            responses.push(res);
         }).catch((err) => {
             openSnackbar({
                 message: 'Erreur lors de la création du forum',
