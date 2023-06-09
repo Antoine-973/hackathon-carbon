@@ -1,9 +1,12 @@
 import {Box, Container, Divider, Grid, IconButton, InputBase} from "@mui/material";
 import Selector from "../components/Selector";
 import {FilterAltOff} from "@mui/icons-material";
-import {SetStateAction, useMemo, useState} from "react";
+import {SetStateAction, useEffect, useMemo, useState} from "react";
 import {useTheme} from "@mui/material/styles";
 import CardProfile from "../components/card/CardProfile.tsx";
+import {UserServices} from "../services/UserServices.ts";
+import Loader from "../components/loader/Loader";
+import {useNavigate} from "react-router-dom";
 
 interface Profile {
     id: number;
@@ -31,69 +34,8 @@ export default function ProfileListPage() {
     const [expertise, setExpertise] = useState('');
     const [dispo, setDispo] = useState('');
     const [search, setSearch] = useState('');
-    const [profiles, setProfiles] = useState([
-        {
-            id: 1,
-            prenom: 'Antoine',
-            nom: 'CHEF',
-            techno: [ 'Vue'],
-            expertise: 'Céramique Etincelante',
-            dispo: 'Disponible',
-            client: 'Darty',
-            photo: 'https://picsum.photos/50/50'
-        },
-        {
-            id: 2,
-            prenom: 'Alexandre',
-            nom: 'BAUDRY',
-            techno: ['React'],
-            expertise: 'Carbon Fiber',
-            dispo: 'Disponible',
-            client: 'Fnac',
-            photo: 'https://picsum.photos/50/50'
-
-        },
-        {
-            id: 3,
-            prenom: 'Jean',
-            nom: 'Dupont',
-            techno: [ 'Angular'],
-            expertise: 'Argile Fragile',
-            dispo: 'Disponible',
-            client: 'Darty',
-            photo: 'https://picsum.photos/50/50'
-        },
-        {
-            id: 4,
-            prenom: 'Arthur',
-            nom: 'GRATTON',
-            techno: [ 'React', 'Angular'],
-            expertise: 'Terre Cuite',
-            dispo: 'Disponible',
-            client: 'Pmu',
-            photo: 'https://picsum.photos/50/50'
-        },
-        {
-            id: 5,
-            prenom: 'Aymeric',
-            nom: 'Merci',
-            techno: [ 'Vue'],
-            expertise: 'Terre Cuite',
-            dispo: 'Disponible',
-            client: 'Fnac',
-            photo: 'https://picsum.photos/50/50'
-        },
-        {
-            id: 6,
-            prenom: 'Ruth',
-            nom: 'Bader',
-            techno: [ 'React'],
-            expertise: 'Expert',
-            dispo: 'Disponible',
-            client: 'Fnac',
-            photo: 'https://picsum.photos/50/50'
-        }
-    ]) ;
+    const [profiles, setProfiles] = useState([]) ;
+    const [loader, setLoader] = useState(true) ;
 
     const resetFilter = () => {
         setDispo('') ;
@@ -144,11 +86,21 @@ export default function ProfileListPage() {
             }
             return true ;
         })
-    },[client, techno, expertise, dispo, search]) ;
-
+    },[client, techno, expertise, dispo, search, profiles]) ;
     const theme = useTheme() ;
 
+    useEffect(() => {
+        UserServices.getUsers().then((response) => {
+            setProfiles(response) ;
+        }).finally(() => {
+            setLoader(false) ;
+        });
+    },[]) ;
+
+    const navigate = useNavigate() ;
+
     return (
+        loader ? <Loader/> :
         <Container>
             <Box sx={{
                 top: '100px',
@@ -216,13 +168,13 @@ export default function ProfileListPage() {
                         return (
                             <Grid  key={profile.id} item xs={12} md={4}>
                                 <CardProfile
-                                    prenom={profile.prenom}
-                                    nom={profile.nom}
+                                    prenom={profile.firstname}
+                                    nom={profile.lastname}
                                     techno={profile.techno}
                                     expertise={profile.expertise}
                                     photo={profile.photo}
                                     dispo={profile.dispo}
-                                    action={() => {}}
+                                    action={() => {navigate(`/profile/${profile.id}`)}}
                                     client={profile.client}
                                  />
                             </Grid>

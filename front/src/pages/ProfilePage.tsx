@@ -138,10 +138,10 @@ export default function ProfilePage() {
                 </Accordion>
             </Grid>
 
-            <Grid item xl={6}>
+            <Grid  item xl={6}>
                 <Card variant="outlined">
                     <Grid container>
-                        <Grid container padding={2} direction={"column"}>
+                        <Grid  container padding={2} direction={"column"}>
                             <Grid item>
                                 <Typography variant="h5"
                                             fontWeight={"bold"}>Missions</Typography>
@@ -149,7 +149,7 @@ export default function ProfilePage() {
                             {
                                 user.technologies.map((technology) => {
                                     return (
-                                        <Grid item padding={1} borderBottom={1} borderColor={'lightgray'}>
+                                        <Grid  key={technology.name} item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                             <Typography fontWeight={"bold"}
                                                         variant="body1">{technology.name}</Typography>
                                         </Grid>
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                 </Card>
             </Grid>
 
-            <Grid item xl={12}>
+            <Grid sx={{mb:4}} item xl={12}>
                 <Card variant="outlined">
                     <Grid container>
                         <Grid container padding={2} direction={"column"}>
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                             {
                                 user.technologies.map((technology) => {
                                     return (
-                                        <Grid item padding={1} borderBottom={1} borderColor={'lightgray'}>
+                                        <Grid key={technology.name} item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                             <Typography fontWeight={"bold"}
                                                         variant="body1">{technology.name}</Typography>
                                         </Grid>

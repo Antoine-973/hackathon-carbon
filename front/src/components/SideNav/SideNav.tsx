@@ -1,6 +1,7 @@
 import {Grid, Box,Stack, useTheme, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 import {CircularStatic} from "../assets/progressBar";
+import {useAuthContext} from "../../providers/AuthProvider.tsx";
 
 interface Links {
     name: string;
@@ -9,6 +10,7 @@ interface Links {
 export default function SideNav ({links}: {links?: Links[]}){
 
     const theme = useTheme() ;
+    const {user} = useAuthContext() ;
 
     return (
         <Grid item xs={2}>
@@ -17,7 +19,7 @@ export default function SideNav ({links}: {links?: Links[]}){
             }}>
                 <Box display={'flex'} width={'100%'}>
                     <CircularStatic
-                        level={80}
+                        level={user?.niveau }
                     />
                 </Box>
 

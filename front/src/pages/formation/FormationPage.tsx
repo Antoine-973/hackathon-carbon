@@ -24,6 +24,8 @@ const responsive = {
 
 export const FormationPage = () => {
 
+
+
     const [formations, setFormations] = useState<Formation[]>([])
     const [loading, setLoading] = useState(true);
     const [carousel, setCarousel] = useState({});
