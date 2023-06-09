@@ -106,7 +106,7 @@ export default function () {
                         }
                         variant={'contained'} color={'secondary'}>Demander un carbon</Button>
                     </Box>
-                    <Stack>
+                    <Stack sx={{my:2}}>
                         {
                             forums &&  forums.length > 0 && forums.map((forum: any) => {
                                 return (

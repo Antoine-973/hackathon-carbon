@@ -14,7 +14,7 @@ export default function Footer() {
 
     return (
         <>
-            <Grid display={'flex'} spacing={4}  alignItems={'flex-start'} container sx={{backgroundColor: theme.palette.secondary.main, py:4, mt:4}}>
+            <Grid display={'flex'} spacing={4}  alignItems={'flex-start'} container sx={{backgroundColor: theme.palette.secondary.main, py:4}}>
                 <Grid item xs={12} md={3}>
                     <Box>
                         <img src={logo} width={'75%'} style={{

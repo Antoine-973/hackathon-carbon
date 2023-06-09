@@ -91,7 +91,7 @@ export default function HomePage() {
                 </Box>
             </Grid>
             <Container>
-                <Grid container sx={{marginTop: 10, width: '100%'}} direction={'row'} >
+                <Grid container sx={{marginY: 5, width: '100%'}} direction={'row'} >
                     <Grid item sm={12} md={6}>
                         <Typography variant={'h5'} sx={{color: '#282C2B', fontWeight: 'bold'}}>
                             Formation en cours
