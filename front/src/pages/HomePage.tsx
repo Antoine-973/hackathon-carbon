@@ -183,7 +183,7 @@ export default function HomePage() {
                             {
                                 forums && forums.length > 0 ? forums.map((forum) => {
                                     return (
-                                        <Grid item mr={2} m={2} key={forum.id}>
+                                        <Grid item mr={2} m={2} key={forum?.id}>
                                             <CardForum
                                                 title={forum?.title}
                                                 description={forum?.content}
