@@ -27,5 +27,7 @@ export default function ({children , scopes= []}: {children: Element | Element[]
              return children ;
         }
     }
-     else window.location.href = "/login" ;
+     else if (localStorage.getItem("token") === null) {
+         window.location.href = "/login";
+     }
 }
