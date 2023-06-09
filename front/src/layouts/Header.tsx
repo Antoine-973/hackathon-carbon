@@ -163,6 +163,10 @@ export default function Header(props: Props)  {
                             <Box sx={{
                                 display: 'flex',
                             }}>
+                                <IconButton>
+                                    <img width={25} src="/slack.png" alt="Slack"/>
+                                </IconButton>
+
                                 <IconButton sx={{color: theme.palette.secondary.main}}>
                                     <NotificationsIcon/>
                                 </IconButton>
