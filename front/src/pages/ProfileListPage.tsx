@@ -38,10 +38,10 @@ export default function ProfileListPage() {
     const [loader, setLoader] = useState(true) ;
 
     const resetFilter = () => {
-        setDispo('') ;
-        setClient('') ;
-        setTechno('') ;
-        setExpertise('') ;
+        setDispo('');
+        setClient('');
+        setTechno('');
+        setExpertise('');
     }
 
     const handleClientChange = (event) => {
@@ -66,25 +66,25 @@ export default function ProfileListPage() {
 
     const data = useMemo(() => {
         if (client === '' && techno === '' && expertise === '' && dispo === '' && search === '') {
-            return profiles ;
+            return profiles;
         }
-        return profiles.filter((profile : Profile) => {
+        return profiles.filter((profile: Profile) => {
             if (client !== '' && profile.client !== client) {
-                return false ;
+                return false;
             }
             if (techno !== '' && profile.techno.indexOf(techno) === -1) {
-                return false ;
+                return false;
             }
             if (expertise !== '' && profile.expertise !== expertise) {
-                return false ;
+                return false;
             }
             if (dispo !== '' && profile.dispo !== dispo) {
-                return false ;
+                return false;
             }
-            if( search !== '' && profile.prenom.toLowerCase().indexOf(search.toLowerCase()) === -1 && profile.nom.toLowerCase().indexOf(search.toLowerCase()) === -1) {
-                return false ;
+            if (search !== '' && profile.prenom.toLowerCase().indexOf(search.toLowerCase()) === -1 && profile.nom.toLowerCase().indexOf(search.toLowerCase()) === -1) {
+                return false;
             }
-            return true ;
+            return true;
         })
     },[client, techno, expertise, dispo, search, profiles]) ;
     const theme = useTheme() ;
@@ -118,14 +118,18 @@ export default function ProfileListPage() {
                     <Selector
                         title={'Client'}
                         value={client}
-                        values={[ 'Pmu', 'Darty', 'Fnac']}
-                        handleChange={(event: { target: { value: SetStateAction<undefined>; }; }) => handleClientChange(event)}
+                        values={['Pmu', 'Darty', 'Fnac']}
+                        handleChange={(event: {
+                            target: { value: SetStateAction<undefined>; };
+                        }) => handleClientChange(event)}
                     />
                     <Selector
                         title={'Technologie'}
                         value={techno}
                         values={['React', 'Vue', 'Angular']}
-                        handleChange={(event: { target: { value: SetStateAction<undefined>; }; }) => handleTechnoChange(event)}
+                        handleChange={(event: {
+                            target: { value: SetStateAction<undefined>; };
+                        }) => handleTechnoChange(event)}
                     />
                     <Selector
                         title={'Expertise'}
@@ -137,12 +141,16 @@ export default function ProfileListPage() {
                         title={'Disponibilité'}
                         value={dispo}
                         values={['Disponible', 'Dans 3 mois', 'Dans 6 mois ']}
-                        handleChange={(event: { target: { value: SetStateAction<undefined>; }; }) => handleDispoChange(event)}
+                        handleChange={(event: {
+                            target: { value: SetStateAction<undefined>; };
+                        }) => handleDispoChange(event)}
                     />
                     <IconButton
-                        onClick={() => {resetFilter()}}
+                        onClick={() => {
+                            resetFilter()
+                        }}
                         type="button"
-                        sx={{ m: 2,  p: '10px', color: theme.palette.secondary.main }}
+                        sx={{m: 2, p: '10px', color: theme.palette.secondary.main}}
                         aria-label="Clear"
                     >
                         <FilterAltOff/>
@@ -150,21 +158,30 @@ export default function ProfileListPage() {
                 </Box>
                 <Box
                     component="form"
-                    sx={{ margin: 1 ,  display: 'flex', alignItems: 'center',  border: '1px solid', borderColor: theme.palette.secondary.main, borderRadius: '5px' }}
+                    sx={{
+                        margin: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        border: '1px solid',
+                        borderColor: theme.palette.secondary.main,
+                        borderRadius: '5px'
+                    }}
                 >
                     <InputBase
-                        onChange={(event: { target: { value: SetStateAction<undefined>; }; }) => handleSearchChange(event)}
-                        sx={{ ml: 1, flex: 1 }}
+                        onChange={(event: {
+                            target: { value: SetStateAction<undefined>; };
+                        }) => handleSearchChange(event)}
+                        sx={{ml: 1, flex: 1}}
                         placeholder="Type consultant name..."
-                        inputProps={{ 'aria-label': 'search carbon consultant' }}
+                        inputProps={{'aria-label': 'search carbon consultant'}}
                     />
-                    <Divider sx={{ height: 28, borderColor: theme.palette.secondary.main }} orientation="vertical" />
+                    <Divider sx={{height: 28, borderColor: theme.palette.secondary.main}} orientation="vertical"/>
                 </Box>
             </Box>
-            <Divider sx={{p:2}}/>
+            <Divider sx={{p: 2}}/>
             <Grid mt={4} container spacing={2}>
                 {
-                    data.map((profile : Profile) => {
+                    data.map((profile: Profile) => {
                         return (
                             <Grid  key={profile.id} item xs={12} md={4}>
                                 <CardProfile

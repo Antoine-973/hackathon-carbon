@@ -38,8 +38,16 @@ export const useRoutes = () => {
                 </SecuredPage>
         },
         {
-            path: "/profile/:id",
-            name: "Profile",
+            path: "/consultant/:id",
+            name: "User profile",
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <ProfilePage/>
+                </SecuredPage>
+        },
+        {
+            path: "/profil",
+            name: "Current user profile",
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <ProfilePage/>
