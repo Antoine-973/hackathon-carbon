@@ -188,8 +188,8 @@ export default function ProfileListPage() {
                                     prenom={profile.firstname}
                                     nom={profile.lastname}
                                     techno={profile.techno}
-                                    expertise={profile.expertise}
-                                    photo={profile.photo}
+                                    expertise={profile?.expertise || "Argile Fragile"}
+                                    photo={"https://picsum.photos/50/50"}
                                     dispo={profile.dispo}
                                     action={() => {navigate(`/profile/${profile.id}`)}}
                                     client={profile.client}

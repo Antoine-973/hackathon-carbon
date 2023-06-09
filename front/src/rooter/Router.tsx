@@ -13,6 +13,7 @@ import ForumPage from "../pages/forum/ForumPage.tsx";
 import {Login} from "../pages/Login";
 import FormationIndex from "../pages/formation/FormationIndex.tsx";
 import {FormationPage} from "../pages/formation/FormationPage.tsx";
+import {Dashboard} from "../pages/admin/dashboard";
 
 interface Route {
     path: string;
@@ -93,6 +94,11 @@ export const useRoutes = () => {
             path:'/login',
             name:'Login',
             element: <Login/>
+        },
+        {
+            path:'/admin/dashboard',
+            name:'Dashboard',
+            element: <Dashboard/>
         },
         {
             path:'*',
