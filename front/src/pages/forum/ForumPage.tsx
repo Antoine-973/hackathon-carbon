@@ -8,6 +8,7 @@ import {ForumServices} from "../../services/ForumServices.ts";
 import { useModalContext } from "../../providers/ModalProvider";
 import NewForum from "../../components/forms/forum/NewForum.tsx";
 import {useNavigate} from "react-router-dom";
+import Loader from "../../components/loader/Loader";
 
 export default function () {
 
@@ -58,7 +59,7 @@ export default function () {
     },[])
 
     return (
-        loading ? <div>Chargement...</div> :
+        loading ? <Loader/> :
         <Container>
             <Grid container spacing={2}>
                 <SideNav links={[
