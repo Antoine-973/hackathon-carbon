@@ -3,7 +3,9 @@ import {useEffect} from "react";
 import {UserServices} from "../../../services/UserServices";
 import * as React from "react";
 import {Clear} from "@mui/icons-material";
-import {DatePicker} from "@mui/lab";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export const UsersOnglet = () => {
     const [users, setUsers] = React.useState([])
@@ -14,6 +16,7 @@ export const UsersOnglet = () => {
     const [lastname, setLastname] = React.useState([])
     const [password, setPassword] = React.useState([])
     const [role, setRole] = React.useState([])
+    const [recruitmentAt,setRecruitmentAt ] = React.useState(new Date)
 
     useEffect(() => {
         UserServices.getUsers().then((response) => {
@@ -24,11 +27,19 @@ export const UsersOnglet = () => {
     }, [])
 
     const handleSubmit = () => {
-        UserServices.createUsers({email, firstname, lastname, password, role}).then((response) => {
+        UserServices.createUsers({email, firstname, lastname, password, role, recruitmentAt}).then((response) => {
             console.log(response)
         }).finally(() => {
-            console.log("ok")
-            // setLoading(false) ;
+            setLoading(false) ;
+        });
+    }
+
+    const handleDelete = (id) => {
+        UserServices.deleteUser(id).then((response) => {
+            console.log(response)
+        }).finally(() => {
+            setUsers(users.filter((user) => user.id !== id))
+            setLoading(false) ;
         });
     }
 
@@ -90,6 +101,15 @@ export const UsersOnglet = () => {
                         multiline
                         maxRows={4}
                     />
+                    <Grid style={{
+                        marginBottom: 10,
+                        marginLeft:10
+                    }}>
+                        <DatePicker
+                            selected={recruitmentAt}
+                            onChange={(date) => setRecruitmentAt(date)}
+                        />
+                    </Grid>
                     <Grid style={{marginLeft:10}}>
                         <Button variant="contained" type="submit" onClick={() => handleSubmit()}>Créer</Button>
                     </Grid>
@@ -107,7 +127,12 @@ export const UsersOnglet = () => {
                                         marginLeft: 'auto',
                                         marginTop: 10,
                                     }}>
-                                        <Clear/>
+                                        <Clear
+                                            style={{
+                                                cursor: 'pointer',
+                                            }}
+                                            onClick={() => {handleDelete(user.id)}}
+                                        />
                                     </span>
                                 </Grid>
                             </Card>
