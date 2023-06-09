@@ -9,22 +9,25 @@ interface Permission {
 }
 export default function ({children , scopes= []}: {children: Element | Element[] , scopes: string[]}) {
      const { user } = useAuthContext() ;
-     const role: string | null  = useRole(user) ;
+     if(user && user.role) {
+         const role: string | null  = useRole(user) ;
 
-    // @ts-ignore
-    if(scopes.length > 0 ) {
-        let permissions
-        if(role) {
-            permissions = PERMISSIONS[role] ;
+         // @ts-ignore
+         if(scopes.length > 0 ) {
+             let permissions
+             if(role) {
+                 permissions = PERMISSIONS[role] ;
 
+             }
+
+             const isGranted = hasPermissions({permissions, scopes} as Permission  ) ;
+             if(!isGranted) {
+                 return <PermissionDeniedPage/> ;
+             }
+             return children ;
         }
-
-        const isGranted = hasPermissions({permissions, scopes} as Permission  ) ;
-        if(!isGranted) {
-            return <PermissionDeniedPage/> ;
-        }
-
-
     }
-    return children ;
+     else if (localStorage.getItem("token") === null) {
+         window.location.href = "/login";
+     }
 }

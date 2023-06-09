@@ -1,14 +1,13 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import {createRoot} from 'react-dom/client'
-import ReactDOM from 'react-dom/client'
 import Router from './rooter/Router'
 import './index.css'
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import AuthProvider from "./providers/AuthProvider.tsx";
 import {BrowserRouter, useLocation} from "react-router-dom";
 import {StrictMode, useLayoutEffect} from "react";
-import Header from "./layouts/Header";
-import Box from "@mui/material/Box";
+import ModalProvider from "./providers/ModalProvider.tsx";
+import SnackbarProvider from "react-mui-snackbar" ;
 
 
 const theme = createTheme({
@@ -60,12 +59,16 @@ root.render(
         <AuthProvider>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-              <BrowserRouter>
-                  <Wrapper>
-                      <Router >
-                      </Router>
-                  </Wrapper>
-              </BrowserRouter>
+                <SnackbarProvider>
+                    <ModalProvider>
+                        <BrowserRouter>
+                            <Wrapper>
+                                <Router >
+                                </Router>
+                            </Wrapper>
+                        </BrowserRouter>
+                    </ModalProvider>
+                </SnackbarProvider>
           </ThemeProvider>
       </AuthProvider>
   </StrictMode>,

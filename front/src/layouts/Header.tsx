@@ -73,11 +73,11 @@ export default function Header(props: Props)  {
 
     const navigate = useNavigate();
     const links = [
-        {name:'Profil', path:'/profil'},
-        {name:'Forum', path:'/forum'},
-        {name:'Formation', path:'/formation'},
-        {name:'Evenement', path:'/evenement'} ,
-        {name:'Consultant', path:'/consultant'}
+        {name:'Mon Carbon', path:'/profil'},
+        {name:'Carbon Overflow', path:'/forum'},
+        {name:"Evolution Carbon", path:'/formation'},
+        {name:'Regroupement Carbon', path:'/evenement'} ,
+        {name:'Les Carbons', path:'/consultant'}
     ];
 
     interface Link {

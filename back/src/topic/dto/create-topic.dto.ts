@@ -6,7 +6,7 @@ export class CreateTopicDto {
     title: string;
 
     @ApiProperty()
-    createdBy: number;
+    createdById: number;
 
     @ApiProperty()
     content: string;

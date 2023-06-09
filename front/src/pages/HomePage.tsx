@@ -1,26 +1,33 @@
-import {CircularStatic} from '../components/assets/progressBar';
 import {RewardCard} from '../components/assets/rewardCard';
-import {Box, Container, Grid, Typography} from "@mui/material";
+import {Container, Grid, Stack, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {FormationServices} from "../services/FormationServices";
 import {ArticlesServices} from "../services/ArticlesServices";
+import Loader from "../components/loader/Loader.tsx";
+import MonCarbonCard from '../components/card/MonCarbonCard';
+import Article from "../components/Article";
+import CardEvent from "../components/event/CardEvent.tsx";
+import CardFormation2 from "../components/formation/CardFormation2";
+import CardForum from "../components/card/CardForum.tsx";
+import { useAuthContext } from '../providers/AuthProvider';
+import { EventServices } from '../services/EventServices';
+import { ForumServices } from '../services/ForumServices';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function HomePage() {
-    const reward = {
-        name: "Récompense 1",
-        img: "https://picsum.photos/200/300"
-    }
 
-    const nextReward = {
-        name: "Récompense 2",
-        img: "https://picsum.photos/200/300"
-    }
+    const {user} = useAuthContext();
+    const navigate = useNavigate();
 
     const [formations, setFormations] = useState([]);
     const [article, setArticle] = useState({});
     const [loading, setLoading] = useState(true);
+    const [forums, setForums] = useState([]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
+
         FormationServices.getFormations().then((data) => {
             setFormations(data);
         }).finally(() => {
@@ -32,108 +39,171 @@ export default function HomePage() {
         }).finally(() => {
             setLoading(false);
         });
+
+        ForumServices.getAllForums().then((data) => {
+            const forums = [
+                data[0],data[1],data[2]
+            ]
+            setForums(forums);
+
+        }).finally(() => {
+            setLoading(false);
+        });
+
+        EventServices.getAllEvents().then((data) => {
+            setEvents(data);
+        }).finally(() => {
+            setLoading(false);
+        });
+
+
     },[])
 
     return (
-        loading ? <div>Chargement...</div> :
-        <>
-            <Grid container spacing={2} style={{marginTop: 100}}>
-                <Grid sx={{
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'spawce-between',
-                    alignItems: 'center',
-                }}>
-                    <CircularStatic level={100}/>
-                    <Grid container spacing={5} justifyContent={'center'}>
-                        <Grid item xs={12} md={3}>
-                            <RewardCard comingReward={reward}/>
-                        </Grid>
-                        <Grid item xs={12} md={3}>
-                            <RewardCard comingReward={nextReward}/>
-                        </Grid>
-                    </Grid>
+        loading ? <Loader/> :
+        <Container>
+            <Grid container spacing={2} >
+                <Grid item xs={3} >
+                    <MonCarbonCard
+                        name={user.firstname + ' ' + user.lastname}
+                        expertise={'Carbon Fiber'}
+                        level={user?.niveau}
+                    />
                 </Grid>
-            </Grid>
-            <Grid sx={{
-                marginTop: 10,
-                width: '100%',
-                height: '47vh',
-                display: 'flex',
-                backgroundImage: 'url(https://picsum.photos/1920/1080)',
-                backgroundSize: 'cover',
-                position: 'relative',
-            }}>
-                <Box sx={{
-                    position: 'absolute',
-                    bottom: '10%',
-                    left: '5%',
-                    padding: 2,
-                    borderRadius: 10,
-                    width: '50vw',
-                    height: 'fit-content',
-                    backgroundColor: "rgba(255, 255, 255, 0.3)",
-                }}>
-                    <Typography
-                        variant={'h4'}
-                        style={{
-                            color: '#000000',
-                            fontWeight: 'bold',
+                <Grid xs={9} item >
+                    <Stack>
+                        <Typography sx={{ paddingBottom:2 }}>
+                            Les prochaines récompenses
+                        </Typography>
+                        <Grid item container spaing={2} >
+                            <Grid item mr={2} mb={2}>
+                                <RewardCard
+                                    niveau={'70'}
+                                    name={'Sac à dos'}
+                                    src={'https://picsum.photos/200/300'}
+                                />
+                            </Grid>
+                            <Grid item mr={2} mb={2}>
+                                <RewardCard
+                                    niveau={'80'}
+                                    name={'100€'}
+                                    src={'https://picsum.photos/200/300'}
+                                />
+                            </Grid>
+                            <Grid item mr={2} mb={2}>
+                                <RewardCard
+                                    niveau={'90'}
+                                    name={'Place de cinéma'}
+                                    src={'https://picsum.photos/200/300'}
+                                />
+                            </Grid>
+                            <Grid item mr={2} mb={2}>
+                                <RewardCard
+                                    niveau={'100'}
+                                    name={'5 RTT'}
+                                    src={'https://picsum.photos/200/300'}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Typography sx={{
+                            pt:2,
                         }}>
-                        Séminaire de rentrée
-                    </Typography>
-                    <Typography variant={'p'} sx={{
-                        color: '#000000',
-                    }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed
-                    </Typography>
-                </Box>
-            </Grid>
-            <Container>
-                <Grid container sx={{marginTop: 10, width: '100%'}} direction={'row'} >
-                    <Grid item sm={12} md={6}>
-                        <Typography variant={'h5'} sx={{color: '#282C2B', fontWeight: 'bold'}}>
-                            Formation en cours
+                            Carbon à parler
                         </Typography>
-                        <Typography variant={'h6'} sx={{color: '#282C2B'}}>
-                            { formations.length > 0 &&  formations[0].title}
-                        </Typography>
-                        <Typography align={'justify'}>
-                            {formations.length > 0 && formations[0].description}
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={0} md={1}></Grid>
-                    <Grid item xs={12} md={5}>
-                        <img src={"https://picsum.photos/1920/1080"} width={500}/>
-                    </Grid>
+                        <Grid item container spaing={2} >
+                            <Grid item mr={2} mb={2}>
+                                {
+                                    article &&
+                                    <Article
+                                        key={article.id}
+                                        title={article.title}
+                                        description={article.description}
+                                        image={article.image}
+                                    />
+                                }
+
+                            </Grid>
+                        </Grid>
+                    </Stack>
                 </Grid>
-                {
-                    article && article.title &&
-                    <Grid container sx={{marginY: 10, width: '100%'}} direction={'row'}>
-                        <Grid item sm={12} md={5}>
-                            <img src={article.img} width={500}/>
+                <Grid mb={4} item xs={6}>
+                    <Stack>
+                        <Typography sx={{ paddingBottom:2 }}>
+                            Les regroupements carbon à venir
+                        </Typography>
+                        <Grid item container spaing={2} >
+                            {
+                                events && events.length > 0 ? events.map((event) => {
+                                    return (
+                                        <Grid item mr={2} mb={2} key={event?.id}>
+                                            <CardEvent
+                                                title={event.title}
+                                                description={event.description}
+                                                date={event.date}
+                                            />
+                                        </Grid>
+                                    )
+                                }) : <Typography>Aucun événement à venir</Typography>
+                            }
                         </Grid>
-                        <Grid item xs={0} md={1}></Grid>
-                        <Grid item xs={12} md={6}>
-                            <Typography variant={'h5'} sx={{color: '#282C2B', fontWeight: 'bold', textAlign: 'right'}}>
-                                Informations & technologies
-                            </Typography>
-                            <Typography variant={'h6'} sx={{color: '#282C2B', textAlign: 'right'}}>
-                                {article.title}
-                            </Typography>
-                            <Typography align={'justify'} sx={{textAlign: 'right', marginBottom: '10'}}>
-                                {article.description}
-                            </Typography>
-                            <Typography align={'justify'} style={{textAlign: 'right', fontStyle: "italic"}}>
-                                {article.author}
-                            </Typography>
+                    </Stack>
+                </Grid>
+                <Grid mb={4} item xs={6}>
+                    <Stack>
+                        <Typography sx={{ paddingBottom:2 }}>
+                            Evolution des carbon
+                        </Typography>
+
+                        <Grid item container spaing={2} >
+                            {
+                                formations && formations.length > 0 ? formations.map((formation) => {
+                                    return (
+                                        <Grid item mr={2} mb={2} key={formation.id}>
+                                            <CardFormation2
+                                                title={formation?.title}
+                                                description={formation?.description}
+                                                date={new Date(formation?.date)}
+                                            />
+                                        </Grid>
+                                    )
+                                }) :
+                                    <Typography>
+                                        prochainement
+                                    </Typography>
+                            }
                         </Grid>
-                    </Grid>
-
-                }
-            </Container>
-
-        </>
+                    </Stack>
+                </Grid>
+                <Grid item xs={12} >
+                    <Stack>
+                        <Typography sx={{paddingBottom:2}}>
+                            Carbon Overflow
+                        </Typography>
+                        <Grid item container spaing={2} >
+                            {
+                                forums && forums.length > 0 ? forums.map((forum) => {
+                                    return (
+                                        <Grid item mr={2} m={2} key={forum?.id}>
+                                            <CardForum
+                                                title={forum?.title}
+                                                description={forum?.content}
+                                                author={forum?.createdBy}
+                                                repondu={forum?.repondu}
+                                                createdAt={new Date(forum?.createdAt)}
+                                                action={() => {
+                                                    navigate(`/forum/${forum.id}`)
+                                                }}
+                                            />
+                                        </Grid>
+                                    )
+                                }) : <Typography>
+                                    prochainement
+                                </Typography>
+                            }
+                        </Grid>
+                    </Stack>
+                </Grid>
+            </Grid>
+        </Container>
     )
 }

@@ -1,34 +1,46 @@
-import {Box, Typography} from "@mui/material";
+import {Box, Typography, Stack} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 
-export function RewardCard({comingReward}: { comingReward: any }) {
+export function RewardCard({niveau, name, src}: { niveau : string, name: string, src: string }) {
+
+    const theme = useTheme();
 
     return (
-        <Box>
-            <Box style={{
-                backgroundColor: '#5B98D276',
-                display: 'flex',
-                flexDirection: 'row',
+       <Box
+            sx={{
+                backgroundColor: theme.palette.success.main,
+                borderRadius: '10px',
+                minWidth: '200px',
+                width:'100%',
+                height: '50px',
+                display:'flex',
+                justifyContent: 'center',
                 alignItems: 'center',
-                width: 'fit-content',
-                padding: 10,
-                borderRadius: 10,
-                justifyContent: 'space-between',
-                maxWidth: 500
-            }}>
-                <Typography variant={'p'} sx={{
-                    color: '#282C2B',
-                    fontWeight: 'bold',
-                    fontSize: 18,
-                    marginRight: 5
-                }}>
-                    Prochaine Récompense
-                </Typography>
-                <img
-                    src={comingReward.img}
-                    alt={comingReward.name}
-                    style={{width: 100, height: 80, objectFit: "cover"}}
-                />
-            </Box>
-        </Box>
+                flexDirection:'row',
+                color: theme.palette.secondary.main
+            }}
+       >
+           <Stack  alignItems={'center'}>
+               <Typography variant={'caption'}>
+                   au niveau {niveau}
+               </Typography>
+               <Typography fontWeight={'bold'} sx={{
+                   width:'100%',
+               }} >
+                   {name}
+               </Typography>
+           </Stack>
+
+           <img
+               width={'40px'}
+               height={'40px'}
+               style={{
+                   borderRadius: '15px',
+                   marginLeft: '10px'
+               }}
+               src={src} alt={"Image de la récompence : " + name }
+           />
+
+       </Box>
     )
 }
