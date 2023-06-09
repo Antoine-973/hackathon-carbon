@@ -63,7 +63,6 @@ export const Dashboard = () => {
 
     return (
         <Box sx={{display: 'flex'}}>
-            <CssBaseline/>
             <Drawer
                 variant="permanent"
                 sx={{

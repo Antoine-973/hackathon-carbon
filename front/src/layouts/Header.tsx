@@ -21,6 +21,7 @@ import {
     ListItemText
 } from "@mui/material";
 import { NavLink, useNavigate} from 'react-router-dom';
+import {useAuthContext} from "../providers/AuthProvider.tsx";
 
 interface Props {
     /**
@@ -58,6 +59,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-start',
 }));
 export default function Header(props: Props)  {
+
+    const {user} = useAuthContext() ;
 
     const theme = useTheme() ;
     const [open, setOpen] = useState(false);
@@ -139,6 +142,22 @@ export default function Header(props: Props)  {
                                             )
                                         })
                                     }
+                                    {
+                                        user && user.role && user.role === 'admin' &&
+                                        <NavLink
+                                            className={({ isActive, isPending }: Link) =>
+                                                isPending ? "" : isActive ? styles.active : ""
+                                            }
+                                            to={'/admin/dashboard'}
+                                            style={{
+                                                color: theme.palette.secondary.main,
+                                                textDecoration: 'none',
+                                                margin: '0 10px',
+                                            }}
+                                        >
+                                            Admin
+                                        </NavLink>
+                                    }
                                 </Box>
                             </Box>
                             <Box sx={{
@@ -194,6 +213,16 @@ export default function Header(props: Props)  {
                             </ListItemButton>
                         </ListItem>
                     ))}
+                    {
+                        user && user.role && user.role === 'admin' &&
+                        <ListItem disablePadding >
+                            <ListItemButton onClick={() => {
+                                navigate('/admin/dashboard')
+                            }}>
+                                <ListItemText primary={'Admin'}/>
+                            </ListItemButton>
+                        </ListItem>
+                    }
                 </List>
             </Drawer>
         </Fragment>
