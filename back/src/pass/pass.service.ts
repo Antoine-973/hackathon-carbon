@@ -20,7 +20,15 @@ export class PassService {
 
   findAll() {
     try {
-      return prisma.pass.findMany();
+      return prisma.pass.findMany({
+        include: {
+          stages: {
+            include: {
+              rewards: true,
+            },
+          },
+        },
+      });
     } catch (error) {
       console.error(error);
       return error;
@@ -34,7 +42,11 @@ export class PassService {
           id: id,
         },
         include: {
-          stages: true,
+          stages: {
+            include: {
+              rewards: true,
+            },
+          },
         },
       });
     } catch (error) {

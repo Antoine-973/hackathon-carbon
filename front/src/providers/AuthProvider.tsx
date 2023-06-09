@@ -1,9 +1,12 @@
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import AuthService from "../services/AuthService.tsx";
 
 interface AuthContextInterface {
     user: User;
     setUser: (user: User) => void;
 }
+
 interface User {
     id: number;
     name: string;
@@ -11,17 +14,32 @@ interface User {
     role: string;
 }
 
-const AuthContext = createContext<AuthContextInterface>({} as AuthContextInterface) ;
-export default function AuthProvider ({children }: {children: ReactNode})  {
+const AuthContext = createContext<AuthContextInterface>({} as AuthContextInterface);
+export default function AuthProvider({children}: { children: ReactNode }) {
 
-    const [user, setUser] = useState<User>
-    ({
-        role:"admin",
-    } as User) ;
 
-    if(!user) {
-        return <div>Loading...</div>
-    }
+    const [user, setUser] = useState<User>();
+
+
+    useEffect(() => {
+        if(!user ) {
+            if (localStorage.getItem("token") === null) {
+                if (window.location.pathname !== "/login")
+                    window.location.pathname = "/login";
+            }
+        }
+
+        AuthService.profile().then((response: SetStateAction<User | undefined>) => {
+            setUser(response) ;
+        }).catch((error) => {
+            localStorage.removeItem("token");
+            if (window.location.pathname !== "/login")
+                window.location.pathname = "/login";
+        });
+
+    },[])
+
+
 
     return (
         <AuthContext.Provider value={{user , setUser}}>

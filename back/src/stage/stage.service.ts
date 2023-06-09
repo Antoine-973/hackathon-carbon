@@ -11,8 +11,6 @@ export class StageService {
     try {
       return prisma.stage.create({
         data: {
-          title: createStageDto.title,
-          description: createStageDto.description,
           position: createStageDto.position,
           pass: {
             connect: {
@@ -31,7 +29,6 @@ export class StageService {
     try {
       return prisma.stage.findMany({
         include: {
-          pass: true,
           rewards: true,
         },
       });
@@ -48,7 +45,6 @@ export class StageService {
           id: id,
         },
         include: {
-          pass: true,
           rewards: true,
         },
       });

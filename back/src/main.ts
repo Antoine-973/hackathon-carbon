@@ -6,6 +6,8 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
+
   const config = new DocumentBuilder()
       .setTitle('Hackathon Carbon API')
       .setDescription('The Hackathon Carbon API')
