@@ -42,16 +42,7 @@ export class UserService {
       },
       include: {
         missions: true,
-        formations: true,
-        pass: {
-            include: {
-                stages: {
-                    include: {
-                        rewards: true
-                    }
-                }
-            }
-        }
+        formations: true
       }
     });
   }

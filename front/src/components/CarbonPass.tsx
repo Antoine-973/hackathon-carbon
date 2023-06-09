@@ -2,8 +2,6 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import {Card, CardContent, CardMedia, Grid, Typography} from "@mui/material";
 
-
-
 interface Pass {
     startAt: Date,
     endAt: Date,
@@ -13,11 +11,11 @@ interface Pass {
 
 interface Stage {
     position: number,
-    reward: Reward
+    rewards: Reward[]
 }
 
 interface Reward {
-    name: string,
+    title: string,
     image: string
     description: string
 }
@@ -33,7 +31,7 @@ export default function CarbonPass({pass}: Pass) {
     const items =() => {
         if (pass) {
             if (pass.stages) {
-                return pass.stages.map((stage) => {
+                return pass.stages.map((stage: Stage) => {
                     return (
                         <Grid container direction={"column"} gap={1}>
                             <Card sx={{marginX: 1}}>
@@ -43,8 +41,8 @@ export default function CarbonPass({pass}: Pass) {
                                     title="Stage Reward"
                                 />
                                 <CardContent>
-                                    <Typography inline variant="caption">
-                                        {stage.reward.name}
+                                    <Typography  variant="caption">
+                                        {stage && stage.rewards  && stage.rewards.length > 0 ? stage.rewards[0].title : ""}
                                     </Typography>
                                 </CardContent>
                             </Card>

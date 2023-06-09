@@ -29,7 +29,6 @@ export class StageService {
     try {
       return prisma.stage.findMany({
         include: {
-          pass: true,
           rewards: true,
         },
       });
@@ -46,7 +45,6 @@ export class StageService {
           id: id,
         },
         include: {
-          pass: true,
           rewards: true,
         },
       });

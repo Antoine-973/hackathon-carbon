@@ -4,17 +4,35 @@ import {SyntheticEvent, useEffect, useState} from "react";
 import CarbonPass from "../components/CarbonPass";
 import {useParams} from "react-router-dom";
 import UserService from "../services/UserService.ts";
+import {PassServices} from "../services/PassServices.ts";
+import Loader from "../components/loader/Loader";
+import {useAuthContext} from "../providers/AuthProvider.tsx";
 
 export default function ProfilePage() {
 
     const id = useParams().id;
-    const [user, setUser] = useState({})
+    const {user} = useAuthContext() ;
+    const [data, setData] = useState({})
     const [expanded, setExpanded] = useState<string | false>(false);
+    const [pass,setPass] = useState(false) ;
+    const [loader, setLoader] = useState(true);
 
     useEffect(() => {
-        UserService.get(+id).then((response) => {
-            setUser(response)
-        })
+        if(id) {
+            UserService.get(+id).then((response) => {
+                setData(response)
+            }).finally(() => {
+                setLoader(false)
+            });
+        } else {
+            setData(user) ;
+        }
+        PassServices.getLastPass().then((response) => {
+            setPass(response)
+        }).finally(() => {
+            setLoader(false)
+        });
+       
     }, [])
 
     const handleChange =
@@ -23,8 +41,9 @@ export default function ProfilePage() {
         };
 
     return (
+        loader ? <Loader/> :
         <>
-            {user &&
+            {data &&
                 <Grid paddingY={2} paddingX={5} container spacing={2} alignItems={"center"} justifyItems={"center"}>
                     <Grid item xl={12}>
                         <Card variant="outlined">
@@ -50,25 +69,25 @@ export default function ProfilePage() {
                                         <Grid item>
                                             <Grid container alignItems={"center"} gap={1}>
                                                 <Typography variant="h5"
-                                                            fontWeight={"bold"}>{user.firstname} {user.lastname}</Typography>
-                                                <a href={"mailto:" + user.email}>
+                                                            fontWeight={"bold"}>{data.firstname} {data.lastname}</Typography>
+                                                <a href={"mailto:" + data.email}>
                                                     <Email fontSize={"small"} color={"info"}/>
                                                 </a>
-                                                <a href={"tel:" + user.phone}>
+                                                <a href={"tel:" + data.phone}>
                                                     <LocalPhone fontSize={"small"} color={"info"}/>
                                                 </a>
                                             </Grid>
                                         </Grid>
-                                        {user.mission &&
+                                        {data.mission &&
                                         <Grid item>
-                                            <Typography display={"inline"} variant="subtitle2">{user.mission.name} en
+                                            <Typography display={"inline"} variant="subtitle2">{data.mission.name} en
                                                 mission
-                                                chez {user.mission.client.name}</Typography>
+                                                chez {data.mission.client.name}</Typography>
                                         </Grid>
                                         }
-                                        {user.localisation &&
+                                        {data.localisation &&
                                         <Grid item>
-                                            <Typography variant="subtitle2">{user.localisation}</Typography>
+                                            <Typography variant="subtitle2">{data.localisation}</Typography>
                                         </Grid>
                                         }
                                     </Grid>
@@ -77,7 +96,7 @@ export default function ProfilePage() {
                         </Card>
                     </Grid>
 
-                    {user.description &&
+                    {data.description &&
                     <Grid item xl={12}>
                         <Card variant="outlined">
                             <Grid container>
@@ -87,7 +106,7 @@ export default function ProfilePage() {
                                                     fontWeight={"bold"}>Infos</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant="body1">{user.description}</Typography>
+                                        <Typography variant="body1">{data.description}</Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -95,7 +114,7 @@ export default function ProfilePage() {
                     </Grid>
                     }
 
-                    {user.pass &&
+                    {pass &&
                     <Grid item xl={12}>
                         <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                             <AccordionSummary
@@ -108,13 +127,13 @@ export default function ProfilePage() {
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <CarbonPass pass={user.pass}/>
+                                <CarbonPass pass={pass[0]}/>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
                     }
 
-                    {user.mission &&
+                    {data.mission &&
                     <Grid item xl={6}>
                         <Card variant="outlined">
                             <Grid container>
@@ -124,7 +143,7 @@ export default function ProfilePage() {
                                                     fontWeight={"bold"}>Missions</Typography>
                                     </Grid>
                                     {
-                                        user.missions.map((mission) => {
+                                        data.missions.map((mission) => {
                                             return (
                                                 <Grid  key={mission.name} item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                                     <Typography fontWeight={"bold"}
@@ -139,7 +158,7 @@ export default function ProfilePage() {
                     </Grid>
                     }
 
-                    {user.formations &&
+                    {data.formations &&
                     <Grid item xl={6}>
                         <Card variant="outlined">
                             <Grid container>
@@ -149,7 +168,7 @@ export default function ProfilePage() {
                                                     fontWeight={"bold"}>Formation</Typography>
                                     </Grid>
                                     {
-                                        user.formations.map((formation) => {
+                                        data.formations.map((formation) => {
                                             return (
                                                 <Grid item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                                     <Typography fontWeight={"bold"}
@@ -164,7 +183,7 @@ export default function ProfilePage() {
                     </Grid>
                     }
 
-                    {user.technologies &&
+                    {data.technologies &&
                     <Grid sx={{mb: 4}} item xl={12}>
                         <Card variant="outlined">
                             <Grid container>
@@ -174,7 +193,7 @@ export default function ProfilePage() {
                                                     fontWeight={"bold"}>Compétences</Typography>
                                     </Grid>
                                     {
-                                        user.technologies.map((technology) => {
+                                        data.technologies.map((technology) => {
                                             return (
                                                 <Grid key={technology.name} item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                                     <Typography fontWeight={"bold"}

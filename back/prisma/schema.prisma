@@ -23,10 +23,13 @@ model User {
   events        Event[]
   topics        Topic[]
   comments      Comment[]
-  user          User?        @relation(fields: [userId], references: [id])
-  userId        Int?
+  mentor        User?        @relation("MentorToUser", fields: [mentorId], references: [id])
+  mentorId      Int?
+  mentoredBy    User[]       @relation("MentorToUser")
+  mentoredById  Int?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+  userId        Int?
 }
 
 model Technology {
@@ -121,7 +124,6 @@ model Pass {
   startAt   DateTime
   endAt     DateTime
   stages    Stage[]
-  users     User[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
