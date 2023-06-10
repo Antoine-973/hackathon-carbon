@@ -118,7 +118,10 @@ export const UsersOnglet = () => {
             <Grid item xs={12} md={6}>
                 <h2>Suppression d'un utilisateur</h2>
                 {
-                    users.length > 1 && users.map((user, key) => {
+                    users.length > 0 && users.map((user, key) => {
+                        if (user.role === "admin"){
+                            return null
+                        }
                         return (
                             <Card style={{margin:10, padding:10}} key={key}>
                                 <Grid container direction={"row"} alignItems={"center"}>
