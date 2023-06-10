@@ -26,8 +26,16 @@ export class FormationService {
     findAll() {
         return prisma.formation.findMany({
             include: {
+                technology: {
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                    }
+                },
                 participants: {
                     select: {
+                        id: true,
                         firstname: true,
                         lastname: true,
                     }
@@ -46,6 +54,7 @@ export class FormationService {
                 where: {
                     id: id
                 }, include: {
+                    technology: true,
                     participants: true
                 }
             })

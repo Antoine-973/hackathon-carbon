@@ -1,49 +1,44 @@
 import {ServicesBases} from "./servicesBases";
 
-export const FormationServices = {
-    getFormations: async () => {
+export const TechnologiesServices = {
+    getAll: async () => {
         try {
-            const response = await fetch(ServicesBases.apiUrl+'/formation', {
+            const response = await fetch(ServicesBases.apiUrl+'/technology', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
             return await response.json();
-        }catch(error){
+        } catch (error) {
             return error ;
         }
-
     },
-
-    createFormation : async (formation) => {
+    create: async (data: any) => {
         try {
-            const response = await fetch(ServicesBases.apiUrl+'/formation', {
+            const response = await fetch(ServicesBases.apiUrl+'/technology', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formation),
+                body: JSON.stringify(data)
             });
             return await response.json();
-        }catch(error){
+        } catch (error) {
             return error ;
         }
     },
-
-    deleteFormation : async (id) => {
+    delete: async (id: number) => {
         try {
-            const response = await fetch(ServicesBases.apiUrl+'/formation/'+id, {
+            const response = await fetch(ServicesBases.apiUrl+'/technology/'+id, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
             return await response.json();
-        }catch(error){
+        } catch (error) {
             return error ;
         }
     }
-
-
 }

@@ -9,6 +9,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "./Header.module.css";
+import {ROLES} from "../rooter/permissions.ts";
 import {
     Drawer,
     IconButton,
@@ -143,7 +144,7 @@ export default function Header(props: Props)  {
                                         })
                                     }
                                     {
-                                        user && user.role && user.role === 'admin' || user && user.role && user.role ==='support' &&
+                                        user && user.role && (user.role === ROLES.ADMIN ||  user.role === ROLES.SUPPORT) &&
                                         <NavLink
                                             className={({ isActive, isPending }: Link) =>
                                                 isPending ? "" : isActive ? styles.active : ""
@@ -218,7 +219,7 @@ export default function Header(props: Props)  {
                         </ListItem>
                     ))}
                     {
-                        user && user.role && user.role === 'admin' || user && user.role && user.role ==='support' &&
+                        user &&  user.role && (user.role === ROLES.ADMIN ||  user.role === ROLES.SUPPORT)  &&
                         <ListItem disablePadding >
                             <ListItemButton onClick={() => {
                                 navigate('/admin/dashboard')

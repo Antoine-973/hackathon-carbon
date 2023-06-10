@@ -3,8 +3,8 @@ import HomePage from "../pages/HomePage.tsx";
 import {Route, Routes} from "react-router-dom";
 import SecuredPage from "./SecuredPage.tsx";
 import {SCOPES} from "./permissions.ts";
-import ProfilePage from "../pages/ProfilePage.tsx";
-import ProfileListPage from "../pages/ProfileListPage.tsx";
+import ProfilePage from "../pages/profile/ProfilePage.tsx";
+import ProfileListPage from "../pages/profile/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
 import { EvenementPage } from "../pages/EvenementPage.tsx";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
@@ -14,6 +14,7 @@ import {Login} from "../pages/Login";
 import {FormationPage} from "../pages/formation/FormationPage.tsx";
 import {Dashboard} from "../pages/admin/dashboard";
 import AdminLayout from "../layouts/AdminLayout.tsx";
+import FormationItemPage from "../pages/formation/FormationItemPage.tsx";
 
 interface Route {
     path: string;
@@ -44,6 +45,14 @@ export const useRoutes = () => {
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <HomePage/>
+                </SecuredPage>
+        },
+        {
+          path:'/formation/:id',
+            name:'Formation',
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <FormationItemPage/>
                 </SecuredPage>
         },
         {

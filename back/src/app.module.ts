@@ -14,6 +14,7 @@ import { ClientModule } from './client/client.module';
 import { CommentModule } from './comment/comment.module';
 import { MissionModule } from './mission/mission.module';
 import { ArticleModule } from './article/article.module';
+import { TechnologyModule } from './technology/technology.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { ArticleModule } from './article/article.module';
     AuthenticationModule,
     MissionModule,
     CommentModule,
-    ArticleModule
+    ArticleModule,
+    TechnologyModule
   ],
   controllers: [AppController],
   providers: [

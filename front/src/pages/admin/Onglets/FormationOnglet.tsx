@@ -11,7 +11,7 @@ import {
     FormControl, useTheme
 } from "@mui/material";
 import {useEffect, useState} from "react";
-import {FormationServices} from "../../../services/FormationServices.tsx";
+import {FormationServices} from "../../../services/FormationServices.ts";
 import Loader from "../../../components/loader/Loader.tsx";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {Delete} from "@mui/icons-material";

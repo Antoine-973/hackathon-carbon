@@ -36,6 +36,7 @@ model Technology {
   id          Int         @id @default(autoincrement())
   title       String
   description String
+  image       String?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   users       User[]
@@ -153,7 +154,7 @@ model Article {
   id          Int      @id @default(autoincrement())
   title       String
   description String
-  image       String
+  image       String?
   author      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
