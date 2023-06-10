@@ -1,11 +1,11 @@
 import {Box, Container, Divider, Grid, IconButton, InputBase} from "@mui/material";
-import Selector from "../components/Selector";
+import Selector from "../../components/Selector.tsx";
 import {FilterAltOff} from "@mui/icons-material";
 import {SetStateAction, useEffect, useMemo, useState} from "react";
 import {useTheme} from "@mui/material/styles";
-import CardProfile from "../components/card/CardProfile.tsx";
-import {UserServices} from "../services/UserServices.ts";
-import Loader from "../components/loader/Loader";
+import CardProfile from "../../components/card/CardProfile.tsx";
+import {UserServices} from "../../services/UserServices.ts";
+import Loader from "../../components/loader/Loader.tsx";
 import {useNavigate} from "react-router-dom";
 
 interface Profile {
@@ -13,7 +13,7 @@ interface Profile {
     prenom: string;
     nom: string;
     email: string;
-    techno: string[];
+    technologies: string[];
     expertise: string;
     dispo: string;
     client: string;
@@ -72,7 +72,7 @@ export default function ProfileListPage() {
             if (client !== '' && profile.client !== client) {
                 return false;
             }
-            if (techno !== '' && profile.techno.indexOf(techno) === -1) {
+            if (techno !== '' && profile.technologies.indexOf(techno) === -1) {
                 return false;
             }
             if (expertise !== '' && profile.expertise !== expertise) {
@@ -91,6 +91,7 @@ export default function ProfileListPage() {
 
     useEffect(() => {
         UserServices.getUsers().then((response) => {
+
             setProfiles(response) ;
         }).finally(() => {
             setLoader(false) ;

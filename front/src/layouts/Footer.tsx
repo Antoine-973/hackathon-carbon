@@ -1,12 +1,8 @@
-import {Grid, Stack, Typography} from "@mui/material";
-import logo from "../../public/logo-blanc.png";
-import linkedin from "../../public/linkdin.png";
-import instagram from "../../public/insta.png";
-import twitter from "../../public/twitter.png";
-import m from "../../public/m.png";
+import {Grid, Typography} from "@mui/material";
 import {CardFooter} from "../components/cardFooter";
 import {useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import {Link} from "react-router-dom";
 
 export default function Footer() {
 
@@ -17,17 +13,30 @@ export default function Footer() {
             <Grid display={'flex'} spacing={4}  alignItems={'flex-start'} container sx={{backgroundColor: theme.palette.secondary.main, py:4}}>
                 <Grid item xs={12} md={3}>
                     <Box>
-                        <img src={logo} width={'75%'} style={{
-                            marginTop: 20,
-                            marginLeft: 10,
-                            marginBottom: 10,
-                        }}/>
+                        <Link to={'/'}>
+                            <img  src={"/logo-blanc.png"} width={'75%'} style={{
+                                marginTop: 20,
+                                marginLeft: 10,
+                                marginBottom: 10,
+                            }}/>
+                        </Link>
+                       
 
                         <Box display={'flex'}>
-                            <img src={linkedin} width={20} style={{marginLeft: 22}}/>
-                            <img src={instagram} width={20} style={{marginLeft: 10}}/>
-                            <img src={twitter} width={20} style={{marginLeft: 10}}/>
-                            <img src={m} width={20} style={{marginLeft: 10}}/>
+                            <a target={'_blank'} href="https://www.linkedin.com/company/carbon-it">
+                                <img src={"/linkdin.png"} width={20} style={{marginLeft: 22}}/>
+                            </a>
+                            <a target={'_blank'} href="https://www.instagram.com/carbonitparis/">
+                                <img src={"/insta.png"} width={20} style={{marginLeft: 10}}/>
+                            </a>
+                              <a target={'_blank'} href="https://twitter.com/carbonparis">
+                                <img src={"/twitter.png"} width={20} style={{marginLeft: 10}}/>
+                            </a>
+                            <a target={'_blank'} href="https://communitycarbonit.medium.com/">
+                                <img src={"/m.png"} width={20} style={{marginLeft: 10}}/>
+                            </a>
+
+
                         </Box>
                     </Box>
                 </Grid>

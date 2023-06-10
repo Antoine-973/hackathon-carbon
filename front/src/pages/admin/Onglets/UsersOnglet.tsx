@@ -1,39 +1,64 @@
-import {Box, Button, Card, Grid, TextField} from "@mui/material";
-import {useEffect} from "react";
+import {
+    Box,
+    Button,
+    Card,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField
+} from "@mui/material";
+import {useEffect, useState} from "react";
 import {UserServices} from "../../../services/UserServices";
-import * as React from "react";
 import {Clear} from "@mui/icons-material";
-import {DatePicker} from "@mui/lab";
+import Loader from "../../../components/loader/Loader.tsx";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const UsersOnglet = () => {
-    const [users, setUsers] = React.useState([])
-    const [loading, setLoading] = React.useState(true)
+    const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    const [email, setEmail] = React.useState([])
-    const [firstname, setFirstname] = React.useState([])
-    const [lastname, setLastname] = React.useState([])
-    const [password, setPassword] = React.useState([])
-    const [role, setRole] = React.useState([])
+    const [email, setEmail] = useState("")
+    const [firstname, setFirstname] = useState("")
+    const [lastname, setLastname] = useState("")
+    const [password, setPassword] = useState("")
+    const [role, setRole] = useState("")
+    const [recruitmentAt,setRecruitmentAt ] = useState(new Date)
 
     useEffect(() => {
         UserServices.getUsers().then((response) => {
             setUsers(response);
         }).finally(() => {
-            setLoading(false) ;
+            setLoading(false);
         });
     }, [])
 
     const handleSubmit = () => {
-        UserServices.createUsers({email, firstname, lastname, password, role}).then((response) => {
-            console.log(response)
+
+        UserServices.createUsers({email, firstname, lastname, password, role, recruitmentAt}).then(() => {
         }).finally(() => {
-            console.log("ok")
-            // setLoading(false) ;
+            setLoading(false) ;
         });
     }
 
+    const handleDelete = (id) => {
+        UserServices.deleteUser(id).then(() => {
+        }).finally(() => {
+            setUsers(users.filter((user) => user.id !== id))
+            setLoading(false) ;
+        });
+    }
+
+    const handleChangeSelect = (event: SelectChangeEvent) => {
+        setRole(event.target.value as string);
+        console.log(role)
+    };
+
     return (
-        loading ? <div>Loading...</div> :
+        loading ? <Loader/> :
         <Grid container direction={"row"}>
             <Grid item xs={12} md={6}>
                 <h2>Création d'un utilisateur</h2>
@@ -46,6 +71,7 @@ export const UsersOnglet = () => {
                     autoComplete="off"
                 >
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="Email"
                         name="email"
@@ -55,6 +81,7 @@ export const UsersOnglet = () => {
                         maxRows={4}
                     />
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="Prénom"
                         name="firstname"
@@ -64,6 +91,7 @@ export const UsersOnglet = () => {
                         maxRows={4}
                     />
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="Nom"
                         name="lastname"
@@ -73,6 +101,7 @@ export const UsersOnglet = () => {
                         maxRows={4}
                     />
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="password"
                         name="password"
@@ -81,15 +110,32 @@ export const UsersOnglet = () => {
                         multiline
                         maxRows={4}
                     />
-                    <TextField
-                        id="outlined-multiline-flexible"
-                        label="Rôle"
-                        name="role"
-                        onChange={(e) => setRole(e.target.value)}
-                        color="secondary"
-                        multiline
-                        maxRows={4}
-                    />
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Rôle</InputLabel>
+                        <Select
+                            required={true}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={role}
+                            label="Age"
+                            color="secondary"
+                            name="role"
+                            onChange={handleChangeSelect}
+                        >
+                            <MenuItem value={"ROLE_CONSULTANT"}>consultant</MenuItem>
+                            <MenuItem value={"ROLE_SUPPORT"}>support</MenuItem>
+                            <MenuItem value={"ROLE_ADMIN"}>admin</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Grid style={{
+                        marginBottom: 10,
+                        marginLeft:10
+                    }}>
+                        <DatePicker
+                            selected={recruitmentAt}
+                            onChange={(date) => setRecruitmentAt(date)}
+                        />
+                    </Grid>
                     <Grid style={{marginLeft:10}}>
                         <Button variant="contained" type="submit" onClick={() => handleSubmit()}>Créer</Button>
                     </Grid>
@@ -98,7 +144,10 @@ export const UsersOnglet = () => {
             <Grid item xs={12} md={6}>
                 <h2>Suppression d'un utilisateur</h2>
                 {
-                    users.length > 1 && users.map((user, key) => {
+                    users.length > 0 && users.map((user, key) => {
+                        if (user.role === "admin"){
+                            return null
+                        }
                         return (
                             <Card style={{margin:10, padding:10}} key={key}>
                                 <Grid container direction={"row"} alignItems={"center"}>
@@ -107,7 +156,12 @@ export const UsersOnglet = () => {
                                         marginLeft: 'auto',
                                         marginTop: 10,
                                     }}>
-                                        <Clear/>
+                                        <Clear
+                                            style={{
+                                                cursor: 'pointer',
+                                            }}
+                                            onClick={() => {handleDelete(user.id)}}
+                                        />
                                     </span>
                                 </Grid>
                             </Card>

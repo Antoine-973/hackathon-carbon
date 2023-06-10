@@ -1,11 +1,11 @@
 import {Box, Card, CardMedia, Container, Grid, Typography} from "@mui/material";
-import {CardEvent2} from "../components/event/CardEvent2.tsx";
+import {CardEvent2} from "../../components/event/CardEvent2.tsx";
 import {ChangeEvent, useEffect, useState} from "react";
-import SideNav from "../components/SideNav/SideNav.tsx";
+import SideNav from "../../components/SideNav/SideNav.tsx";
 import AliceCarousel from "react-alice-carousel";
-import Loader from "../components/loader/Loader.tsx";
-import FilterBar from "../components/filter/FilterBar";
-import { EvenementServices } from "../services/EvenementServices.tsx";
+import Loader from "../../components/loader/Loader.tsx";
+import FilterBar from "../../components/filter/FilterBar.tsx";
+import {EventServices} from "../../services/EventServices.ts";
 
 interface Event {
     id: number;
@@ -52,8 +52,7 @@ export const EvenementPage = () => {
 
 
     useEffect(() => {
-        EvenementServices.getEvenements().then((data) => {
-            console.log('LAAAAAAAAAA : ',data);
+        EventServices.getAllEvents().then((data) => {
             setEvenements(data);
         }).catch((error) => {
             console.log(error);
@@ -65,28 +64,15 @@ export const EvenementPage = () => {
 
     useEffect(() => {
         setCarousel(
-            evenements.map((event) => {
+            evenements.slice(0,5).map((event) => {
                 return (
-                    <>
-                        <Card sx={{marginX: 1}}>
-                            <CardMedia
-                                sx={{height: 250}}
-                                image="https://picsum.photos/250/200"
-                                title={event.title}
-                            />
-                        </Card>
-                        <Box style={{marginLeft:10, maxWidth:250}}>
-                            <Typography variant="h6" component="h2">
-                                {event.title}
-                            </Typography>
-                            <Typography color="textSecondary">
-                                {new Date(event.date).toLocaleDateString()}
-                            </Typography>
-                            <Typography variant={'p'} style={{width:'100%'}}>
-                                {event.description}
-                            </Typography>
-                        </Box>
-                    </>
+                    <CardEvent2
+                        key={event.id}
+                        id={event.id}
+                        title={event.title}
+                        description={event.description}
+                        date={new Date(event.date)}
+                    />
                 )
             })
         )
@@ -98,9 +84,7 @@ export const EvenementPage = () => {
                     <Grid container>
 
                             <SideNav links={[
-                                {name: 'Général', path: '/forum'},
-                                {name: 'Utilisateur', path: '/forum/user/:id'},
-                                {name: 'Client', path: '/forum/client/:id'},
+                                {name: 'Général', path: '/evenement'},
                             ]}/>
 
                         <Grid item xs={10}>
@@ -151,25 +135,24 @@ export const EvenementPage = () => {
                                 pb: 4
                             }}>
                                 <Typography style={{fontWeight: 'bold'}} variant={'h6'}>
-                                    Liste des formations
+                                    Liste des regroupements
                                 </Typography>
-                                <Grid container >
-                                    <Grid item style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "repeat(3, 1fr)",
-                                        gap: "10px",
-                                        gridAutoRows: "minmax(100px, auto)"
-                                    }}>
+                                <Grid container spacing={2}>
                                         {
-                                            evenements && evenements.map((evenement: Event, key) => {
+                                            evenements && evenements.map((event: Event, ) => {
                                                 return (
-                                                    <Grid key={key}>
-                                                        <CardEvent2 title={evenement.title} description={evenement.description} date={new Date(evenement.date)}/>
+                                                    <Grid item key={event.id}>
+                                                        <CardEvent2
+                                                            key={event.id}
+                                                            id={event.id}
+                                                            title={event.title}
+                                                            description={event.description}
+                                                            date={new Date(event.date)}
+                                                        />
                                                     </Grid>
                                                 )
                                             })
                                         }
-                                    </Grid>
                                 </Grid>
                             </Box>
                         </Grid>

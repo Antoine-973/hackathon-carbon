@@ -1,7 +1,7 @@
 import {Box, Card, CardMedia, Container, Grid, Typography} from "@mui/material";
 import {CardFormation} from "../../components/formation/CardFormation.tsx";
 import {ChangeEvent, useEffect, useState} from "react";
-import {FormationServices} from "../../services/FormationServices.tsx";
+import {FormationServices} from "../../services/FormationServices.ts";
 import SideNav from "../../components/SideNav/SideNav.tsx";
 import AliceCarousel from "react-alice-carousel";
 import Loader from "../../components/loader/Loader.tsx";
@@ -11,7 +11,7 @@ interface Formation {
     id: number;
     title: string;
     description: string;
-    date: string[];
+    date: Date;
     participants: Array<string>;
 }
 
@@ -63,26 +63,14 @@ export const FormationPage = () => {
 
     useEffect(() => {
         setCarousel(
-            formations.map((stage) => {
+            formations.slice(0,5).map((formation) => {
                 return (<>
-                        <Card sx={{marginX: 1}}>
-                            <CardMedia
-                                sx={{height: 250}}
-                                image="https://picsum.photos/250/200"
-                                title={stage.title}
-                            />
-                        </Card>
-                        <Box style={{marginLeft:10, maxWidth:250}}>
-                            <Typography variant="h6" component="h2">
-                                {stage.title}
-                            </Typography>
-                            <Typography color="textSecondary">
-                                {stage.date[0]}
-                            </Typography>
-                            <Typography variant={'p'} style={{width:'100%'}}>
-                                {stage.description}
-                            </Typography>
-                        </Box>
+                        <CardFormation
+                            id={formation.id}
+                            title={formation.title}
+                            description={formation.description}
+                            date={new Date(formation.date)}
+                        />
                     </>
                 )
             })
@@ -93,15 +81,11 @@ export const FormationPage = () => {
         loading ? <Loader/> :
                 <Container>
                     <Grid container>
-
-
-
                             <SideNav links={[
                                 {name: 'Général', path: '/forum'},
                                 {name: 'Utilisateur', path: '/forum/user/:id'},
                                 {name: 'Client', path: '/forum/client/:id'},
                             ]}/>
-
                         <Grid item xs={10}>
                             <FilterBar
                                 selectors={[
@@ -129,9 +113,7 @@ export const FormationPage = () => {
                                 }}
                                 handleSearchChange={handleSearchChange}
                             />
-                            {/*<Grid>*/}
-                            {/*<FilterBar selectors={''} resetFilter={} handleSearchChange={}/>*/}
-                            {/*</Grid>*/}
+
                             <Box style={{marginBottom: 40}}>
                                 <Typography style={{fontWeight: 'bold', marginBottom:10}} variant={'h6'}>
                                     Conseillé pour vous
@@ -153,22 +135,18 @@ export const FormationPage = () => {
                                     Liste des formations
                                 </Typography>
                                 <Grid container >
-                                    <Grid item style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "repeat(3, 1fr)",
-                                        gap: "10px",
-                                        gridAutoRows: "minmax(100px, auto)"
-                                    }}>
+
                                         {
                                             formations.map((formation: Formation, key) => {
                                                 return (
-                                                    <Grid key={key}>
-                                                        <CardFormation title={formation.title} description={formation.description} date={new Date()}/>
+                                                    <Grid item key={formation.id}>
+                                                        <CardFormation id={formation.id} title={formation.title} description={formation.description} date={new Date(formation.date)}/>
                                                     </Grid>
+
                                                 )
                                             })
                                         }
-                                    </Grid>
+
                                 </Grid>
                             </Box>
                         </Grid>

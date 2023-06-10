@@ -23,9 +23,15 @@ export default function SideNav ({links}: {links?: Links[]}){
                     />
                 </Box>
 
-                <Typography variant={'h4'} component={'p'} >
-                    Accueil
-                </Typography>
+               <Link style={{
+                   textDecoration: 'none',
+                   marginLeft: 12,
+                   marginTop: 8,
+                   color: theme.palette.secondary.main,
+                   fontSize: '2rem',
+               }} to={'/'} >
+                   Accueil
+               </Link>
                 {
                     links && links.length > 0 && links.map((link: Link)  => (
                         <Link  key={link.name} style={{

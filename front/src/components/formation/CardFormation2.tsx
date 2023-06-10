@@ -1,11 +1,17 @@
 import {Box, useTheme,Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-export default function CardFormation2 ({date, title, description}: {date: Date, title: string, description: string}) {
+export default function CardFormation2 ({id,date, title, description}: {id:number,date: Date, title: string, description: string}) {
 
     const theme = useTheme();
+    const navigate = useNavigate();
 
     return (
-        <Box sx={{
+        <Box
+            onClick={()=> {
+                navigate(`/formation/${id}`)
+            }}
+            sx={{
             border:'1px solid ' + theme.palette.info.main,
             borderRadius: '5px',
             minWidth: '200px',
