@@ -33,3 +33,8 @@ services:
         published: 5432
         protocol: tcp
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

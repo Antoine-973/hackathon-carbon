@@ -31,6 +31,7 @@ export class MissionService {
       return prisma.mission.findMany({
         include: {
           client: true,
+          user: true,
         },
       });
     } catch (e) {
@@ -47,6 +48,7 @@ export class MissionService {
         },
         include: {
           client: true,
+          user: true,
         },
       });
     } catch (e) {

@@ -7,6 +7,7 @@ import CardProfile from "../../components/card/CardProfile.tsx";
 import {UserServices} from "../../services/UserServices.ts";
 import Loader from "../../components/loader/Loader.tsx";
 import {useNavigate} from "react-router-dom";
+import {EXPERTISES} from "../../rooter/permissions.ts";
 
 interface Profile {
     id: number;
@@ -22,12 +23,9 @@ interface Profile {
 
 export default function ProfileListPage() {
 
-    const expertiseValues = [
-        "Argile Fragile",
-        "Terre Cuite",
-        "Céramique Etincelante",
-        "Carbon Fiber",
-    ]
+   const expertiseValues = [
+      EXPERTISES.JUNIOR, EXPERTISES.CONFIRME, EXPERTISES.SENIOR, EXPERTISES.EXPERT
+   ];
 
     const [client, setClient] = useState('');
     const [techno, setTechno] = useState('');
