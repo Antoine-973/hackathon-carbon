@@ -126,6 +126,7 @@ export default function HomePage() {
                                     return (
                                         <Grid item mr={2} mb={2} key={event?.id}>
                                             <CardEvent
+                                                id={event.id}
                                                 title={event.title}
                                                 description={event.description}
                                                 date={event.date}

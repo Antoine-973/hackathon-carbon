@@ -1,4 +1,3 @@
-import FilterBar from "../../components/filter/FilterBar.tsx";
 import {ChangeEvent, useEffect, useState} from "react";
 import {FormationServices} from "../../services/FormationServices.ts";
 import {Box, Button, Container, Divider, Grid, Stack, Typography} from "@mui/material";
@@ -14,36 +13,15 @@ interface Formation {
     date: Date;
     participants: Array<string>;
 }
-export default function FormartionItemPage() {
+export default function FormartionItemPage () {
 
     const id = useParams().id;
     const {user} = useAuthContext();
 
     const [formation, setFormation] = useState<Formation>([])
     const [loading, setLoading] = useState(true);
-    const [carousel, setCarousel] = useState({});
-
-    const [date, setDate] = useState<string[]>([]);
-    const [techno, setTechno] = useState<string[]>([]);
-    const [niveau, setNiveau] = useState<string[]>([]);
-    const [search, setSearch] = useState<string>('');
     const [participe, setParticipe] = useState<boolean>(false);
 
-    const handleDateChange = (event: ChangeEvent<{ value: unknown }>) => {
-        setDate(event.target.value as string[]);
-
-    }
-    const handleTechnoChange = (event: ChangeEvent<{ value: unknown }>) => {
-        setTechno(event.target.value as string[]);
-    }
-    const handleNiveauChange = (event: ChangeEvent<{ value: unknown }>) => {
-        setNiveau(event.target.value as string[]);
-
-    }
-
-    const handleSearchChange = (event) => {
-        setSearch(event.target.value) ;
-    }
 
     useEffect(() => {
         if(loading) {

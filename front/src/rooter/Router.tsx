@@ -4,9 +4,8 @@ import {Route, Routes} from "react-router-dom";
 import SecuredPage from "./SecuredPage.tsx";
 import {SCOPES} from "./permissions.ts";
 import ProfilePage from "../pages/profile/ProfilePage.tsx";
-import ProfileListPage from "../pages/profile/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
-import { EvenementPage } from "../pages/EvenementPage.tsx";
+import {EvenementPage} from "../pages/events/EvenementPage.tsx";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
 import ForumQuizz from "../pages/forum/ForumQuizz.tsx";
 import ForumPage from "../pages/forum/ForumPage.tsx";
@@ -15,6 +14,8 @@ import {FormationPage} from "../pages/formation/FormationPage.tsx";
 import {Dashboard} from "../pages/admin/dashboard";
 import AdminLayout from "../layouts/AdminLayout.tsx";
 import FormationItemPage from "../pages/formation/FormationItemPage.tsx";
+import EvenementItemPage from "../pages/events/EvenementItemPage.tsx";
+import ProfileListPage from "../pages/profile/ProfileListPage.tsx";
 
 interface Route {
     path: string;
@@ -28,7 +29,10 @@ export const useAdminRoute = () => {
         {
             path:'/admin/dashboard',
             name:'Dashboard',
-            element: <Dashboard/>
+            element:
+                <SecuredPage scopes={[SCOPES.SUPPORT, SCOPES.ADMIN]}>
+                    <Dashboard/>
+            </SecuredPage>
         },
     ]
     return routes.map((route: Route) => {
@@ -56,24 +60,30 @@ export const useRoutes = () => {
                 </SecuredPage>
         },
         {
-            path: "/consultant",
-            name: "Consultant",
-            element:
-                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
-                    <ProfileListPage/>
-                </SecuredPage>
-        },
-        {
             path: "/evenement",
-            name: "Evenement",
+            name: "Evenements",
             element:
                 <SecuredPage scopes={[SCOPES.CONSULTANT]}>
                     <EvenementPage/>
                 </SecuredPage>
         },
         {
-            path: "/profile/:id",
-            name: "Profile",
+            path:'/evenement/:id',
+            name:'Evenement',
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <EvenementItemPage/>
+                </SecuredPage>
+        },
+        {
+            path:'/consultant',
+            name:'Consultant',
+            element:
+                <SecuredPage scopes={[SCOPES.CONSULTANT]}>
+                    <ProfileListPage/>
+                </SecuredPage>
+        },
+        {
             path: "/consultant/:id",
             name: "User profile",
             element:
