@@ -79,7 +79,7 @@ export default function ProfileListPage() {
             if (dispo !== '' && profile.dispo !== dispo) {
                 return false;
             }
-            if (search !== '' && profile.prenom.toLowerCase().indexOf(search.toLowerCase()) === -1 && profile.nom.toLowerCase().indexOf(search.toLowerCase()) === -1) {
+            if (search !== '' && profile.firstname.toLowerCase().indexOf(search.toLowerCase()) === -1 && profile.lastname.toLowerCase().indexOf(search.toLowerCase()) === -1) {
                 return false;
             }
             return true;
