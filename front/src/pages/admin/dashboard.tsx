@@ -1,19 +1,20 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {Home, Article, People, AlternateEmail, Co2} from '@mui/icons-material';
+import {AlternateEmail, Article, Co2, Home, People} from '@mui/icons-material';
 import {UsersOnglet} from "./Onglets/UsersOnglet";
 import {DashboardOnglet} from "./Onglets/DashboardOnglet";
 import {ArticlesOnglet} from "./Onglets/ArticlesOnglet";
 import {TechnologiesOnglet} from "./Onglets/TechnologiesOnglet";
 import {CarbonpassOnglet} from "./Onglets/CarbonpassOnglet";
+import {School} from "@mui/icons-material";
+import FormationOnglet from './Onglets/FormationOnglet';
 
 const drawerWidth = 240;
 
@@ -29,6 +30,10 @@ export const Dashboard = () => {
         {
             name: 'Articles',
             icon: < Article/>
+        },
+        {
+            name : 'Evolution Carbon',
+            icon : < School/>
         },
         {
             name: 'Users',
@@ -56,6 +61,8 @@ export const Dashboard = () => {
                 return <TechnologiesOnglet/>
             case 'CarbonPass':
                 return <CarbonpassOnglet/>
+            case 'Evolution Carbon':
+                return <FormationOnglet/>
             default:
                 return <DashboardOnglet/>
         }
@@ -63,7 +70,6 @@ export const Dashboard = () => {
 
     return (
         <Box sx={{display: 'flex'}}>
-            <CssBaseline/>
             <Drawer
                 variant="permanent"
                 sx={{

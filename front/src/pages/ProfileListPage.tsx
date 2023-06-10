@@ -191,7 +191,7 @@ export default function ProfileListPage() {
                                     expertise={profile?.expertise || "Argile Fragile"}
                                     photo={"https://picsum.photos/50/50"}
                                     dispo={profile.dispo}
-                                    action={() => {navigate(`/profile/${profile.id}`)}}
+                                    action={() => {navigate(`/consultant/${profile.id}`)}}
                                     client={profile.client}
                                  />
                             </Grid>

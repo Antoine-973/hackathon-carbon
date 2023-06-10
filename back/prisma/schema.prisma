@@ -23,8 +23,13 @@ model User {
   events        Event[]
   topics        Topic[]
   comments      Comment[]
+  mentor        User?        @relation("MentorToUser", fields: [mentorId], references: [id])
+  mentorId      Int?
+  mentoredBy    User[]       @relation("MentorToUser")
+  mentoredById  Int?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+  userId        Int?
 }
 
 model Technology {
@@ -124,22 +129,20 @@ model Pass {
 }
 
 model Stage {
-  id          Int      @id @default(autoincrement())
-  position    Int
-  title       String
-  pass        Pass     @relation(fields: [passId], references: [id])
-  passId      Int
-  description String
-  rewards     Reward[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  position  Int
+  pass      Pass     @relation(fields: [passId], references: [id])
+  passId    Int
+  rewards   Reward[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Reward {
   id          Int      @id @default(autoincrement())
   title       String
-  description String
-  image       String
+  description String?
+  image       String?
   stage       Stage?   @relation(fields: [stageId], references: [id])
   stageId     Int?
   createdAt   DateTime @default(now())

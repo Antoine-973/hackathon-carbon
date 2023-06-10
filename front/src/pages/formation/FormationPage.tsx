@@ -94,6 +94,8 @@ export const FormationPage = () => {
                 <Container>
                     <Grid container>
 
+
+
                             <SideNav links={[
                                 {name: 'Général', path: '/forum'},
                                 {name: 'Utilisateur', path: '/forum/user/:id'},

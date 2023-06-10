@@ -1,7 +1,7 @@
 export const ArticlesOnglet = () => {
     return (
         <div>
-            Formations
+            Articles
         </div>
     )
 }

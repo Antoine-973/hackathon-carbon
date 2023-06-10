@@ -40,6 +40,10 @@ export class UserService {
       where: {
         id,
       },
+      include: {
+        missions: true,
+        formations: true
+      }
     });
   }
   

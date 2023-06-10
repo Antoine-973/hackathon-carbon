@@ -11,9 +11,9 @@ import NotFoundPage from "../pages/error/NotFoundPage.tsx";
 import ForumQuizz from "../pages/forum/ForumQuizz.tsx";
 import ForumPage from "../pages/forum/ForumPage.tsx";
 import {Login} from "../pages/Login";
-import FormationIndex from "../pages/formation/FormationIndex.tsx";
 import {FormationPage} from "../pages/formation/FormationPage.tsx";
 import {Dashboard} from "../pages/admin/dashboard";
+import AdminLayout from "../layouts/AdminLayout.tsx";
 
 interface Route {
     path: string;
@@ -21,7 +21,22 @@ interface Route {
     element: Element | ReactNode ;
 }
 
+export const useAdminRoute = () => {
+    const routes : Route[] = [
+
+        {
+            path:'/admin/dashboard',
+            name:'Dashboard',
+            element: <Dashboard/>
+        },
+    ]
+    return routes.map((route: Route) => {
+        return <Route key={route.name} {...route}/>
+    });
+}
+
 export const useRoutes = () => {
+
     const routes: Route[] = [
         {
             path: "/",
@@ -91,21 +106,12 @@ export const useRoutes = () => {
                 </SecuredPage>
         },
         {
-            path:'/login',
-            name:'Login',
-            element: <Login/>
-        },
-        {
-            path:'/admin/dashboard',
-            name:'Dashboard',
-            element: <Dashboard/>
-        },
-        {
             path:'*',
             name:'Not Found',
             element: <NotFoundPage/>
         }
     ] ;
+
 
     return routes.map((route: Route) => {
        return <Route key={route.name} {...route}/>
@@ -114,6 +120,7 @@ export const useRoutes = () => {
 
 export default function Router() {
    const routes = useRoutes();
+   const adminRoutes = useAdminRoute();
    return (
        <Suspense>
            <Routes>
@@ -122,6 +129,12 @@ export default function Router() {
                        routes.map(route => route)
                    }
                </Route>
+               <Route path={''} element={<AdminLayout/>}>
+                   {
+                       adminRoutes.map(route => route)
+                   }
+               </Route>
+                <Route path={'/login'} element={<Login/>}/>
            </Routes>
        </Suspense>
    )

@@ -33,6 +33,8 @@ export default function AuthProvider({children}: { children: ReactNode }) {
             setUser(response) ;
         }).catch((error) => {
             localStorage.removeItem("token");
+            if (window.location.pathname !== "/login")
+                window.location.pathname = "/login";
         });
 
     },[])
