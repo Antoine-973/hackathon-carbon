@@ -1,28 +1,29 @@
 import {Box, Button, Card, Grid, TextField} from "@mui/material";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {UserServices} from "../../../services/UserServices";
 import * as React from "react";
 import {Clear} from "@mui/icons-material";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import Loader from "../../../components/loader/Loader";
 
 export const UsersOnglet = () => {
-    const [users, setUsers] = React.useState([])
-    const [loading, setLoading] = React.useState(true)
+    const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    const [email, setEmail] = React.useState([])
-    const [firstname, setFirstname] = React.useState([])
-    const [lastname, setLastname] = React.useState([])
-    const [password, setPassword] = React.useState([])
-    const [role, setRole] = React.useState([])
-    const [recruitmentAt,setRecruitmentAt ] = React.useState(new Date)
+    const [email, setEmail] = useState([])
+    const [firstname, setFirstname] = useState([])
+    const [lastname, setLastname] = useState([])
+    const [password, setPassword] = useState([])
+    const [role, setRole] = useState([])
+    const [recruitmentAt,setRecruitmentAt ] = useState(new Date)
 
     useEffect(() => {
         UserServices.getUsers().then((response) => {
             setUsers(response);
         }).finally(() => {
-            setLoading(false) ;
+            setLoading(false);
         });
     }, [])
 
@@ -44,7 +45,7 @@ export const UsersOnglet = () => {
     }
 
     return (
-        loading ? <div>Loading...</div> :
+        loading ? <Loader/> :
         <Grid container direction={"row"}>
             <Grid item xs={12} md={6}>
                 <h2>Création d'un utilisateur</h2>
