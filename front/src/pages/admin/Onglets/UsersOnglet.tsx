@@ -1,4 +1,15 @@
-import {Box, Button, Card, Grid, TextField} from "@mui/material";
+import {
+    Box,
+    Button,
+    Card,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField
+} from "@mui/material";
 import {useEffect, useState} from "react";
 import {UserServices} from "../../../services/UserServices";
 import {Clear} from "@mui/icons-material";
@@ -6,20 +17,16 @@ import Loader from "../../../components/loader/Loader.tsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
-
 export const UsersOnglet = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const [email, setEmail] = useState([])
-    const [firstname, setFirstname] = useState([])
-    const [lastname, setLastname] = useState([])
-    const [password, setPassword] = useState([])
-    const [role, setRole] = useState([])
-
+    const [email, setEmail] = useState("")
+    const [firstname, setFirstname] = useState("")
+    const [lastname, setLastname] = useState("")
+    const [password, setPassword] = useState("")
+    const [role, setRole] = useState("")
     const [recruitmentAt,setRecruitmentAt ] = useState(new Date)
-
 
     useEffect(() => {
         UserServices.getUsers().then((response) => {
@@ -45,6 +52,11 @@ export const UsersOnglet = () => {
         });
     }
 
+    const handleChangeSelect = (event: SelectChangeEvent) => {
+        setRole(event.target.value as string);
+        console.log(role)
+    };
+
     return (
         loading ? <Loader/> :
         <Grid container direction={"row"}>
@@ -59,6 +71,7 @@ export const UsersOnglet = () => {
                     autoComplete="off"
                 >
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="Email"
                         name="email"
@@ -68,6 +81,7 @@ export const UsersOnglet = () => {
                         maxRows={4}
                     />
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="Prénom"
                         name="firstname"
@@ -77,6 +91,7 @@ export const UsersOnglet = () => {
                         maxRows={4}
                     />
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="Nom"
                         name="lastname"
@@ -86,6 +101,7 @@ export const UsersOnglet = () => {
                         maxRows={4}
                     />
                     <TextField
+                        required={true}
                         id="outlined-multiline-flexible"
                         label="password"
                         name="password"
@@ -94,15 +110,23 @@ export const UsersOnglet = () => {
                         multiline
                         maxRows={4}
                     />
-                    <TextField
-                        id="outlined-multiline-flexible"
-                        label="Rôle"
-                        name="role"
-                        onChange={(e) => setRole(e.target.value)}
-                        color="secondary"
-                        multiline
-                        maxRows={4}
-                    />
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Rôle</InputLabel>
+                        <Select
+                            required={true}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={role}
+                            label="Age"
+                            color="secondary"
+                            name="role"
+                            onChange={handleChangeSelect}
+                        >
+                            <MenuItem value={"ROLE_CONSULTANT"}>consultant</MenuItem>
+                            <MenuItem value={"ROLE_SUPPORT"}>support</MenuItem>
+                            <MenuItem value={"ROLE_ADMIN"}>admin</MenuItem>
+                        </Select>
+                    </FormControl>
                     <Grid style={{
                         marginBottom: 10,
                         marginLeft:10
