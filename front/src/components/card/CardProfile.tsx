@@ -8,16 +8,17 @@ interface Profile {
     dispo: string;
     client: string;
     photo: string;
+    description: string;
     action: () => void;
 
 }
 
-export default function CardProfile({prenom, nom, expertise, techno, photo, dispo, client, action}: Profile) {
+export default function CardProfile({prenom, nom, description, expertise, techno, photo,  client, action}: Profile) {
 
     return (
-      <Card>
-          <CardActionArea onClick={action}>
-              <CardContent>
+      <Card >
+          <CardActionArea  onClick={action}>
+              <CardContent sx={{minHeight:'100px'}}>
                   <Box display={'flex'} >
                       <img width={50} height={50} src={photo} alt="profile" />
                       <Stack mx={1}>
@@ -28,14 +29,25 @@ export default function CardProfile({prenom, nom, expertise, techno, photo, disp
                               <Chip size={'small'} color={'secondary'}  sx={{
                                     marginRight: 1
                               }} label={expertise}></Chip>
-                              <Chip size={'small'}  color={'info'} label={dispo}></Chip>
+
+                              <Chip size={'small'}  color={'info'} label={client? 'En mission': 'Disponible'}></Chip>
                           </Box>
 
                       </Stack>
                   </Box>
-                  <Typography gutterBottom variant={'caption'}>
-                      En mission chez {client}
-                  </Typography>
+
+                  {client &&
+                      <Typography gutterBottom variant={'caption'}>
+                          En mission chez {client}
+                      </Typography>
+                  }
+
+                  {description &&
+                      <Typography gutterBottom variant={'caption'}>
+                          {description}
+                      </Typography>
+                  }
+
                   <Grid container spacing={2}>
                       {
                           techno &&

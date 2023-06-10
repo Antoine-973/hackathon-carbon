@@ -53,7 +53,6 @@ export const EvenementPage = () => {
 
     useEffect(() => {
         EvenementServices.getEvenements().then((data) => {
-            console.log('LAAAAAAAAAA : ',data);
             setEvenements(data);
         }).catch((error) => {
             console.log(error);
@@ -65,7 +64,7 @@ export const EvenementPage = () => {
 
     useEffect(() => {
         setCarousel(
-            evenements.map((event) => {
+            evenements.slice(0,5).map((event) => {
                 return (
                     <>
                         <Card sx={{marginX: 1}}>
@@ -98,9 +97,7 @@ export const EvenementPage = () => {
                     <Grid container>
 
                             <SideNav links={[
-                                {name: 'Général', path: '/forum'},
-                                {name: 'Utilisateur', path: '/forum/user/:id'},
-                                {name: 'Client', path: '/forum/client/:id'},
+                                {name: 'Général', path: '/evenement'},
                             ]}/>
 
                         <Grid item xs={10}>

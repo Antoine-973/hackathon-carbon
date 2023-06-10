@@ -1,19 +1,19 @@
 import {Box, Button, Card, Grid, TextField} from "@mui/material";
-import {useEffect} from "react";
-import {UserServices} from "../../../services/UserServices";
 import * as React from "react";
+import {useEffect, useState} from "react";
+import {UserServices} from "../../../services/UserServices";
 import {Clear} from "@mui/icons-material";
-import {DatePicker} from "@mui/lab";
+import Loader from "../../../components/loader/Loader.tsx";
 
 export const UsersOnglet = () => {
-    const [users, setUsers] = React.useState([])
-    const [loading, setLoading] = React.useState(true)
+    const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    const [email, setEmail] = React.useState([])
-    const [firstname, setFirstname] = React.useState([])
-    const [lastname, setLastname] = React.useState([])
-    const [password, setPassword] = React.useState([])
-    const [role, setRole] = React.useState([])
+    const [email, setEmail] = useState([])
+    const [firstname, setFirstname] = useState([])
+    const [lastname, setLastname] = useState([])
+    const [password, setPassword] = useState([])
+    const [role, setRole] = useState([])
 
     useEffect(() => {
         UserServices.getUsers().then((response) => {
@@ -25,15 +25,14 @@ export const UsersOnglet = () => {
 
     const handleSubmit = () => {
         UserServices.createUsers({email, firstname, lastname, password, role}).then((response) => {
-            console.log(response)
+            setUsers([...users, response]);
         }).finally(() => {
-            console.log("ok")
             // setLoading(false) ;
         });
     }
 
     return (
-        loading ? <div>Loading...</div> :
+        loading ? <Loader/> :
         <Grid container direction={"row"}>
             <Grid item xs={12} md={6}>
                 <h2>Création d'un utilisateur</h2>

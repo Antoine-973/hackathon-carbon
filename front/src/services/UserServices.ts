@@ -12,7 +12,6 @@ export const UserServices = {
         }
     },
     createUsers: async (data: any) => {
-        console.log(data)
         try {
             const response = await fetch(`${ServicesBases.apiUrl}/user`, {
                 method: 'POST',

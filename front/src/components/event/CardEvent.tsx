@@ -8,8 +8,7 @@ export default function CardEvent({date,title, description}: {date: Date, title:
             sx={{
                 backgroundColor: theme.palette.info.main,
                 borderRadius: '10px',
-                minWidth: '200px',
-                width:'100%',
+                Width: '200px',
                 px:2,
                 py:2,
                 cursor: 'pointer',
@@ -24,7 +23,13 @@ export default function CardEvent({date,title, description}: {date: Date, title:
                 <Typography fontWeight={'bold'} >
                     {title}
                 </Typography>
-                <Typography>
+                <Typography sx={{
+                    textAlign: 'center',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    width: '200px',
+                }}>
                     {description}
                 </Typography>
             </Stack>
