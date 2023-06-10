@@ -66,6 +66,7 @@ export const FormationPage = () => {
             formations.slice(0,5).map((formation) => {
                 return (<>
                         <CardFormation
+
                             id={formation.id}
                             title={formation.title}
                             description={formation.description}

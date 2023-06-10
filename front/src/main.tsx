@@ -38,7 +38,7 @@ const theme = createTheme({
             'Roboto',
             'sans-serif',
         ].join(','),
-    }
+    },
 });
 
 interface Props {

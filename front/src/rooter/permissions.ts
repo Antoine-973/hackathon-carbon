@@ -17,6 +17,13 @@ export const PERMISSIONS = {
     null: []
 };
 
+export const EXPERTISES = {
+    JUNIOR: 'Argile Fragile',
+    CONFIRME: 'Terre Cuite',
+    SENIOR: 'Céramique Etincelante',
+    EXPERT: 'Carbon Poli'
+}
+
 interface User {
     role: string;
 }

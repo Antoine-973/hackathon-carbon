@@ -1,7 +1,7 @@
 import {Box, Button, Container, Grid, Stack} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import SideNav from "../../components/SideNav/SideNav";
-import {SetStateAction, useEffect, useState} from "react";
+import {SetStateAction, useEffect, useMemo, useState} from "react";
 import FilterBar from "../../components/filter/FilterBar";
 import CardForum from "../../components/card/CardForum";
 import {ForumServices} from "../../services/ForumServices.ts";
@@ -9,20 +9,28 @@ import { useModalContext } from "../../providers/ModalProvider";
 import NewForum from "../../components/forms/forum/NewForum.tsx";
 import {useNavigate} from "react-router-dom";
 import Loader from "../../components/loader/Loader";
+import {ClientServices} from "../../services/ClientServices.ts";
+import {useAuthContext} from "../../providers/AuthProvider.tsx";
+import {ROLES} from "../../rooter/permissions.ts";
 
 export default function () {
 
-    const [date,setDate] = useState('');
+    const [client,setClient] = useState('');
+    const [clientsSearch,setClientsSearch] = useState('') ; // liste des clients pour la recherche [id, nom
     const [techno,setTechno] = useState('');
     const [tag,setTag] = useState('');
     const [search,setSearch] = useState('');
+    const [forums, setForums] = useState() ;
+    const [clients, setClients] = useState() ;
+    const [loading, setLoading] = useState(true) ;
 
     const navigate = useNavigate() ;
-
+    const {user} = useAuthContext() ;
     const {openModal} = useModalContext() ;
+    const theme = useTheme() ;
 
-    const handleDateChange = (event: { target: { value: SetStateAction<undefined>; }; }) => {
-        setDate(event.target.value);
+    const handleClientChange = (event: { target: { value: SetStateAction<undefined>; }; }) => {
+        setClient(event.target.value);
     }
     const handleTechnoChange = (event: { target: { value: SetStateAction<undefined>; }; }) => {
         setTechno(event.target.value);
@@ -34,29 +42,53 @@ export default function () {
         setSearch(event.target.value);
     }
 
-
-
-    const theme = useTheme() ;
-    const [forums, setForums] = useState() ;
-    const [loading, setLoading] = useState(true) ;
-
     useEffect(() => {
 
-        const getForums = async () => {
-            try {
-                const res = await ForumServices.getAllForums() ;
-                setForums(res) ;
-                setLoading(false) ;
-            } catch (err) {
-                return err ;
-                setLoading(false) ;
-            }
-        }
+       Promise.all([
+           ForumServices.getAllForums(),
+           ClientServices.getAllClients()
+        ]).then(([forumData, clientData]) => {
+            // suppression des forums dont le client n'est pas le client du user connecté
+            forumData = forumData.filter((forum) => {
+                if(user.role === ROLES.ADMIN)
+                    return true ;
+                if (forum.clientId === null)
+                    return true ;
+                const clients = user.missions.map((mission) => mission.clientId) ;
+                return clients.includes(forum.clientId) ;
+            });
 
-        getForums() ;
+            setForums(forumData);
+            const clientsSearch = clientData.map((client) => {
+                return client.title ;
+            }) ;
+            setClientsSearch(clientsSearch) ;
+            setClients(clientData);
+        }).finally(() => {
+           setLoading(false);
+       });
+
+    },[]) ;
 
 
-    },[])
+    const data = useMemo(() => {
+
+        if (client === '' && techno === '' && tag === '' && search === '')
+            return forums ;
+
+        return forums.filter((forum) => {
+
+            if (client !== '' && forum?.client?.title !== client)
+                return false ;
+            if (techno !== '' && forum.techno !== techno)
+                return false ;
+            if (tag !== '' && forum.tag !== tag)
+                return false ;
+            return !(search !== '' && forum.title.toLowerCase().indexOf(search.toLowerCase()) === -1);
+
+        });
+
+    },[client, techno, tag, search, forums]) ;
 
     return (
         loading ? <Loader/> :
@@ -71,10 +103,10 @@ export default function () {
                     <FilterBar
                         selectors={[
                             {
-                                title: 'Date',
-                                value: date,
-                                values: ['Date 1', 'Date 2', 'Date 3'],
-                                handleChange: handleDateChange
+                                title: 'Client',
+                                value: client,
+                                values: clientsSearch,
+                                handleChange: handleClientChange
                             },
                             {
                                 title: 'Techno',
@@ -90,7 +122,7 @@ export default function () {
                             }
                         ]}
                         resetFilter={() => {
-                            setDate('');
+                            setClient('');
                             setTechno('');
                             setTag('');
                         }}
@@ -101,7 +133,7 @@ export default function () {
                             openModal({
                                 title: 'Demander un carbon',
                                 content:
-                                   <NewForum forums={forums}/>
+                                   <NewForum clients={clients} forums={forums}/>
                                 })
                             }
                         }
@@ -109,9 +141,10 @@ export default function () {
                     </Box>
                     <Stack sx={{my:2}}>
                         {
-                            forums &&  forums.length > 0 && forums.map((forum: any) => {
+                            data &&  data.length > 0 && data.map((forum: any) => {
                                 return (
                                     <CardForum
+                                        client={forum.client}
                                         key={forum.id}
                                         title={forum.title}
                                         createdAt={new Date(forum.createdAt)}

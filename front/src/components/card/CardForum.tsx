@@ -6,8 +6,14 @@ interface Forum {
     createdAt: Date;
     repondu: boolean;
     action: Function;
+    client: Client;
 }
-export default function CardForum({title,   author, createdAt, repondu, action}: Forum) {
+interface Client {
+    title: string;
+    description: string;
+    id: number;
+}
+export default function CardForum({title,  client,  author, createdAt, repondu, action}: Forum) {
 
 
     return (
@@ -25,7 +31,7 @@ export default function CardForum({title,   author, createdAt, repondu, action}:
                             {title}
                         </Typography>
 
-                        <Box mt={2} display={'flex'} justifyContent={'space-between'}>
+                        <Box mt={2} display={'flex'} justifyContent={'flex-end'}>
                             <Box display={'flex'}>
                                 {
                                     repondu &&
@@ -37,6 +43,12 @@ export default function CardForum({title,   author, createdAt, repondu, action}:
                                     />
                                 }
                             </Box>
+                            {
+                                client &&
+                                <Typography sx={{mr:2, fontWeight: 'bold'}} variant={'caption'} >
+                                   Client - {client?.title}
+                                </Typography>
+                            }
                             <Typography variant={'caption'} >
                                 {author?.firstname} {author?.lastname} - déposé le { createdAt && createdAt?.toLocaleDateString()}
                             </Typography>
