@@ -15,12 +15,13 @@ import {TechnologiesOnglet} from "./Onglets/TechnologiesOnglet";
 import {CarbonpassOnglet} from "./Onglets/CarbonpassOnglet";
 import {School} from "@mui/icons-material";
 import FormationOnglet from './Onglets/FormationOnglet';
+import {useState} from "react";
 
 const drawerWidth = 240;
 
 export const Dashboard = () => {
 
-    const [onglet, setOnglet] = React.useState('Dashboard')
+    const [onglet, setOnglet] = useState('Dashboard')
 
     const links = [
         {
