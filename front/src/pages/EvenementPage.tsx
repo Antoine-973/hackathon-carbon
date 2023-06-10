@@ -1,143 +1,179 @@
-import { Box, Container, Typography } from "@mui/material";
-import { Grid } from "@mui/material";
-import {CircularStatic} from '../components/assets/progressBar';
-import { useEffect, useState } from "react";
-import {FormationServices} from "../services/FormationServices";
-import {ArticlesServices} from "../services/ArticlesServices";
-import { EvenementServices } from "../services/EvenementServices";
+import {Box, Card, CardMedia, Container, Grid, Typography} from "@mui/material";
+import {CardEvent2} from "../components/event/CardEvent2.tsx";
+import {ChangeEvent, useEffect, useState} from "react";
+import SideNav from "../components/SideNav/SideNav.tsx";
+import AliceCarousel from "react-alice-carousel";
+import Loader from "../components/loader/Loader.tsx";
+import FilterBar from "../components/filter/FilterBar";
+import { EvenementServices } from "../services/EvenementServices.tsx";
 
 interface Event {
+    id: number;
     title: string;
     description: string;
-    date: string;
+    date: string[];
 }
 
-export default function EvenementPage() {
 
-    const [formations, setFormations] = useState([]);
-    const [evenements, setEvenements] = useState<Event[]>([]);
+const responsive = {
+    0: {items: 1},
+    568: {items: 2},
+    1024: {items: 3},
+};
+
+export const EvenementPage = () => {
+
+
+
+    const [evenements, setEvenements] = useState<Event[]>([])
     const [loading, setLoading] = useState(true);
+    const [carousel, setCarousel] = useState({});
+
+    const [date, setDate] = useState<string[]>([]);
+    const [techno, setTechno] = useState<string[]>([]);
+    const [niveau, setNiveau] = useState<string[]>([]);
+    const [search, setSearch] = useState<string>('');
+
+    const handleDateChange = (event: ChangeEvent<{ value: unknown }>) => {
+        setDate(event.target.value as string[]);
+
+    }
+    const handleTechnoChange = (event: ChangeEvent<{ value: unknown }>) => {
+        setTechno(event.target.value as string[]);
+    }
+    const handleNiveauChange = (event: ChangeEvent<{ value: unknown }>) => {
+        setNiveau(event.target.value as string[]);
+
+    }
+
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value) ;
+    }
 
 
     useEffect(() => {
-        FormationServices.getFormations().then((data) => {
-            setFormations(data);
-        }).finally(() => {
-            setLoading(false);
-        });
-
         EvenementServices.getEvenements().then((data) => {
+            console.log('LAAAAAAAAAA : ',data);
             setEvenements(data);
+        }).catch((error) => {
+            console.log(error);
         }).finally(() => {
             setLoading(false);
-        });
-    },[])
+        }
+        );
+    }, [])
 
+    useEffect(() => {
+        setCarousel(
+            evenements.map((stage) => {
+                return (
+                    <>
+                        <Card sx={{marginX: 1}}>
+                            <CardMedia
+                                sx={{height: 250}}
+                                image="https://picsum.photos/250/200"
+                                title={stage.title}
+                            />
+                        </Card>
+                        <Box style={{marginLeft:10, maxWidth:250}}>
+                            <Typography variant="h6" component="h2">
+                                {stage.title}
+                            </Typography>
+                            <Typography color="textSecondary">
+                                {stage.date[0]}
+                            </Typography>
+                            <Typography variant={'p'} style={{width:'100%'}}>
+                                {stage.description}
+                            </Typography>
+                        </Box>
+                    </>
+                )
+            })
+        )
 
-return (
-    loading ? <div>Chargement...</div> :
-    <>
-        <Grid container spacing={2} style={{marginTop: 100}}>
-                    <Grid sx={{
-                        width: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'spawce-between',
-                        alignItems: 'center',
-                    }}>
-                        <CircularStatic level={10}/>    
+    }, [evenements])
+    return (
+        loading ? <Loader/> :
+                <Container>
+                    <Grid container>
+
+                            <SideNav links={[
+                                {name: 'Général', path: '/forum'},
+                                {name: 'Utilisateur', path: '/forum/user/:id'},
+                                {name: 'Client', path: '/forum/client/:id'},
+                            ]}/>
+
+                        <Grid item xs={10}>
+                            <FilterBar
+                                selectors={[
+                                    {
+                                        title: 'Date',
+                                        value: date,
+                                        values: ['Date 1', 'Date 2', 'Date 3'],
+                                        handleChange: handleDateChange
+                                    }, {
+                                        title: 'Techno',
+                                        value: techno,
+                                        values: ['Techno 1', 'Techno 2', 'Techno 3'],
+                                        handleChange: handleTechnoChange
+                                    }, {
+                                        title: 'Niveau',
+                                        value: niveau,
+                                        values: ['Niveau 1', 'Niveau 2', 'Niveau 3'],
+                                        handleChange: handleNiveauChange
+                                    }
+                                ]}
+                                resetFilter={() => {
+                                    setDate('');
+                                    setTechno('');
+                                    setNiveau('');
+                                }}
+                                handleSearchChange={handleSearchChange}
+                            />
+                            {/*<Grid>*/}
+                            {/*<FilterBar selectors={''} resetFilter={} handleSearchChange={}/>*/}
+                            {/*</Grid>*/}
+                            <Box style={{marginBottom: 40}}>
+                                <Typography style={{fontWeight: 'bold', marginBottom:10}} variant={'h6'}>
+                                    Conseillé pour vous
+                                </Typography>
+                                <AliceCarousel
+                                    mouseTracking
+                                    items={carousel}
+                                    responsive={responsive}
+                                    controlsStrategy="default"
+                                />
+                            </Box>
+                            <Box style={{justifyContent: 'center', display: 'flex'}}>
+                                <hr style={{width: '60%'}}/>
+                            </Box>
+                            <Box sx={{
+                                pb: 4
+                            }}>
+                                <Typography style={{fontWeight: 'bold'}} variant={'h6'}>
+                                    Liste des formations
+                                </Typography>
+                                <Grid container >
+                                    <Grid item style={{
+                                        display: "grid",
+                                        gridTemplateColumns: "repeat(3, 1fr)",
+                                        gap: "10px",
+                                        gridAutoRows: "minmax(100px, auto)"
+                                    }}>
+                                        {
+                                            Array.isArray(evenements) && evenements.map((formation: Event, key) => {
+                                                return (
+                                                    <Grid key={key}>
+                                                        <CardEvent2 title={formation.title} description={formation.description} date={new Date()}/>
+                                                    </Grid>
+                                                )
+                                            })
+                                        }
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </Grid>
                     </Grid>
-                    <Grid sx={{
-                marginTop: 10,
-                width: '100%',
-                height: '47vh',
-                display: 'flex',
-                backgroundImage: 'url(https://picsum.photos/1920/1080)',
-                backgroundSize: 'cover',
-                position: 'relative',
-            }}>
-                <Box sx={{
-                    position: 'absolute',
-                    bottom: '10%',
-                    left: '5%',
-                    padding: 2,
-                    borderRadius: 10,
-                    width: '50vw',
-                    height: 'fit-content',
-                    backgroundColor: "rgba(255, 255, 255, 0.3)",
-                }}>
-
-                    <Typography
-                        variant={'h4'}
-                        style={{
-                            color: '#000000',
-                            fontWeight: 'bold',
-                        }}>
-                        Séminaire de rentrée
-                    </Typography>
-                    <Typography variant={'p'} sx={{
-                        color: '#000000',
-                    }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed
-                    </Typography>
-                </Box>
-            </Grid>
-            <Container>
-                x
-                {
-                Array.isArray(evenements) && evenements.map((evenement: Event,key) => {
-                    //condition key pair ou impair 
-                    const isEven = key % 2 === 0;
-                    return(
-
-                        <Grid key={key} container sx={{ marginY: 10, width: '100%' }} direction={'row'}>
-            {isEven ? (
-                <>
-                    <Grid item sm={12} md={5}>
-                        <img src={"https://picsum.photos/1920/1080"} width={300} height={300} />
-                    </Grid>
-                    <Grid item xs={0} md={1}></Grid>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant={'h5'} sx={{ color: '#282C2B', fontWeight: 'bold', textAlign: 'left' }}>
-                            Informations & technologies
-                        </Typography>
-                        <Typography variant={'h6'} sx={{ color: '#282C2B', textAlign: 'left' }}>
-                            {evenement.title}
-                        </Typography>
-                        <Typography align={'justify'} sx={{ textAlign: 'left', marginBottom: '10' }}>
-                            {evenement.description}
-                        </Typography>
-                    </Grid>
-                </>
-            ) : (
-                <>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant={'h5'} sx={{ color: '#282C2B', fontWeight: 'bold', textAlign: 'right' }}>
-                            Informations & technologies
-                        </Typography>
-                        <Typography variant={'h6'} sx={{ color: '#282C2B', textAlign: 'right' }}>
-                            {evenement.title}
-                        </Typography>
-                        <Typography align={'justify'} sx={{ textAlign: 'right', marginBottom: '10' }}>
-                            {evenement.description}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={0} md={1}></Grid>
-                    <Grid item sm={12} md={5}>
-                        <img src={"https://picsum.photos/1920/1080"} width={300} height={300} />
-                    </Grid>
-                </>
-            )}
-        </Grid>
-                    )
-                })
-                }
-
-
-            </Container>
-        </Grid>        
-
-    </>
-)
-
+                </Container>
+    )
 }

@@ -9,10 +9,15 @@ export const EvenementServices = {
                     'Content-Type': 'application/json',
                 },
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             return await response.json();
         } catch (error) {
-            return error ;
+            console.log(error);
+            throw error; 
         }
-
     }
 }

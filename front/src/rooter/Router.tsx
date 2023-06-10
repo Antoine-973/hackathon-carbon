@@ -6,7 +6,7 @@ import {SCOPES} from "./permissions.ts";
 import ProfilePage from "../pages/ProfilePage.tsx";
 import ProfileListPage from "../pages/ProfileListPage.tsx";
 import AppLayout from "../layouts/AppLayout";
-import EvenementPage from "../pages/EvenementPage.tsx";
+import { EvenementPage } from "../pages/EvenementPage.tsx";
 import NotFoundPage from "../pages/error/NotFoundPage.tsx";
 import ForumQuizz from "../pages/forum/ForumQuizz.tsx";
 import ForumPage from "../pages/forum/ForumPage.tsx";
