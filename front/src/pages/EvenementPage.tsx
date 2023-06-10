@@ -11,7 +11,7 @@ interface Event {
     id: number;
     title: string;
     description: string;
-    date: string[];
+    date: string;
 }
 
 
@@ -65,25 +65,25 @@ export const EvenementPage = () => {
 
     useEffect(() => {
         setCarousel(
-            evenements.map((stage) => {
+            evenements.map((event) => {
                 return (
                     <>
                         <Card sx={{marginX: 1}}>
                             <CardMedia
                                 sx={{height: 250}}
                                 image="https://picsum.photos/250/200"
-                                title={stage.title}
+                                title={event.title}
                             />
                         </Card>
                         <Box style={{marginLeft:10, maxWidth:250}}>
                             <Typography variant="h6" component="h2">
-                                {stage.title}
+                                {event.title}
                             </Typography>
                             <Typography color="textSecondary">
-                                {stage.date[0]}
+                                {new Date(event.date).toLocaleDateString()}
                             </Typography>
                             <Typography variant={'p'} style={{width:'100%'}}>
-                                {stage.description}
+                                {event.description}
                             </Typography>
                         </Box>
                     </>
@@ -161,10 +161,10 @@ export const EvenementPage = () => {
                                         gridAutoRows: "minmax(100px, auto)"
                                     }}>
                                         {
-                                            Array.isArray(evenements) && evenements.map((formation: Event, key) => {
+                                            evenements && evenements.map((evenement: Event, key) => {
                                                 return (
                                                     <Grid key={key}>
-                                                        <CardEvent2 title={formation.title} description={formation.description} date={new Date()}/>
+                                                        <CardEvent2 title={evenement.title} description={evenement.description} date={new Date(evenement.date)}/>
                                                     </Grid>
                                                 )
                                             })
