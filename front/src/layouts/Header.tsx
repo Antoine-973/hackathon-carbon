@@ -144,7 +144,7 @@ export default function Header(props: Props)  {
                                         })
                                     }
                                     {
-                                        user && user.role && user.role === ROLES.ADMIN || user && user.role && user.role === ROLES.SUPPORT &&
+                                        user && user.role && (user.role === ROLES.ADMIN ||  user.role === ROLES.SUPPORT) &&
                                         <NavLink
                                             className={({ isActive, isPending }: Link) =>
                                                 isPending ? "" : isActive ? styles.active : ""
@@ -219,7 +219,7 @@ export default function Header(props: Props)  {
                         </ListItem>
                     ))}
                     {
-                        user && user.role && user.role === ROLES.ADMIN || user && user.role && user.role === ROLES.SUPPORT &&
+                        user &&  user.role && (user.role === ROLES.ADMIN ||  user.role === ROLES.SUPPORT)  &&
                         <ListItem disablePadding >
                             <ListItemButton onClick={() => {
                                 navigate('/admin/dashboard')
