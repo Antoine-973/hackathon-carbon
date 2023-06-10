@@ -1,7 +1,7 @@
 import {Box, Card, CardMedia, Container, Grid, Typography} from "@mui/material";
 import {CardFormation} from "../../components/formation/CardFormation.tsx";
 import {ChangeEvent, useEffect, useState} from "react";
-import {FormationServices} from "../../services/FormationServices.tsx";
+import {FormationServices} from "../../services/FormationServices.ts";
 import SideNav from "../../components/SideNav/SideNav.tsx";
 import AliceCarousel from "react-alice-carousel";
 import Loader from "../../components/loader/Loader.tsx";
@@ -66,6 +66,7 @@ export const FormationPage = () => {
             formations.slice(0,5).map((formation) => {
                 return (<>
                         <CardFormation
+                            id={formation.id}
                             title={formation.title}
                             description={formation.description}
                             date={new Date(formation.date)}
@@ -134,22 +135,18 @@ export const FormationPage = () => {
                                     Liste des formations
                                 </Typography>
                                 <Grid container >
-                                    <Grid item style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "repeat(3, 1fr)",
-                                        gap: "10px",
-                                        gridAutoRows: "minmax(100px, auto)"
-                                    }}>
+
                                         {
                                             formations.map((formation: Formation, key) => {
                                                 return (
-                                                    <Grid key={key}>
-                                                        <CardFormation title={formation.title} description={formation.description} date={new Date(formation.date)}/>
+                                                    <Grid item key={formation.id}>
+                                                        <CardFormation id={formation.id} title={formation.title} description={formation.description} date={new Date(formation.date)}/>
                                                     </Grid>
+
                                                 )
                                             })
                                         }
-                                    </Grid>
+
                                 </Grid>
                             </Box>
                         </Grid>

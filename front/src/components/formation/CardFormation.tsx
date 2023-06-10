@@ -1,24 +1,44 @@
-import {Card, CardContent, Grid, Typography} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardHeader, CardMedia, Grid, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 interface Formation {
     title: string;
     description: string;
     date: Date;
+    id: number;
 }
 
-export const CardFormation = ({title, date, description}: Formation) => {
+export const CardFormation = ({id, title, date, description}: Formation) => {
+
+    const navigate = useNavigate();
+
     return (
-        <Grid style={{margin:20}}>
-            <img src={"https://picsum.photos/250/200"}/>
-            <Typography variant="h6" component="h2">
-                {title}
-            </Typography>
-            <Typography color="textSecondary">
-                {date.toLocaleDateString()}
-            </Typography>
-            <Typography variant={'p'} style={{width:'100%'}}>
-                {description}
-            </Typography>
-        </Grid>
+        <Card sx={{m:2}}>
+            <CardActionArea sx={{
+            }} onClick={() => {
+                navigate(`/formation/${id}`)
+            }}>
+                <CardHeader
+                    title={title}
+                />
+                <CardMedia
+                    component="img"
+                    height={100}
+                    width={250}
+                    image="https://picsum.photos/200/100"
+                />
+                <CardContent>
+
+                    <Typography color="textSecondary">
+                        {date.toLocaleDateString()}
+                    </Typography>
+                    <Typography  style={{width:'100%'}}>
+                        {description}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+
+        </Card>
+
     );
 }

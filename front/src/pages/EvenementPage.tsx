@@ -148,7 +148,7 @@ export const EvenementPage = () => {
                                 pb: 4
                             }}>
                                 <Typography style={{fontWeight: 'bold'}} variant={'h6'}>
-                                    Liste des formations
+                                    Liste des regroupements
                                 </Typography>
                                 <Grid container >
                                     <Grid item style={{

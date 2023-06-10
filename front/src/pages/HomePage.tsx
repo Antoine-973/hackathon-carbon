@@ -1,7 +1,7 @@
 import {RewardCard} from '../components/assets/rewardCard';
 import {Container, Grid, Stack, Typography,Box} from "@mui/material";
 import {useEffect, useState} from "react";
-import {FormationServices} from "../services/FormationServices";
+import {FormationServices} from "../services/FormationServices.ts";
 import {ArticlesServices} from "../services/ArticlesServices";
 import Loader from "../components/loader/Loader.tsx";
 import MonCarbonCard from '../components/card/MonCarbonCard';
@@ -156,6 +156,7 @@ export default function HomePage() {
                                     return (
                                         <Grid item mr={2} mb={2} key={formation.id}>
                                             <CardFormation2
+                                                id={formation?.id}
                                                 title={formation?.title}
                                                 description={formation?.description}
                                                 date={new Date(formation?.date)}
