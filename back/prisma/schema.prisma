@@ -25,8 +25,8 @@ model User {
   comments      Comment[]
   mentor        User?        @relation("MentorToUser", fields: [mentorId], references: [id])
   mentorId      Int?
-  mentoredBy    User[]       @relation("MentorToUser")
-  mentoredById  Int?
+  students      User[]       @relation("MentorToUser")
+  studentsId    Int?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   userId        Int?

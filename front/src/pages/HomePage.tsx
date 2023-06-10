@@ -1,5 +1,5 @@
 import {RewardCard} from '../components/assets/rewardCard';
-import {Container, Grid, Stack, Typography} from "@mui/material";
+import {Container, Grid, Stack, Typography,Box} from "@mui/material";
 import {useEffect, useState} from "react";
 import {FormationServices} from "../services/FormationServices";
 import {ArticlesServices} from "../services/ArticlesServices";
@@ -12,13 +12,15 @@ import CardForum from "../components/card/CardForum.tsx";
 import { useAuthContext } from '../providers/AuthProvider';
 import { EventServices } from '../services/EventServices';
 import { ForumServices } from '../services/ForumServices';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {useTheme} from "@mui/material/styles";
 
 
 export default function HomePage() {
 
     const {user} = useAuthContext();
     const navigate = useNavigate();
+    const theme = useTheme();
 
     const [formations, setFormations] = useState([]);
     const [article, setArticle] = useState({});
@@ -28,30 +30,17 @@ export default function HomePage() {
 
     useEffect(() => {
 
-        FormationServices.getFormations().then((data) => {
-            setFormations(data);
-        }).finally(() => {
-            setLoading(false);
-        });
+        Promise.all([
+            FormationServices.getFormations(),
+            ArticlesServices.getLast(),
+            ForumServices.getAllForums(),
+            EventServices.getAllEvents()
 
-        ArticlesServices.getLast().then((data) => {
-            setArticle(data);
-        }).finally(() => {
-            setLoading(false);
-        });
-
-        ForumServices.getAllForums().then((data) => {
-            const forums = [
-                data[0],data[1],data[2]
-            ]
-            setForums(forums);
-
-        }).finally(() => {
-            setLoading(false);
-        });
-
-        EventServices.getAllEvents().then((data) => {
-            setEvents(data);
+        ]).then(([formationsData, articleData, forumsData, eventsData]) => {
+            setFormations(formationsData.slice(0, 4));
+            setArticle(articleData);
+            setForums(forumsData.slice(0, 3));
+            setEvents(eventsData.slice(0, 4));
         }).finally(() => {
             setLoading(false);
         });
@@ -146,6 +135,13 @@ export default function HomePage() {
                                 }) : <Typography>Aucun événement à venir</Typography>
                             }
                         </Grid>
+                        { events && events.length > 0 &&
+                            <Link style={{
+                                textDecoration: 'none',
+                                fontWeight: 'bold',
+                                color: theme.palette.info.main
+                            }} to={'/evenement'}>Voir tous les regroupements carbon</Link>
+                        }
                     </Stack>
                 </Grid>
                 <Grid mb={4} item xs={6}>
@@ -172,21 +168,27 @@ export default function HomePage() {
                                     </Typography>
                             }
                         </Grid>
+                        { formations && formations.length > 0 &&
+                            <Link style={{
+                                textDecoration: 'none',
+                                fontWeight: 'bold',
+                                color: theme.palette.info.main
+                            }} to={'/formation'}>Voir toutes les évolutions carbon</Link>
+                        }
                     </Stack>
                 </Grid>
                 <Grid item xs={12} >
-                    <Stack>
+                    <Stack sx={{mb:8}}>
                         <Typography sx={{paddingBottom:2}}>
                             Carbon Overflow
                         </Typography>
-                        <Grid item container spaing={2} >
+                        <Grid item container  >
                             {
                                 forums && forums.length > 0 ? forums.map((forum) => {
                                     return (
-                                        <Grid item mr={2} m={2} key={forum?.id}>
+                                        <Grid item mr={2}  key={forum?.id}>
                                             <CardForum
                                                 title={forum?.title}
-                                                description={forum?.content}
                                                 author={forum?.createdBy}
                                                 repondu={forum?.repondu}
                                                 createdAt={new Date(forum?.createdAt)}
@@ -196,11 +198,31 @@ export default function HomePage() {
                                             />
                                         </Grid>
                                     )
-                                }) : <Typography>
-                                    prochainement
-                                </Typography>
+                                }) :
+                                    <Stack>
+                                        <Typography>
+                                            Aucun carbon overflow pour le moment.
+                                        </Typography>
+                                        <Link style={{
+                                            textDecoration: 'none',
+                                            fontWeight: 'bold',
+                                            color: theme.palette.info.main
+                                        }} to={'/forum'}>
+                                            Créer un carbon overflow
+                                        </Link>
+                                    </Stack>
+
                             }
                         </Grid>
+                        {
+                            forums && forums.length > 0 &&
+                            <Link style={{
+                                textDecoration: 'none',
+                                fontWeight: 'bold',
+                                color: theme.palette.info.main
+                            }} to={'/forum'}>Voir tous les carbon overflow</Link>
+
+                        }
                     </Stack>
                 </Grid>
             </Grid>

@@ -5,5 +5,24 @@ Remplacer les .env.example par des .env et les remplir
 docker compose up -d
 ````
 
-Voir le ReadME dans le dossier front pour lancer le front
-Voir le ReadME dans le dossier back pour lancer le back
+### BACK
+```bash
+docker compose exec back npm i
+```
+```bash
+docker compose exec back npx prisma migrate dev
+```
+```bash
+docker compose exec back npx prisma generate
+```
+```bash
+docker compose exec back npm run start:dev
+```
+
+### FRONT 
+```bash
+docker compose exec front npm i
+```
+```bash
+docker compose exec front npm run dev
+```

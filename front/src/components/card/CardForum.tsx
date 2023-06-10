@@ -2,19 +2,20 @@ import {Box, Card, CardActionArea, CardContent, Chip, Stack, Typography, useThem
 
 interface Forum {
     title: string;
-    description: string;
     author: string;
     createdAt: Date;
     repondu: boolean;
     action: Function;
 }
-export default function CardForum({title, description,  author, createdAt, repondu, action}: Forum) {
+export default function CardForum({title,   author, createdAt, repondu, action}: Forum) {
 
 
     return (
         <Card sx={{
+            minWidth:'300px',
             width: '100%',
-            mb:4,
+            height: '100px',
+            mb:2,
             background: "linear-gradient(150deg, rgba(255,255,255,1) 0%, rgba(40,44,43,0.5) 100%)"
         }}>
             <CardActionArea onClick={() =>action()}>
@@ -23,8 +24,7 @@ export default function CardForum({title, description,  author, createdAt, repon
                         <Typography variant={'h5'} component={'h2'}>
                             {title}
                         </Typography>
-                        <span dangerouslySetInnerHTML={{__html: description}}>
-                        </span>
+
                         <Box mt={2} display={'flex'} justifyContent={'space-between'}>
                             <Box display={'flex'}>
                                 {
@@ -37,7 +37,7 @@ export default function CardForum({title, description,  author, createdAt, repon
                                     />
                                 }
                             </Box>
-                            <Typography >
+                            <Typography variant={'caption'} >
                                 {author?.firstname} {author?.lastname} - déposé le { createdAt && createdAt?.toLocaleDateString()}
                             </Typography>
                         </Box>

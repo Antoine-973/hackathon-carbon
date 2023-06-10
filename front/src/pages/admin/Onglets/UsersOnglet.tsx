@@ -12,21 +12,19 @@ import {
 } from "@mui/material";
 import {useEffect, useState} from "react";
 import {UserServices} from "../../../services/UserServices";
-import * as React from "react";
 import {Clear} from "@mui/icons-material";
+import Loader from "../../../components/loader/Loader.tsx";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
-import Loader from "../../../components/loader/Loader";
 
 export const UsersOnglet = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const [email, setEmail] = useState([])
-    const [firstname, setFirstname] = useState([])
-    const [lastname, setLastname] = useState([])
-    const [password, setPassword] = useState([])
+    const [email, setEmail] = useState("")
+    const [firstname, setFirstname] = useState("")
+    const [lastname, setLastname] = useState("")
+    const [password, setPassword] = useState("")
     const [role, setRole] = useState("")
     const [recruitmentAt,setRecruitmentAt ] = useState(new Date)
 
@@ -39,16 +37,15 @@ export const UsersOnglet = () => {
     }, [])
 
     const handleSubmit = () => {
-        UserServices.createUsers({email, firstname, lastname, password, role, recruitmentAt}).then((response) => {
-            console.log(response)
+
+        UserServices.createUsers({email, firstname, lastname, password, role, recruitmentAt}).then(() => {
         }).finally(() => {
             setLoading(false) ;
         });
     }
 
     const handleDelete = (id) => {
-        UserServices.deleteUser(id).then((response) => {
-            console.log(response)
+        UserServices.deleteUser(id).then(() => {
         }).finally(() => {
             setUsers(users.filter((user) => user.id !== id))
             setLoading(false) ;

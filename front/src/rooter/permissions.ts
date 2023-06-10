@@ -1,13 +1,13 @@
 export const ROLES = {
-    ADMIN: "admin",
-    SUPPORT: "support",
-    CONSULTANT: "consultant"
+    ADMIN: "ROLE_ADMIN",
+    SUPPORT: "ROLE_SUPPORT",
+    CONSULTANT: "ROLE_CONSULTANT"
 };
 
 export const SCOPES = {
-    CONSULTANT: "consultant",
-    SUPPORT: "support",
-    ADMIN: "admin"
+    CONSULTANT: "SCOPE_CONSULTANT",
+    SUPPORT: "SCOPE_SUPPORT",
+    ADMIN: "SCOPE_ADMIN"
 };
 
 export const PERMISSIONS = {

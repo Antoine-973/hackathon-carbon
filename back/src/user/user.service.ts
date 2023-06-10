@@ -31,6 +31,7 @@ export class UserService {
         events: { create: [] },
         topics: { create: [] },
         comments: { create: [] },
+        technologies: { create: [] },
       },
     });
   }
@@ -42,7 +43,11 @@ export class UserService {
       },
       include: {
         missions: true,
-        formations: true
+        formations: true,
+        events: true,
+        topics: true,
+        comments: true,
+        technologies: true,
       }
     });
   }
@@ -98,7 +103,12 @@ export class UserService {
   }
 
   async findMany(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      include: {
+        missions: true,
+        technologies: true,
+      }
+    });
   }
 
   /**

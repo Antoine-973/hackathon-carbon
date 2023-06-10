@@ -19,9 +19,8 @@ export default function NewForum ({forums}) {
         ForumServices.createForum({
             title: title,
             content: value,
-            createdById: 1,
+            createdById: user.id,
             note: 0,
-            clientId: 1,
         }).then((res) => {
             openSnackbar({
                 message: 'Forum créé avec succès',

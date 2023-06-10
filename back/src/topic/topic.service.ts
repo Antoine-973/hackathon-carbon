@@ -9,26 +9,32 @@ const prisma = new PrismaClient();
 export class TopicService {
   create(createTopicDto: CreateTopicDto) {
     try {
+
+      const data = {
+        title: createTopicDto.title,
+        content: createTopicDto.content,
+        note: createTopicDto.note,
+        createdBy: {
+          connect: {
+            id: createTopicDto.createdById,
+          },
+        },
+      }
+
+      if (createTopicDto.clientId) {
+        data['client'] = {
+          connect: {
+            id: createTopicDto.clientId,
+          },
+        }
+      }
+
       return prisma.topic.create({
-        data: {
-          title: createTopicDto.title,
-          content: createTopicDto.content,
-          note: createTopicDto.note,
-          client: {
-            connect: {
-              id: createTopicDto.clientId,
-            },
-          },
-          createdBy: {
-            connect: {
-              id: createTopicDto.createdById,
-            },
-          },
-        },
+        data: data,
         include: {
-          client: true,
-          createdBy: true,
-        },
+            client: true,
+            createdBy: true,
+        }
       });
     } catch (e) {
       return e;
