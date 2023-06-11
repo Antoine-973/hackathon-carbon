@@ -13,9 +13,16 @@ export class MissionService {
         data: {
           title: createMissionDto.title,
           description: createMissionDto.description,
+          startAt: createMissionDto.startAt,
+          endAt: createMissionDto.endAt,
           client: {
             connect: {
               id: createMissionDto.clientId,
+            },
+          },
+          user: {
+            connect: {
+              id: createMissionDto.userId,
             },
           },
         },
