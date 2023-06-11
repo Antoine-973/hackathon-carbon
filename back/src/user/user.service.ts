@@ -68,21 +68,24 @@ export class UserService {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
+    const data = {}
+    if(updateUserDto.firstname) data['firstname'] = updateUserDto.firstname
+    if(updateUserDto.lastname) data['lastname'] = updateUserDto.lastname
+    if(updateUserDto.role) data['role'] = updateUserDto.role
+    if(updateUserDto.salary) data['salary'] = updateUserDto.salary
+    if(updateUserDto.niveau) data['niveau'] = updateUserDto.niveau
+    if(updateUserDto.recruitmentAt) data['recruitmentAt'] = updateUserDto.recruitmentAt
+    if(updateUserDto.expertise) data['expertise'] = updateUserDto.expertise
+    if(updateUserDto.description) data['description'] = updateUserDto.description
+    if(updateUserDto.password) data['password'] = await bcrypt.hash(updateUserDto.password, 10)
+    if(updateUserDto.mentorId) data['mentor'] = { connect: { id: updateUserDto?.mentorId } }
+
+
     return this.prisma.user.update({
       where: {
         id,
       },
-      data: {
-        firstname: updateUserDto.firstname,
-        lastname: updateUserDto.lastname,
-        role: updateUserDto.role,
-        password: await bcrypt.hash(updateUserDto.password, 10),
-        salary: updateUserDto.salary,
-        niveau: updateUserDto.niveau,
-        recruitmentAt: updateUserDto.recruitmentAt,
-        expertise: updateUserDto.expertise,
-        description: updateUserDto.description,
-      },
+      data: data
     });
   }
 

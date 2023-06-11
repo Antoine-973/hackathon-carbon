@@ -32,5 +32,7 @@ export class UpdateUserDto {
 
   @IsOptional()
   description?: string;
-  
+
+    @IsOptional()
+    mentorId?: number;
 }
