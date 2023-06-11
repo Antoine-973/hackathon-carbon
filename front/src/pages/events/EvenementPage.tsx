@@ -30,21 +30,13 @@ export const EvenementPage = () => {
     const [carousel, setCarousel] = useState({});
 
     const [date, setDate] = useState<string[]>([]);
-    const [techno, setTechno] = useState<string[]>([]);
-    const [niveau, setNiveau] = useState<string[]>([]);
     const [search, setSearch] = useState<string>('');
 
     const handleDateChange = (event: ChangeEvent<{ value: unknown }>) => {
         setDate(event.target.value as string[]);
 
     }
-    const handleTechnoChange = (event: ChangeEvent<{ value: unknown }>) => {
-        setTechno(event.target.value as string[]);
-    }
-    const handleNiveauChange = (event: ChangeEvent<{ value: unknown }>) => {
-        setNiveau(event.target.value as string[]);
 
-    }
 
     const handleSearchChange = (event) => {
         setSearch(event.target.value) ;
@@ -95,22 +87,11 @@ export const EvenementPage = () => {
                                         value: date,
                                         values: ['Date 1', 'Date 2', 'Date 3'],
                                         handleChange: handleDateChange
-                                    }, {
-                                        title: 'Techno',
-                                        value: techno,
-                                        values: ['Techno 1', 'Techno 2', 'Techno 3'],
-                                        handleChange: handleTechnoChange
-                                    }, {
-                                        title: 'Niveau',
-                                        value: niveau,
-                                        values: ['Niveau 1', 'Niveau 2', 'Niveau 3'],
-                                        handleChange: handleNiveauChange
-                                    }
+                                    },
                                 ]}
                                 resetFilter={() => {
                                     setDate('');
-                                    setTechno('');
-                                    setNiveau('');
+
                                 }}
                                 handleSearchChange={handleSearchChange}
                             />

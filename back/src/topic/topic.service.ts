@@ -17,6 +17,7 @@ export class TopicService {
         createdBy: {
           connect: {
             id: createTopicDto.createdById,
+
           },
         },
       }
@@ -66,7 +67,11 @@ export class TopicService {
         include: {
           client: true,
           createdBy: true,
-          comments: true,
+          comments: {
+            include: {
+                createdBy: true,
+            }
+          },
         },
       });
     } catch (e) {

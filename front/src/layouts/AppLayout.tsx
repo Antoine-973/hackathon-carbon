@@ -10,6 +10,7 @@ export default function AppLayout(){
             <Box sx={{
                 paddingTop:'100px',
                 minHeight:'100vh',
+                mb:12
             }}>
                 <Outlet/>
             </Box>
