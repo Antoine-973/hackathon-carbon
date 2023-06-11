@@ -1,14 +1,15 @@
 import {Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Grid, IconButton, Typography} from "@mui/material";
 import {Edit, Email, ExpandMore, LocalPhone} from '@mui/icons-material';
-import {SyntheticEvent, useEffect, useState} from "react";
+import React, {SyntheticEvent, useEffect, useState} from "react";
 import CarbonPass from "../../components/CarbonPass/CarbonPass.tsx";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import UserService from "../../services/UserService.ts";
 import {PassServices} from "../../services/PassServices.ts";
 import Loader from "../../components/loader/Loader.tsx";
 import {useAuthContext} from "../../providers/AuthProvider.tsx";
 import EditProfileModal from "../../components/profile/EditProfileModal.tsx";
 import ReactQuill from "react-quill";
+import {CircularStatic} from "../../components/assets/progressBar.tsx";
 
 export default function ProfilePage() {
 
@@ -76,6 +77,7 @@ export default function ProfilePage() {
                                     <Grid item xl={10}>
                                         <Grid item>
                                             <Grid container alignItems={"center"} gap={1}>
+                                                <CircularStatic level={data.niveau}/>
                                                 <Typography variant="h5"
                                                             fontWeight={"bold"}>{data.firstname} {data.lastname}</Typography>
                                                 <a href={"mailto:" + data.email}>
@@ -97,6 +99,13 @@ export default function ProfilePage() {
                                         <Grid item>
                                             <Typography variant="subtitle2">{data.localisation}</Typography>
                                         </Grid>
+                                        }
+                                        {
+                                            data.mentor &&
+                                            <Grid item>
+                                                <Typography display={"inline"} variant="subtitle2">Mentor : </Typography>
+                                                <Link style={{textDecoration: 'none'}} to={"/consultant/" + data.mentor.id}><Typography display={"inline"} variant="subtitle2" fontWeight={"bold"} color={"info"}>{data.mentor.firstname} {data.mentor.lastname}</Typography></Link>
+                                            </Grid>
                                         }
                                     </Grid>
                                 </Grid>
@@ -135,11 +144,11 @@ export default function ProfilePage() {
                                 id="panel1bh-header"
                             >
                                 <Typography fontWeight={'bold'}>
-                                    CarbonPass
+                                    CarbonPass Niveau {user.niveau}
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <CarbonPass pass={pass[0]}/>
+                                <CarbonPass level={data.niveau} pass={pass[0]}/>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>

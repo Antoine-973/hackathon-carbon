@@ -47,6 +47,7 @@ export class UserService {
         id,
       },
       include: {
+        mentor: true,
         missions: {
             include: {
               client: true,
