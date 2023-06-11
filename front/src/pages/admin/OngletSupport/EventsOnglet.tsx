@@ -97,7 +97,7 @@ export const EventsOnglet = () => {
                                         <Grid item xs={10}>
                                             <Typography variant={"h6"}>{event.title}</Typography>
                                             <Typography >{event.description}</Typography>
-                                            <Typography >{typeof (event.date)}</Typography>
+                                            <Typography >{(new Date(event.date)).toLocaleDateString()}</Typography>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Clear
