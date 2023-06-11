@@ -3,8 +3,9 @@
 up:
 	docker compose up -d
 
-back-prerequisites:
+prerequisites:
 	docker compose exec back npm i
+	docker compose exec front npm i
 	docker compose exec back npx prisma migrate dev
 	docker compose exec back npx prisma generate
 
@@ -19,12 +20,10 @@ clear:
 	docker compose exec back npx prisma db push --preview-feature --force-reset
 
 
-front-prerequisites:
-	docker compose exec front npm i
 
-front-commands:
+front:
 	docker compose exec front npm run dev
 
 
-all: up back-prerequisites seed api front-prerequisites front-commands
+all: up prerequisites seed api
 
