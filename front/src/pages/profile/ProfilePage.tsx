@@ -1,12 +1,25 @@
-import {Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Grid, IconButton, Typography} from "@mui/material";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Avatar,
+    Card,
+    Chip,
+    Grid,
+    IconButton,
+    Typography
+} from "@mui/material";
 import {Edit, Email, ExpandMore, LocalPhone} from '@mui/icons-material';
-import {SyntheticEvent, useEffect, useState} from "react";
-import CarbonPass from "../../components/CarbonPass.tsx";
-import {useParams} from "react-router-dom";
+import React, {SyntheticEvent, useEffect, useState} from "react";
+import CarbonPass from "../../components/CarbonPass/CarbonPass.tsx";
+import {Link, useParams} from "react-router-dom";
 import UserService from "../../services/UserService.ts";
 import {PassServices} from "../../services/PassServices.ts";
 import Loader from "../../components/loader/Loader.tsx";
 import {useAuthContext} from "../../providers/AuthProvider.tsx";
+import EditProfileModal from "../../components/profile/EditProfileModal.tsx";
+import ReactQuill from "react-quill";
+import {CircularStatic} from "../../components/assets/progressBar.tsx";
 
 export default function ProfilePage() {
 
@@ -16,6 +29,12 @@ export default function ProfilePage() {
     const [expanded, setExpanded] = useState<string | false>(false);
     const [pass,setPass] = useState(false) ;
     const [loader, setLoader] = useState(true);
+    const actualMission = data.missions?.filter((mission) => mission.endAt > new Date().toISOString())[0]
+    const [open, setOpen] = useState(false);
+    const toggleEditModal = () => {
+        setOpen(!open)
+    }
+
 
     useEffect(() => {
         if(id) {
@@ -33,7 +52,7 @@ export default function ProfilePage() {
             setLoader(false)
         });
        
-    }, [])
+    }, [id])
 
     const handleChange =
         (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
@@ -57,19 +76,24 @@ export default function ProfilePage() {
                                         height: 170,
                                         boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
                                         border: "1px solid white"
-                                    }}>JD</Avatar>
+                                    }}></Avatar>
                                     <img width={"100%"} src={"https://picsum.photos/1400/200"}
                                          alt={"User profile banner"}/>
                                 </Grid>
-                                <Grid item container paddingY={5} paddingX={2} spacing={2} position={"relative"}>
-                                    <IconButton aria-label="delete" sx={{position: "absolute", top: 20, right: 20}}>
+                                <Grid item container marginTop={1} padding={5} spacing={2} position={"relative"}>
+                                    <IconButton aria-label="delete" sx={{position: "absolute", top: 50, right: 20}} onClick={() => toggleEditModal()}>
                                         <Edit color={"info"}/>
                                     </IconButton>
                                     <Grid item xl={10}>
                                         <Grid item>
                                             <Grid container alignItems={"center"} gap={1}>
+                                                <CircularStatic level={data.niveau}/>
+                                                <Chip size={'small'} color={'secondary'}  sx={{
+                                                    marginRight: 1
+                                                }} label={data.expertise}></Chip>
                                                 <Typography variant="h5"
-                                                            fontWeight={"bold"}>{data.firstname} {data.lastname}</Typography>
+                                                            fontWeight={"bold"}>{data.firstname} {data.lastname}
+                                                </Typography>
                                                 <a href={"mailto:" + data.email}>
                                                     <Email fontSize={"small"} color={"info"}/>
                                                 </a>
@@ -78,17 +102,24 @@ export default function ProfilePage() {
                                                 </a>
                                             </Grid>
                                         </Grid>
-                                        {data.mission &&
-                                        <Grid item>
-                                            <Typography display={"inline"} variant="subtitle2">{data.mission.name} en
-                                                mission
-                                                chez {data.mission.client.name}</Typography>
-                                        </Grid>
+                                        {actualMission &&
+                                            <Grid item key={actualMission.id}>
+                                                <Typography display={"inline"} variant="subtitle2">{actualMission.title} en
+                                                    mission
+                                                    chez {actualMission.client.id}</Typography>
+                                            </Grid>
                                         }
                                         {data.localisation &&
                                         <Grid item>
                                             <Typography variant="subtitle2">{data.localisation}</Typography>
                                         </Grid>
+                                        }
+                                        {
+                                            data.mentor &&
+                                            <Grid item>
+                                                <Typography display={"inline"} variant="subtitle2">Mentor : </Typography>
+                                                <Link style={{textDecoration: 'none'}} to={"/consultant/" + data.mentor.id}><Typography display={"inline"} variant="subtitle2" fontWeight={"bold"} color={"info"}>{data.mentor.firstname} {data.mentor.lastname}</Typography></Link>
+                                            </Grid>
                                         }
                                     </Grid>
                                 </Grid>
@@ -106,7 +137,11 @@ export default function ProfilePage() {
                                                     fontWeight={"bold"}>Infos</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant="body1">{data.description}</Typography>
+                                        <ReactQuill
+                                            value={data.description}
+                                            readOnly={true}
+                                            theme={"bubble"}
+                                        />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -123,17 +158,17 @@ export default function ProfilePage() {
                                 id="panel1bh-header"
                             >
                                 <Typography fontWeight={'bold'}>
-                                    CarbonPass
+                                    CarbonPass Niveau {user.niveau}
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <CarbonPass pass={pass[0]}/>
+                                <CarbonPass level={data.niveau} pass={pass[0]}/>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
                     }
 
-                    {data.mission &&
+                    {data.missions &&
                     <Grid item xl={6}>
                         <Card variant="outlined">
                             <Grid container>
@@ -145,9 +180,9 @@ export default function ProfilePage() {
                                     {
                                         data.missions.map((mission) => {
                                             return (
-                                                <Grid  key={mission.name} item padding={1} borderBottom={1} borderColor={'lightgray'}>
+                                                <Grid  key={mission.title} item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                                     <Typography fontWeight={"bold"}
-                                                                variant="body1">{mission.name}</Typography>
+                                                                variant="body1">{mission.title}</Typography>
                                                 </Grid>
                                             )
                                         })
@@ -165,14 +200,14 @@ export default function ProfilePage() {
                                 <Grid container padding={2} direction={"column"}>
                                     <Grid item>
                                         <Typography variant="h5"
-                                                    fontWeight={"bold"}>Formation</Typography>
+                                                    fontWeight={"bold"}>Formations</Typography>
                                     </Grid>
                                     {
                                         data.formations.map((formation) => {
                                             return (
-                                                <Grid item padding={1} borderBottom={1} borderColor={'lightgray'}>
+                                                <Grid key={formation.id} item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                                     <Typography fontWeight={"bold"}
-                                                                variant="body1">{formation.name}</Typography>
+                                                                variant="body1">{formation.title}</Typography>
                                                 </Grid>
                                             )
                                         })
@@ -195,9 +230,9 @@ export default function ProfilePage() {
                                     {
                                         data.technologies.map((technology) => {
                                             return (
-                                                <Grid key={technology.name} item padding={1} borderBottom={1} borderColor={'lightgray'}>
+                                                <Grid key={technology.id} item padding={1} borderBottom={1} borderColor={'lightgray'}>
                                                     <Typography fontWeight={"bold"}
-                                                                variant="body1">{technology.name}</Typography>
+                                                                variant="body1">{technology.title}</Typography>
                                                 </Grid>
                                             )
                                         })
@@ -208,6 +243,13 @@ export default function ProfilePage() {
                     </Grid>
                     }
                 </Grid>
+            }
+            {open &&
+                <EditProfileModal
+                    open={open}
+                    toggleEditModal={toggleEditModal}
+                    userId={data.id}
+                />
             }
         </>
     )

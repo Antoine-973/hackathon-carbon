@@ -2,7 +2,7 @@ import {RewardCard} from '../components/assets/rewardCard';
 import {Container, Grid, Stack, Typography,Box} from "@mui/material";
 import {useEffect, useState} from "react";
 import {FormationServices} from "../services/FormationServices.ts";
-import {ArticlesServices} from "../services/ArticlesServices";
+import {ArticlesServices} from "../services/ArticlesServices.ts";
 import Loader from "../components/loader/Loader.tsx";
 import MonCarbonCard from '../components/card/MonCarbonCard';
 import Article from "../components/Article";
@@ -14,6 +14,7 @@ import { EventServices } from '../services/EventServices';
 import { ForumServices } from '../services/ForumServices';
 import {Link, useNavigate} from 'react-router-dom';
 import {useTheme} from "@mui/material/styles";
+import {RewardService} from "../services/RewardService.ts";
 
 
 export default function HomePage() {
@@ -27,6 +28,7 @@ export default function HomePage() {
     const [loading, setLoading] = useState(true);
     const [forums, setForums] = useState([]);
     const [events, setEvents] = useState([]);
+    const [rewards, setRewards] = useState([]);
 
     useEffect(() => {
 
@@ -34,13 +36,15 @@ export default function HomePage() {
             FormationServices.getFormations(),
             ArticlesServices.getLast(),
             ForumServices.getAllForums(),
-            EventServices.getAllEvents()
+            EventServices.getAllEvents(),
+            RewardService.getRewards()
 
-        ]).then(([formationsData, articleData, forumsData, eventsData]) => {
+        ]).then(([formationsData, articleData, forumsData, eventsData,rewardData]) => {
             setFormations(formationsData.slice(0, 4));
             setArticle(articleData);
             setForums(forumsData.slice(0, 3));
             setEvents(eventsData.slice(0, 4));
+            setRewards( rewardData.sort((a, b) => (a.stage.position > b.stage.position) ? 1 : -1).slice(0, 6));
         }).finally(() => {
             setLoading(false);
         });
@@ -55,7 +59,7 @@ export default function HomePage() {
                 <Grid item xs={3} >
                     <MonCarbonCard
                         name={user.firstname + ' ' + user.lastname}
-                        expertise={'Carbon Fiber'}
+                        expertise={user.expertise}
                         level={user?.niveau}
                     />
                 </Grid>
@@ -65,34 +69,19 @@ export default function HomePage() {
                             Les prochaines récompenses
                         </Typography>
                         <Grid item container spaing={2} >
-                            <Grid item mr={2} mb={2}>
-                                <RewardCard
-                                    niveau={'70'}
-                                    name={'Sac à dos'}
-                                    src={'https://picsum.photos/200/300'}
-                                />
-                            </Grid>
-                            <Grid item mr={2} mb={2}>
-                                <RewardCard
-                                    niveau={'80'}
-                                    name={'100€'}
-                                    src={'https://picsum.photos/200/300'}
-                                />
-                            </Grid>
-                            <Grid item mr={2} mb={2}>
-                                <RewardCard
-                                    niveau={'90'}
-                                    name={'Place de cinéma'}
-                                    src={'https://picsum.photos/200/300'}
-                                />
-                            </Grid>
-                            <Grid item mr={2} mb={2}>
-                                <RewardCard
-                                    niveau={'100'}
-                                    name={'5 RTT'}
-                                    src={'https://picsum.photos/200/300'}
-                                />
-                            </Grid>
+                            {
+                                rewards && rewards.length > 0 && rewards.map((reward) => {
+                                    return (
+                                        <Grid key={reward.id} item mr={2} mb={2}>
+                                            <RewardCard
+                                                niveau={reward?.stage?.position}
+                                                name={reward.title}
+                                                src={reward.image}
+                                            />
+                                        </Grid>
+                                    )
+                                })
+                            }
                         </Grid>
                         <Typography sx={{
                             pt:2,
@@ -104,6 +93,7 @@ export default function HomePage() {
                                 {
                                     article &&
                                     <Article
+                                        link={article.link}
                                         key={article.id}
                                         title={article.title}
                                         description={article.description}

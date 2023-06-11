@@ -13,8 +13,13 @@ export const CardFormation = ({id, title, date, description}: Formation) => {
     const navigate = useNavigate();
 
     return (
-        <Card sx={{m:2}}>
+        <Card  sx={{
+            m:2,
+            width: '250px',
+        }}>
             <CardActionArea sx={{
+                width: '100%',
+                height:'300px',
             }} onClick={() => {
                 navigate(`/formation/${id}`)
             }}>

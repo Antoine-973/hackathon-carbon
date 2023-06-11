@@ -12,6 +12,9 @@ model User {
   email         String       @unique
   firstname     String
   lastname      String
+  description String?
+  phone         String?
+  localisation  String?
   role          String
   password      String?
   salary        Int?         @default(autoincrement())
@@ -22,14 +25,14 @@ model User {
   formations    Formation[]
   events        Event[]
   topics        Topic[]
+  votes         Vote[]
   comments      Comment[]
   mentor        User?        @relation("MentorToUser", fields: [mentorId], references: [id])
   mentorId      Int?
   students      User[]       @relation("MentorToUser")
-  studentsId    Int?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
-  userId        Int?
+  expertise     String
 }
 
 model Technology {
@@ -48,11 +51,13 @@ model Mission {
   id          Int      @id @default(autoincrement())
   title       String
   description String
+  startAt     DateTime
+  endAt       DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int?
-  client      Client?  @relation(fields: [clientId], references: [id])
+  client      Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId    Int?
 }
 
@@ -111,17 +116,30 @@ model Comment {
   createdBy      User     @relation(fields: [createdById], references: [id])
   createdById    Int
   final_response Boolean  @default(false)
-  positiveVote   Int?
-  negativeVote   Int?
+  positiveVote   Vote[]  @relation("PositiveVoteToComment")
+  negativeVote   Vote[] @relation("NegativeVoteToComment")
   topic          Topic    @relation(fields: [topicId], references: [id])
   topicId        Int
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
+model Vote {
+  id Int     @id @default(autoincrement())
+  positiveComment   Comment?  @relation("PositiveVoteToComment",fields: [positiveCommentId], references: [id])
+  positiveCommentId Int?
+  negativeComment   Comment?  @relation("NegativeVoteToComment",fields: [negativeCommentId], references: [id])
+  negativeCommentId Int?
+  voter     User     @relation(fields: [voterId], references: [id])
+  voterId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Pass {
   id        Int      @id @default(autoincrement())
   title     String
+  description String?
   startAt   DateTime
   endAt     DateTime
   stages    Stage[]
@@ -156,6 +174,16 @@ model Article {
   description String
   image       String?
   author      String
+  link        String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Documents {
+    id          Int      @id @default(autoincrement())
+    title       String
+    link        String
+    category    String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }

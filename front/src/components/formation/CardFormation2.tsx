@@ -12,12 +12,14 @@ export default function CardFormation2 ({id,date, title, description}: {id:numbe
                 navigate(`/formation/${id}`)
             }}
             sx={{
-            border:'1px solid ' + theme.palette.info.main,
-            borderRadius: '5px',
-            minWidth: '200px',
-            color: theme.palette.secondary.main,
-            cursor: 'pointer',
-        }}>
+                border:'1px solid ' + theme.palette.info.main,
+                borderRadius: '5px',
+                width: '250px',
+                height:'175px',
+                color: theme.palette.secondary.main,
+                cursor: 'pointer',
+            }}
+        >
             <img style={{width:'100%', borderTopRightRadius:'5px', borderTopLeftRadius:'5px'}}  src="https://picsum.photos/250/75" alt="Formation"/>
             <Box sx={{
                 px:2,
@@ -26,7 +28,14 @@ export default function CardFormation2 ({id,date, title, description}: {id:numbe
                 <Typography>
                     {date.toLocaleDateString()} - {title}
                 </Typography>
-                <Typography variant={'caption'}>
+                <Typography sx={{
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    display: 'block',
+                    width: '80%',
+
+                }} variant={'caption'}>
                     {description}
                 </Typography>
             </Box>

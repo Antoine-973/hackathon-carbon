@@ -1,11 +1,12 @@
-import {Container, Box, Grid, Typography, Chip, Stack, Button} from "@mui/material";
+import {Box, Button, Container, Grid, Stack, Typography} from "@mui/material";
 import SideNav from "../../components/SideNav/SideNav";
 import ResponseForum from "../../components/ResponseForum.tsx";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import { ForumServices } from "../../services/ForumServices";
+import {ForumServices} from "../../services/ForumServices";
 import {useModalContext} from "../../providers/ModalProvider.tsx";
 import NewResponseForm from "../../components/forms/forum/NewResponseForm.tsx";
+import Loader from "../../components/loader/Loader.tsx";
 
 interface ForumQuizz {
     chips: string[];
@@ -20,10 +21,12 @@ interface ForumQuizz {
 interface Reponse {
     title: string;
     description: string;
-    positiveVote: number;
-    negativeVote: number;
+    positiveVote: any;
+    negativeVote: any;
     valide: boolean;
 }
+
+
 export default function ForumQuizz () {
 
     const [forum,setForum] = useState(null);
@@ -48,7 +51,7 @@ export default function ForumQuizz () {
     }
 
     return (
-        loading ? <div>Chargement...</div> : forum &&
+        loading ? <Loader/> : forum &&
         <Container>
             <Grid container spacing={2}>
                <SideNav links={[
@@ -88,6 +91,7 @@ export default function ForumQuizz () {
                                 return(
                                     <ResponseForum
                                         key={reponse.id}
+                                        id={reponse.id}
                                         valide={reponse.valide}
                                         response={reponse.content}
                                         author={reponse.createdBy}

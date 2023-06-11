@@ -8,6 +8,7 @@ import {Fragment, ReactElement, useState} from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import LogoutIcon from '@mui/icons-material/Logout';
 import styles from "./Header.module.css";
 import {ROLES} from "../rooter/permissions.ts";
 import {
@@ -65,7 +66,7 @@ export default function Header(props: Props)  {
 
     const theme = useTheme() ;
     const [open, setOpen] = useState(false);
-    const logo = "./carbon-logo.png" ;
+    const navigate = useNavigate();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -75,7 +76,11 @@ export default function Header(props: Props)  {
         setOpen(false);
     };
 
-    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
+
     const links = [
         {name:'Mon Carbon', path:'/profil'},
         {name:'Carbon Overflow', path:'/forum'},
@@ -163,6 +168,7 @@ export default function Header(props: Props)  {
                             </Box>
                             <Box sx={{
                                 display: 'flex',
+                                gap: '5px',
                             }}>
                                 <IconButton>
                                     <img width={25} src="/slack.png" alt="Slack"/>
@@ -171,18 +177,18 @@ export default function Header(props: Props)  {
                                 <IconButton sx={{color: theme.palette.secondary.main}}>
                                     <NotificationsIcon/>
                                 </IconButton>
+                                <IconButton sx={{color: theme.palette.secondary.main}} onClick={() => logout()}>
+                                    <LogoutIcon/>
+                                </IconButton>
                                 <IconButton  onClick={() => handleDrawerOpen()} sx={{
                                     color: theme.palette.secondary.main,
                                     display: {xs:'block', md:'none'}
                                 }} >
                                     <DragHandleIcon/>
                                 </IconButton>
+
                             </Box>
                         </Box>
-
-
-                            <Box flex={1}/>
-
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>

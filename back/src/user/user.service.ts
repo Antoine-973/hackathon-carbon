@@ -24,14 +24,19 @@ export class UserService {
         role: createUserDto.role,
         password: await bcrypt.hash(createUserDto.password, 10),
         salary: createUserDto.salary,
-        niveau: 1,
+        niveau: 0,
         recruitmentAt: new Date(),
         missions: { create: [] },
         formations: { create: [] },
         events: { create: [] },
         topics: { create: [] },
         comments: { create: [] },
+        votes: { create: [] },
         technologies: { create: [] },
+        expertise: createUserDto.expertise,
+        description: createUserDto.description,
+        phone: createUserDto.phone,
+        localisation: createUserDto.localisation,
       },
     });
   }
@@ -42,10 +47,16 @@ export class UserService {
         id,
       },
       include: {
-        missions: true,
+        mentor: true,
+        missions: {
+            include: {
+              client: true,
+            }
+        },
         formations: true,
         events: true,
         topics: true,
+        votes: true,
         comments: true,
         technologies: true,
       }
@@ -60,19 +71,24 @@ export class UserService {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
+    const data = {}
+    if(updateUserDto.firstname) data['firstname'] = updateUserDto.firstname
+    if(updateUserDto.lastname) data['lastname'] = updateUserDto.lastname
+    if(updateUserDto.role) data['role'] = updateUserDto.role
+    if(updateUserDto.salary) data['salary'] = updateUserDto.salary
+    if(updateUserDto.niveau) data['niveau'] = updateUserDto.niveau
+    if(updateUserDto.recruitmentAt) data['recruitmentAt'] = updateUserDto.recruitmentAt
+    if(updateUserDto.expertise) data['expertise'] = updateUserDto.expertise
+    if(updateUserDto.description) data['description'] = updateUserDto.description
+    if(updateUserDto.password) data['password'] = await bcrypt.hash(updateUserDto.password, 10)
+    if(updateUserDto.mentorId) data['mentor'] = { connect: { id: updateUserDto?.mentorId } }
+
+
     return this.prisma.user.update({
       where: {
         id,
       },
-      data: {
-        firstname: updateUserDto.firstname,
-        lastname: updateUserDto.lastname,
-        role: updateUserDto.role,
-        password: await bcrypt.hash(updateUserDto.password, 10),
-        salary: updateUserDto.salary,
-        niveau: updateUserDto.niveau,
-        recruitmentAt: updateUserDto.recruitmentAt,
-      },
+      data: data
     });
   }
 

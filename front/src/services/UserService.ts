@@ -19,9 +19,10 @@ const create = async (user: any) => {
         .then(res => res.json())
 }
 
-const update = async (user: any) => {
-    return fetch('http://localhost:4000/user', {
-        method: 'PUT',
+const update = async (id: number, user: any) => {
+    console.log(user)
+    return fetch(`http://localhost:4000/user/${id}`, {
+        method: 'PATCH',
         body: JSON.stringify(user),
         headers: {
             'Content-Type': 'application/json'
@@ -37,7 +38,7 @@ const remove = async (id: number) => {
         .then(res => res.json())
 }
 
-const userervice = {
+const UserService = {
     getAll,
     get,
     create,
@@ -45,4 +46,4 @@ const userervice = {
     remove,
 };
 
-export default userervice;
+export default UserService

@@ -26,4 +26,19 @@ export class UpdateUserDto {
 
   @IsOptional()
   recruitmentAt?: Date;
+
+  @IsOptional()
+  expertise?: string;
+
+  @IsOptional()
+  description?: string;
+
+  @IsOptional()
+  phone?: string;
+
+  @IsOptional()
+  localisation?: string;
+  
+  @IsOptional()
+  mentorId?: number;
 }

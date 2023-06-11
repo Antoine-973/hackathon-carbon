@@ -98,7 +98,7 @@ export default function FormartionItemPage () {
                             </Typography>
 
                             <Stack sx={{mt:1}} direction={'row'} spacing={2}>
-                                {formation?.participants.map((participant) => (
+                                { formation && formation.participants && formation?.participants.map((participant) => (
                                     <Box key={participant.id} >
                                         <Typography componant={'p'} variant={'body1'}>
                                             {participant.firstname} {participant.lastname}

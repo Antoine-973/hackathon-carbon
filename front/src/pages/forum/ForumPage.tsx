@@ -18,7 +18,6 @@ export default function () {
     const [client,setClient] = useState('');
     const [clientsSearch,setClientsSearch] = useState('') ; // liste des clients pour la recherche [id, nom
     const [techno,setTechno] = useState('');
-    const [tag,setTag] = useState('');
     const [search,setSearch] = useState('');
     const [forums, setForums] = useState() ;
     const [clients, setClients] = useState() ;
@@ -32,12 +31,7 @@ export default function () {
     const handleClientChange = (event: { target: { value: SetStateAction<undefined>; }; }) => {
         setClient(event.target.value);
     }
-    const handleTechnoChange = (event: { target: { value: SetStateAction<undefined>; }; }) => {
-        setTechno(event.target.value);
-    }
-    const handleTagChange = (event: { target: { value: SetStateAction<undefined>; }; }) => {
-        setTag(event.target.value);
-    }
+
     const handleSearchChange = (event: { target: { value: SetStateAction<undefined>; }; }) => {
         setSearch(event.target.value);
     }
@@ -54,8 +48,10 @@ export default function () {
                     return true ;
                 if (forum.clientId === null)
                     return true ;
-                const clients = user.missions.map((mission) => mission.clientId) ;
-                return clients.includes(forum.clientId) ;
+
+                const clients = user?.missions?.map((mission) => mission.clientId) ;
+                if (clients) return clients.includes(forum.clientId) ;
+
             });
 
             setForums(forumData);
@@ -73,7 +69,7 @@ export default function () {
 
     const data = useMemo(() => {
 
-        if (client === '' && techno === '' && tag === '' && search === '')
+        if (client === '' && techno === ''  && search === '')
             return forums ;
 
         return forums.filter((forum) => {
@@ -82,13 +78,12 @@ export default function () {
                 return false ;
             if (techno !== '' && forum.techno !== techno)
                 return false ;
-            if (tag !== '' && forum.tag !== tag)
-                return false ;
+
             return !(search !== '' && forum.title.toLowerCase().indexOf(search.toLowerCase()) === -1);
 
         });
 
-    },[client, techno, tag, search, forums]) ;
+    },[client, techno,  search, forums]) ;
 
     return (
         loading ? <Loader/> :
@@ -111,20 +106,16 @@ export default function () {
                             {
                                 title: 'Techno',
                                 value: techno,
-                                values: ['Techno 1', 'Techno 2', 'Techno 3'],
-                                handleChange: handleTechnoChange
-                            },
-                            {
-                                title: 'Tag',
-                                value: tag,
-                                values: ['Tag 1', 'Tag 2', 'Tag 3'],
-                                handleChange: handleTagChange
+                                values: ['React', 'Angular', 'Vue'],
+                                handleChange: (event: { target: { value: SetStateAction<undefined>; }; }) => {
+                                    setTechno(event.target.value);
+                                }
                             }
+
                         ]}
                         resetFilter={() => {
                             setClient('');
                             setTechno('');
-                            setTag('');
                         }}
                         handleSearchChange={(evt) => {setSearch(evt.target.value)}}
                     ></FilterBar>

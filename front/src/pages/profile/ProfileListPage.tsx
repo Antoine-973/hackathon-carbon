@@ -8,6 +8,8 @@ import {UserServices} from "../../services/UserServices.ts";
 import Loader from "../../components/loader/Loader.tsx";
 import {useNavigate} from "react-router-dom";
 import {EXPERTISES} from "../../rooter/permissions.ts";
+import {ClientServices} from "../../services/ClientServices.ts";
+import {TechnologiesServices} from "../../services/TechnologiesServices.ts";
 
 interface Profile {
     id: number;
@@ -27,8 +29,12 @@ export default function ProfileListPage() {
       EXPERTISES.JUNIOR, EXPERTISES.CONFIRME, EXPERTISES.SENIOR, EXPERTISES.EXPERT
    ];
 
-    const [client, setClient] = useState('');
+    const [technos, setTechnos] = useState([]);
     const [techno, setTechno] = useState('');
+
+    const [clients, setClients] = useState([]) ;
+    const [client, setClient] = useState('');
+
     const [expertise, setExpertise] = useState('');
     const [dispo, setDispo] = useState('');
     const [search, setSearch] = useState('');
@@ -63,20 +69,21 @@ export default function ProfileListPage() {
     }
 
     const data = useMemo(() => {
-        if (client === '' && techno === '' && expertise === '' && dispo === '' && search === '') {
+        if (client === '' &&  expertise === '' && dispo === '' && search === '') {
             return profiles;
         }
         return profiles.filter((profile: Profile) => {
             if (client !== '' && profile.client !== client) {
                 return false;
             }
-            if (techno !== '' && profile.technologies.indexOf(techno) === -1) {
+            if (techno !== '' && profile?.technologies?.indexOf(techno) === -1) {
                 return false;
             }
+
             if (expertise !== '' && profile.expertise !== expertise) {
                 return false;
             }
-            if (dispo !== '' && profile.dispo !== dispo) {
+            if (dispo !== '' && profile?.missions?.length > 0 ){
                 return false;
             }
             if (search !== '' && profile.firstname.toLowerCase().indexOf(search.toLowerCase()) === -1 && profile.lastname.toLowerCase().indexOf(search.toLowerCase()) === -1) {
@@ -84,16 +91,22 @@ export default function ProfileListPage() {
             }
             return true;
         })
-    },[client, techno, expertise, dispo, search, profiles]) ;
+    },[client, techno, expertise,  dispo, search, profiles]) ;
     const theme = useTheme() ;
 
     useEffect(() => {
-        UserServices.getUsers().then((response) => {
 
-            setProfiles(response) ;
+        Promise.all([
+            UserServices.getUsers(),
+            ClientServices.getAllClients(),
+            TechnologiesServices.getAll()
+        ]).then(([userResponse, clientResponse, technoResponse]) => {
+            setProfiles(userResponse) ;
+            setTechnos(technoResponse.map((techno: { title: any; }) => techno.title) ) ;
+            setClients(clientResponse.map((client: { title: any; }) => client.title) ) ;
         }).finally(() => {
             setLoader(false) ;
-        });
+        })
     },[]) ;
 
     const navigate = useNavigate() ;
@@ -117,7 +130,7 @@ export default function ProfileListPage() {
                     <Selector
                         title={'Client'}
                         value={client}
-                        values={['Pmu', 'Darty', 'Fnac']}
+                        values={clients}
                         handleChange={(event: {
                             target: { value: SetStateAction<undefined>; };
                         }) => handleClientChange(event)}
@@ -125,7 +138,7 @@ export default function ProfileListPage() {
                     <Selector
                         title={'Technologie'}
                         value={techno}
-                        values={['React', 'Vue', 'Angular']}
+                        values={technos}
                         handleChange={(event: {
                             target: { value: SetStateAction<undefined>; };
                         }) => handleTechnoChange(event)}

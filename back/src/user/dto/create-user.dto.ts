@@ -1,5 +1,5 @@
-import { Comment, Event, Formation, Mission, Topic } from '@prisma/client';
-import { IsEmail } from 'class-validator';
+import {Comment, Event, Formation, Mission, Topic, Vote} from '@prisma/client';
+import {IsEmail} from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
@@ -28,4 +28,14 @@ export class CreateUserDto {
   topics: Topic[];
 
   comments: Comment[];
+
+  votes: Vote[];
+
+  expertise: string;
+
+  description: string;
+
+  phone: string;
+
+  localisation: string;
 }

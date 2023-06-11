@@ -15,6 +15,8 @@ import { CommentModule } from './comment/comment.module';
 import { MissionModule } from './mission/mission.module';
 import { ArticleModule } from './article/article.module';
 import { TechnologyModule } from './technology/technology.module';
+import { DocumentsModule } from './documents/documents.module';
+import { VoteModule } from './vote/vote.module';
 
 @Module({
   imports: [
@@ -31,7 +33,9 @@ import { TechnologyModule } from './technology/technology.module';
     MissionModule,
     CommentModule,
     ArticleModule,
-    TechnologyModule
+    TechnologyModule,
+    DocumentsModule,
+    VoteModule
   ],
   controllers: [AppController],
   providers: [

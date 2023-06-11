@@ -3,10 +3,11 @@ import { AuthenticationService } from './authentication.service';
 import { Public } from './decorators/public.decorator';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import {UserService} from "../user/user.service";
 
 @Controller('authentication')
 export class AuthenticationController {
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService, private userService: UserService) {}
 
   @Post('/login')
   @Public()
@@ -18,6 +19,6 @@ export class AuthenticationController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user;
+    return this.userService.findOne(req.user.id);
   }
 }

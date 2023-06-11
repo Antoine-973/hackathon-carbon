@@ -1,22 +1,9 @@
-import {ServicesBases} from "./servicesBases";
+import {ServicesBases} from "./servicesBases.ts";
 
-export const ArticlesServices = {
-    getLast: async () => {
-        try {
-            const response = await fetch(ServicesBases.apiUrl+'/article/last', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            return await response.json();
-        } catch (error) {
-            return error ;
-        }
-    },
+export const ClientService = {
     getAll: async () => {
         try {
-            const response = await fetch(ServicesBases.apiUrl+'/article', {
+            const response = await fetch(ServicesBases.apiUrl+'/client', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,7 +16,7 @@ export const ArticlesServices = {
     },
     create: async (data: any) => {
         try {
-            const response = await fetch(ServicesBases.apiUrl+'/article', {
+            const response = await fetch(ServicesBases.apiUrl+'/client', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,7 +30,7 @@ export const ArticlesServices = {
     },
     delete: async (id: number) => {
         try {
-            const response = await fetch(ServicesBases.apiUrl+'/article/'+id, {
+            const response = await fetch(ServicesBases.apiUrl+'/client/'+id, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

@@ -11,9 +11,13 @@ interface Event {
 export const CardEvent2 = ({id,title, date, description}: Event) => {
     const navigate = useNavigate();
     return (
-        <Card sx={{m:2}}>
+        <Card sx={{
+            m:2,
+            width: '250px',
+        }}>
             <CardActionArea sx={{
-                minWidth: '250px',
+                width: '100%',
+                height:'300px',
             }} onClick={() => {
                 navigate(`/evenement/${id}`);
             }}>
@@ -26,15 +30,31 @@ export const CardEvent2 = ({id,title, date, description}: Event) => {
                             mb:2,
                         }}
                         component="img"
-                        height="50px"
-                        width="100%"
-                        image={"https://picsum.photos/200/50" }
-                        alt="Image de l'event"
+                        height={100}
+                        width={250}
+                        image="https://picsum.photos/200/100"
                     />
                     <Typography variant="body2" color="textSecondary" component="p">
                         {date.toLocaleDateString()}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography sx={{
+                       overflow: 'hidden',
+                        position: 'relative',
+                        maxHeight: '4.5em',
+                        "&::after": {
+                            content: '""',
+                            position: 'absolute',
+                            right: 0,
+                            width: '1em',
+                            height: '1em',
+                        },
+                        "&::before": {
+                            content: '"..."',
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0,
+                        }
+                    }} variant="body2" color="textSecondary" component="p">
                         {description}
                     </Typography>
                 </CardContent>

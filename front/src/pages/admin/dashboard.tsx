@@ -7,7 +7,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {AlternateEmail, Article, Co2, Home, People} from '@mui/icons-material';
+import {
+    AlternateEmail,
+    Article,
+    Co2,
+    Home,
+    People,
+    AutoAwesomeMotion,
+    EventSeat,
+    Description
+} from '@mui/icons-material';
 import {UsersOnglet} from "./Onglets/UsersOnglet";
 import {DashboardOnglet} from "./Onglets/DashboardOnglet";
 import {ArticlesOnglet} from "./Onglets/ArticlesOnglet";
@@ -16,6 +25,12 @@ import {CarbonpassOnglet} from "./Onglets/CarbonpassOnglet";
 import {School} from "@mui/icons-material";
 import FormationOnglet from './Onglets/FormationOnglet';
 import {useState} from "react";
+import {MissionOnglet} from "./OngletSupport/MissionOnglet";
+import {ClientOnglet} from "./OngletSupport/ClientOnglet";
+import {EventsOnglet} from "./OngletSupport/EventsOnglet";
+import {DocumentsOnglet} from "./OngletSupport/DocumentsOnglet";
+import {RewardsOnglet} from "./Onglets/RewardsOnglet.tsx";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 const drawerWidth = 240;
 
@@ -47,6 +62,29 @@ export const Dashboard = () => {
         {
             name: 'CarbonPass',
             icon: < Co2/>
+        },
+        {
+            name: 'Rewards',
+            icon: <EmojiEventsIcon/>
+        }
+    ]
+
+    const linksSupport = [
+        {
+            name: 'Clients',
+            icon: < People/>
+        },
+        {
+            name: 'Missions',
+            icon: < AutoAwesomeMotion/>
+        },
+        {
+            name: 'Events',
+            icon: < EventSeat/>
+        },
+        {
+            name: 'Documents',
+            icon: < Description/>
         }
     ]
 
@@ -62,8 +100,18 @@ export const Dashboard = () => {
                 return <TechnologiesOnglet/>
             case 'CarbonPass':
                 return <CarbonpassOnglet/>
+            case 'Rewards':
+                return <RewardsOnglet/>
             case 'Evolution Carbon':
                 return <FormationOnglet/>
+            case 'Clients':
+                return <ClientOnglet/>
+            case 'Missions':
+                return <MissionOnglet/>
+            case 'Events':
+                return <EventsOnglet/>
+            case 'Documents':
+                return <DocumentsOnglet/>
             default:
                 return <DashboardOnglet/>
         }
@@ -98,7 +146,23 @@ export const Dashboard = () => {
                             })
                         }
                     </List>
-
+                    <hr/>
+                    <List>
+                        {
+                            linksSupport.map((link, index) => {
+                                return (
+                                    <ListItem key={index} disablePadding onClick={() => setOnglet(link.name)}>
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                {link.icon}
+                                            </ListItemIcon>
+                                            <ListItemText primary={link.name}/>
+                                        </ListItemButton>
+                                    </ListItem>
+                                )
+                            })
+                        }
+                    </List>
                 </Box>
             </Drawer>
             <Box component="main" sx={{flexGrow: 1, p: 3}}>

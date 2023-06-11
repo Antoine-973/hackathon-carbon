@@ -45,21 +45,5 @@ export class CommentController {
         return this.commentService.remove(+id);
     }
 
-    @Patch(':id/upvote')
-    async upvote(@Param('id') id: string) {
-        const comment = await this.commentService.findOne(+id);
-        if (!comment) {
-            throw new NotFoundException(`Comment with id ${id} does not exist.`);
-        }
-        return this.commentService.upvote(+id);
-    }
 
-    @Patch(':id/downvote')
-    async downvote(@Param('id') id: string) {
-        const comment = await this.commentService.findOne(+id);
-        if (!comment) {
-            throw new NotFoundException(`Comment with id ${id} does not exist.`);
-        }
-        return this.commentService.downvote(+id);
-    }
 }

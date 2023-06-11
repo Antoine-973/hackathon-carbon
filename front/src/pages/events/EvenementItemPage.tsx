@@ -101,7 +101,7 @@ export default function EvenementItemPage () {
                                 </Typography>
 
                                 <Stack sx={{mt:1}} direction={'row'} spacing={2}>
-                                    {event?.participants.map((participant) => (
+                                    { event && event.participants && event?.participants.map((participant) => (
                                         <Box key={participant.id} >
                                             <Typography componant={'p'} variant={'body1'}>
                                                 {participant.firstname} {participant.lastname}

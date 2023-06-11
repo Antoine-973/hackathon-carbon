@@ -1,6 +1,5 @@
 import {createContext, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
-import AuthService from "../services/AuthService.tsx";
+import AuthService from "../services/AuthService.ts";
 
 interface AuthContextInterface {
     user: User;

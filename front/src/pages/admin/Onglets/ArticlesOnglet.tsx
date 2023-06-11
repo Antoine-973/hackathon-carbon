@@ -3,7 +3,7 @@ import {Box, Button, Card, Grid, TextField, Typography} from "@mui/material";
 import {Clear} from "@mui/icons-material";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {ArticlesServices} from "../../../services/ArticlesServices";
+import {ArticlesServices} from "../../../services/ArticlesServices.ts";
 
 export const ArticlesOnglet = () => {
 
@@ -45,7 +45,7 @@ export const ArticlesOnglet = () => {
     return (
         loading ? <Loader/> :
             <Grid container direction={"row"}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} >
                     <h2>Ajout d'un article</h2>
                     <Box
                         component="form"
