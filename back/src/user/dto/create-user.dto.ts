@@ -31,5 +31,5 @@ export class CreateUserDto {
 
   expertise: string;
 
-  bio: string;
+  description: string;
 }

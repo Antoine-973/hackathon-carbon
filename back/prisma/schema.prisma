@@ -12,6 +12,9 @@ model User {
   email         String       @unique
   firstname     String
   lastname      String
+  description String?
+  phone         String?
+  localisation  String?
   role          String
   password      String?
   salary        Int?         @default(autoincrement())
@@ -31,7 +34,6 @@ model User {
   updatedAt     DateTime     @updatedAt
   userId        Int?
   expertise     String
-  bio           String
 }
 
 model Technology {
