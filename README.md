@@ -8,45 +8,89 @@ Ce projet a été réalisé dans le cadre d'un hackathon d'une semaine.
 - [x] Carbon Overflow - un forum de questions/réponses pour les employés de l'entreprise. 
 Un forum peut être relier à un client. Il sera alors privé et seul les employés en mission pour ce client pourront y accéder.
 Un systeme de tri par nom et par client est mise en place.
+- Réaliser par : 
+    -  Front -  Alexandre Baudry
+    -  Back - Arthur Gratton & Raida Sadik & Antoine Saunier & Alexandre Baudry
+  
+
+- [x] Authentification - Un système d'authentification pour les employés de l'entreprise.
+- Réaliser par : 
+    -  Front -  Arthur Gratton  & Alexandre Baudry
+    -  Back - Raida Sadik
+  
+
+- [x] Seed - Un système de seed pour générer des données de test.
+- Réaliser par :
+    -  Back - Raida Sadik 
 
 
 - [x] Evolution Carbon - Des formations pour les employés de l'entreprise. Une formation peut être liée à une technologie.
+- Réaliser par : 
+    -  Front -  Arthur Gratton  & Alexandre Baudry
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
 
 - [x] Regroupement Carbon - Les events de l'entreprise. N'importe quel employé peut rejoindre.
+- Réaliser par : 
+    -  Front -  Raida Sadik  & Alexandre Baudry
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
 
 - [x] Carbon Pass - Un Battle Pass pour les employés de l'entreprise.
 Plus ils seront impliqué dans la vie de l'entreprise plus ils gagnent de l'xp et des récompenses.
+- Réaliser par : 
+    -  Front -  Antoine Saunier 
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
 
 - [x] Carbon Mentoring - Un système de mentorat pour les employés de l'entreprise.
+- Réaliser par : 
+    -  Front -  Antoine Saunier 
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
 
 - [x] Mes Carbons - Un listing des employés de l'entreprise.
 Un système de tri par Technologie, Client, Expertise, etc. est disponible pour trouver un employé plus facilement.
+- Réaliser par : 
+    -  Front -  Alexandre Baudry & Raida Sadik
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
 
 - [x] Carbon News - Une redirection sur le dernier article du blog de l'entreprise.
+- Réaliser par : 
+    -  Front -  Alexandre Baudry & Raida Sadik
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
 
 - [x] Carbon Back office - Un back office pour les administrateurs de l'entreprise et les supports (RH, Sales)
 Cet outil permet de gérer les utilisateurs, les clients, les technologies,  les formations, les events, les mentors, les battle pass, les forums, les articles de blog, etc.
 Il permet aussi de gérer les missions des employés et de les lier à un client et de gérer les clients également.
+- Réaliser par : 
+    -  Front -  Arthur Gratton  & Alexandre Baudry & Antoine Saunier
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
 
 - [x] Carbon Drive - Une architecture GDrive pour simplifier la recherche de documents pour les fonctions RH et Sales.
 Cela permet aussi de centralisé la donnée et de la sécuriser.
+- Réaliser par : 
+    -  Front -  Arthur Gratton  
+    -  Back - Arthur Gratton
+
+
+- [x] Mon Carbon - Un profil pour chaque employé de l'entreprise.
+- Réaliser par : 
+    -  Front -  Antoine Saunier
+    -  Back - Raida Sadik & Antoine Saunier & Alexandre Baudry & Arthur Gratton
 
   
 ## Tech Stack
 
 Le projet est réalisé avec les technologies suivantes:
-- [x] [NestJS](https://nestjs.com/)
-- [x] [ReactJS](https://fr.reactjs.org/)
-- [x] [Prisma](https://www.prisma.io/)
-- [x] [PostgreSQL](https://www.postgresql.org/)
-- [x] [Docker](https://www.docker.com/)
+-  [NestJS](https://nestjs.com/)
+-  [ReactJS](https://fr.reactjs.org/)
+-  [Prisma](https://www.prisma.io/)
+-  [PostgreSQL](https://www.postgresql.org/)
+-  [Docker](https://www.docker.com/)
 
 
 ## Installation
