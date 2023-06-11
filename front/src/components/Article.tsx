@@ -1,8 +1,10 @@
 import {Box,Typography,Stack} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 
-export default function Article ({image, title, description}: {image: string, title: string, description: string}) {
+export default function Article ({image, title, description, link}: {image: string, title: string, description: string, link: string}) {
     const theme = useTheme();
+    const navigate = useNavigate();
+
     return (
         <Box
             sx={{
@@ -17,6 +19,7 @@ export default function Article ({image, title, description}: {image: string, ti
                 cursor: 'pointer',
                 border: '2px solid ' + theme.palette.info.main,
             }}
+            onClick={() => { navigate(link) } }
         >
             <Stack sx={{
                 paddingTop:2,
