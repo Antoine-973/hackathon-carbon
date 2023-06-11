@@ -126,6 +126,12 @@ export class UserService {
       where: {
         email,
       },
+      include: {
+        missions: true,
+        technologies: true,
+        formations: true,
+        events: true,
+      }
     });
   }
 }

@@ -32,6 +32,9 @@ export class EventsService {
             return prisma.event.findUnique({
                 where: {
                     id: id
+                },
+                include: {
+                    participants: true
                 }
             });
         } catch (error) {

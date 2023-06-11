@@ -1,10 +1,15 @@
 import {Box,Stack,Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
+import {useNavigate} from "react-router-dom";
 
-export default function CardEvent({date,title, description}: {date: Date, title: string, description: string}) {
+export default function CardEvent({id,date,title, description}: {id:number, date: Date, title: string, description: string}) {
     const theme = useTheme();
+    const navigate = useNavigate();
     return (
         <Box
+            onClick={() => {
+                navigate(`/evenement/${id}`)
+            }}
             sx={{
                 backgroundColor: theme.palette.info.main,
                 borderRadius: '10px',

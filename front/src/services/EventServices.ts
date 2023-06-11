@@ -7,5 +7,44 @@ export const EventServices = {
             return await response.json();
         } catch (error) {return error ;}
 
+    },
+
+    getEventById: async (id: number) => {
+        try {
+            const response = await fetch(ServicesBases.apiUrl + "/events/" + id);
+            return await response.json();
+        } catch (error) {return error ;}
+    },
+
+    joinEvent: async (id: number, user) => {
+        try {
+            const response = await fetch(ServicesBases.apiUrl + "/events/" + id + "/join",{
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    participants: [user.id]
+                })
+            });
+            return await response.json();
+        } catch (error) {return error ;}
+
+    },
+
+    leaveEvent: async (id: number,user) => {
+        try {
+            const response = await fetch(ServicesBases.apiUrl + "/events/" + id + "/leave",{
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    participants: [user.id]
+                })
+            });
+            return await response.json();
+        } catch (error) {return error ;}
+
     }
 }

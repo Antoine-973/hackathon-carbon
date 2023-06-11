@@ -26,11 +26,15 @@ export default function ModalProvider({children}: { children: any }) {
         setOpen(true);
     }
 
+    const handleOpen = () => {
+        setOpen(!open);
+    }
+
     const theme = useTheme() ;
 
 
     return (
-        <ModalContext.Provider value={{openModal}}>
+        <ModalContext.Provider value={{openModal,handleOpen}}>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -43,16 +47,16 @@ export default function ModalProvider({children}: { children: any }) {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 400,
+                        minWidth: 800,
                         borderRadius: 2,
                         textAlign: 'center',
                         p: 4,
-                        backgroundColor: theme.palette.secondary.main,
-                        color: theme.palette.primary.main,
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.secondary.main,
                         }}
                 >
                     <Typography sx={{
-                        color : theme.palette.primary.main
+                        color : theme.palette.secondary.main
                     }}>
                         {title}
                     </Typography>

@@ -96,7 +96,7 @@ export default function FormationOnlget () {
                 {
                    formation &&  formation.map((item) => {
                         return (
-                            <ListItemButton divider key={item.title}>
+                            <ListItemButton divider key={item.id}>
                                 <ListItemText primary={item.title} secondary={item.description}/>
                                 <ListItemText primary={new Date(item.date).toLocaleDateString()}/>
                                 <ListItemIcon>

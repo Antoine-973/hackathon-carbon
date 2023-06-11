@@ -1,5 +1,4 @@
 import {Box, Button, Stack, TextField} from "@mui/material";
-import carbonLogo from "../../public/carbon-logo.png";
 import AuthService from "../services/AuthService";
 import {useState} from "react";
 import {useAuthContext} from "../providers/AuthProvider.tsx";
@@ -34,7 +33,7 @@ export const Login = () => {
             }}
         >
             <Stack>
-                <img width={500}  src={carbonLogo}/>
+                <img width={500}  src={'/carbon-logo.png'}/>
                 <TextField
                     id="email"
                     label="Email"
