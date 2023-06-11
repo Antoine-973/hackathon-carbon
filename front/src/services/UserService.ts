@@ -20,6 +20,7 @@ const create = async (user: any) => {
 }
 
 const update = async (id: number, user: any) => {
+    console.log(user)
     return fetch(`http://localhost:4000/user/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(user),
