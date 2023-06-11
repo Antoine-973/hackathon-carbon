@@ -1,4 +1,4 @@
-import {ServicesBases} from "./servicesBases.tsx";
+import {ServicesBases} from './servicesBases';
 
 export const RewardService = {
 
