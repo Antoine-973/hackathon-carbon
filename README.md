@@ -173,7 +173,7 @@ Ce workflow permet de tester toutes les fonctionnalités de l'application.
 
 Se connecter : 
 - email : consultant@carbon.com
-- password : test
+- password : password
 
 
 - [x] Un workflow pour les administrateurs de l'entreprise
@@ -181,7 +181,7 @@ Ce workflow permet de tester toutes les fonctionnalités de l'application.
 
 Se connecter :
 - email : admin@carbon.com
-- password : test
+- password : password
 
 
 - [x] Un workflow pour les supports de l'entreprise (RH, Sales)
@@ -189,7 +189,7 @@ Ce workflow permet de tester les fonctionnalités de l'application qui sont lié
 
 Se connecter :
 - email : support@carbon.com
-- password : test
+- password : password
 
 
 ## Auteurs
