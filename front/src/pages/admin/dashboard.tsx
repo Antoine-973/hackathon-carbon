@@ -7,7 +7,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {AlternateEmail, Article, Co2, Home, People, AutoAwesomeMotion} from '@mui/icons-material';
+import {
+    AlternateEmail,
+    Article,
+    Co2,
+    Home,
+    People,
+    AutoAwesomeMotion,
+    EventSeat,
+    Description
+} from '@mui/icons-material';
 import {UsersOnglet} from "./Onglets/UsersOnglet";
 import {DashboardOnglet} from "./Onglets/DashboardOnglet";
 import {ArticlesOnglet} from "./Onglets/ArticlesOnglet";
@@ -19,6 +28,7 @@ import {useState} from "react";
 import {MissionOnglet} from "./OngletSupport/MissionOnglet";
 import {ClientOnglet} from "./OngletSupport/ClientOnglet";
 import {EventsOnglet} from "./OngletSupport/EventsOnglet";
+import {DocumentsOnglet} from "./OngletSupport/DocumentsOnglet";
 
 const drawerWidth = 240;
 
@@ -64,7 +74,11 @@ export const Dashboard = () => {
         },
         {
             name: 'Events',
-            icon: < Co2/>
+            icon: < EventSeat/>
+        },
+        {
+            name: 'Documents',
+            icon: < Description/>
         }
     ]
 
@@ -88,6 +102,8 @@ export const Dashboard = () => {
                 return <MissionOnglet/>
             case 'Events':
                 return <EventsOnglet/>
+            case 'Documents':
+                return <DocumentsOnglet/>
             default:
                 return <DashboardOnglet/>
         }
