@@ -1,7 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcryptjs';
-const prisma = new PrismaClient();
+import * as Chance from 'chance';
 
+
+const prisma = new PrismaClient();
+const chance = new Chance();
 
 async function main() {
     const hashedPassword = await bcrypt.hash('password', 10);
@@ -242,8 +245,8 @@ async function main() {
                 description: `Je suis user` + i,
                 phone: '0606060606',
                 localisation: 'Paris',
-                firstname: `user` + i,
-                lastname: `user` + i,
+                firstname: chance.first(),
+                lastname: chance.last(),
                 niveau: 10,
                 role: 'ROLE_CONSULTANT',
                 password: hashedPassword,
@@ -263,8 +266,8 @@ async function main() {
                 description: `Je suis user` + i,
                 phone: '0606060606',
                 localisation: 'Paris',
-                firstname: `user` + i,
-                lastname: `user` + i,
+                firstname: chance.first(),
+                lastname: chance.last(),
                 role: 'ROLE_CONSULTANT',
                 niveau: 35,
                 password: hashedPassword,
@@ -282,8 +285,8 @@ async function main() {
                 description: `Je suis user` + i,
                 phone: '0606060606',
                 localisation: 'Paris',
-                firstname: `user` + i,
-                lastname: `user` + i,
+                firstname: chance.first(),
+                lastname: chance.last(),
                 role: 'ROLE_CONSULTANT',
                 password: hashedPassword,
                 recruitmentAt: new Date(),
@@ -301,8 +304,8 @@ async function main() {
                 description: `Je suis user` + i,
                 phone: '0606060606',
                 localisation: 'Paris',
-                firstname: `user` + i,
-                lastname: `user` + i,
+                firstname: chance.first(),
+                lastname: chance.last(),
                 role: 'ROLE_CONSULTANT',
                 password: hashedPassword,
                 recruitmentAt: new Date(),
