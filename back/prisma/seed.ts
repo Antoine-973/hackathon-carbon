@@ -222,6 +222,7 @@ async function main() {
                 description: i+` article : lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.`,
                 image: 'https://picsum.photos/200/300',
                 author: `author` + i,
+                link: 'https://medium.com/maxime-olla/les-nouveaut%C3%A9s-de-java-20-bc3ec75ae3ec',
             },
         });
     }  

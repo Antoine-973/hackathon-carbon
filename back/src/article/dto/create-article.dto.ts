@@ -13,4 +13,7 @@ export class CreateArticleDto {
 
     @ApiProperty()
     readonly author: string;
+
+    @ApiProperty()
+    readonly link: string;
 }

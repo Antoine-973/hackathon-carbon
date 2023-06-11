@@ -158,6 +158,7 @@ model Article {
   description String
   image       String?
   author      String
+  link        String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
