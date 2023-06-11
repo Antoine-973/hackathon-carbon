@@ -139,6 +139,7 @@ model Vote {
 model Pass {
   id        Int      @id @default(autoincrement())
   title     String
+  description String?
   startAt   DateTime
   endAt     DateTime
   stages    Stage[]

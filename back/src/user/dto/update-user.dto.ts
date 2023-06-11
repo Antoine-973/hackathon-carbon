@@ -33,6 +33,12 @@ export class UpdateUserDto {
   @IsOptional()
   description?: string;
 
-    @IsOptional()
-    mentorId?: number;
+  @IsOptional()
+  phone?: string;
+
+  @IsOptional()
+  localisation?: string;
+  
+  @IsOptional()
+  mentorId?: number;
 }

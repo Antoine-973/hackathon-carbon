@@ -28,7 +28,7 @@ export default function EditProfileModal(props: Props) {
     const [user, setUser] = useState<any>({})
     const [isSubmit, setIsSubmit] = useState<boolean>(false)
     const [errorsList, setErrorsList] = useState<any>({})
-    const {openSnackbar} = useSnackbarContext() ;
+    const {openSnackbar} = useSnackbarContext();
 
     const getUser = (userId: number) => {
         UserService.get(userId).then((response) => {
@@ -75,27 +75,27 @@ export default function EditProfileModal(props: Props) {
     };
 
     const handleContentChange = (editor: any) => {
-        setUser({ ...user, description: editor });
+        setUser({...user, description: editor});
     }
 
     const modules = {
         toolbar: [
-            [{ font: [] }],
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{font: []}],
+            [{header: [1, 2, 3, 4, 5, 6, false]}],
             ["bold", "italic", "underline", "strike"],
-            [{ color: [] }, { background: [] }],
-            [{ list:  "ordered" }, { list:  "bullet" }],
-            [{ indent:  "-1" }, { indent:  "+1" }, { align: [] }],
+            [{color: []}, {background: []}],
+            [{list: "ordered"}, {list: "bullet"}],
+            [{indent: "-1"}, {indent: "+1"}, {align: []}],
         ]
     }
 
     const validateForm = (user) => {
         const errors = {} as any
-        if (!user.firstname){
+        if (!user.firstname) {
             errors.title = 'Ce champ est requis'
         }
-        if (!user.lastname){
-            errors.content = 'Ce champ est requis'
+        if (!user.lastname) {
+            errors.lastname = 'Ce champ est requis'
         }
         return errors
     }
@@ -206,7 +206,8 @@ export default function EditProfileModal(props: Props) {
                         </Grid>
                         <Grid item xs={12}>
                             <DialogContentText>Description *</DialogContentText>
-                            <ReactQuill modules={modules} id="description" theme="snow" value={user.description} onChange={handleContentChange}/>
+                            <ReactQuill modules={modules} id="description" theme="snow" value={user.description}
+                                        onChange={handleContentChange}/>
                         </Grid>
                         <Grid item>
                             <FormHelperText error>{errorsList.description}</FormHelperText>

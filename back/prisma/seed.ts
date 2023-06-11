@@ -369,6 +369,7 @@ async function main() {
     await prisma.pass.create({
         data: {
             title: 'Carbon Pass - SAISON 1',
+            description: 'Le Carbon Pass est un pass qui vous permet de gagner des récompenses en fonction de vos contributions dans le monde Carbon. Plus vous êtes haut niveau, plus vous gagnez de récompenses !',
             startAt: new Date(),
             endAt: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
         },

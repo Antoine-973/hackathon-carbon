@@ -1,7 +1,7 @@
 import {Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Grid, IconButton, Typography} from "@mui/material";
 import {Edit, Email, ExpandMore, LocalPhone} from '@mui/icons-material';
 import {SyntheticEvent, useEffect, useState} from "react";
-import CarbonPass from "../../components/CarbonPass.tsx";
+import CarbonPass from "../../components/CarbonPass/CarbonPass.tsx";
 import {useParams} from "react-router-dom";
 import UserService from "../../services/UserService.ts";
 import {PassServices} from "../../services/PassServices.ts";

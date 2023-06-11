@@ -35,5 +35,7 @@ export class CreateUserDto {
 
   description: string;
 
+  phone: string;
 
+  localisation: string;
 }

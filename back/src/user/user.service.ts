@@ -35,6 +35,8 @@ export class UserService {
         technologies: { create: [] },
         expertise: createUserDto.expertise,
         description: createUserDto.description,
+        phone: createUserDto.phone,
+        localisation: createUserDto.localisation,
       },
     });
   }

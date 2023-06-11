@@ -29,6 +29,8 @@ import {MissionOnglet} from "./OngletSupport/MissionOnglet";
 import {ClientOnglet} from "./OngletSupport/ClientOnglet";
 import {EventsOnglet} from "./OngletSupport/EventsOnglet";
 import {DocumentsOnglet} from "./OngletSupport/DocumentsOnglet";
+import {RewardsOnglet} from "./Onglets/RewardsOnglet.tsx";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 const drawerWidth = 240;
 
@@ -61,6 +63,10 @@ export const Dashboard = () => {
             name: 'CarbonPass',
             icon: < Co2/>
         },
+        {
+            name: 'Rewards',
+            icon: <EmojiEventsIcon/>
+        }
     ]
 
     const linksSupport = [
@@ -94,6 +100,8 @@ export const Dashboard = () => {
                 return <TechnologiesOnglet/>
             case 'CarbonPass':
                 return <CarbonpassOnglet/>
+            case 'Rewards':
+                return <RewardsOnglet/>
             case 'Evolution Carbon':
                 return <FormationOnglet/>
             case 'Clients':

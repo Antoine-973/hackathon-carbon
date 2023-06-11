@@ -13,12 +13,6 @@ export class RewardService {
         data: {
           title: createRewardDto.title,
           description: createRewardDto.description,
-          image: createRewardDto.image,
-          stage: {
-            connect: {
-              id: createRewardDto.stageId,
-            },
-          },
         },
       });
     } catch (error) {
