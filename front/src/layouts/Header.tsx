@@ -177,15 +177,16 @@ export default function Header(props: Props)  {
                                 <IconButton sx={{color: theme.palette.secondary.main}}>
                                     <NotificationsIcon/>
                                 </IconButton>
+                                <IconButton sx={{color: theme.palette.secondary.main}} onClick={() => logout()}>
+                                    <LogoutIcon/>
+                                </IconButton>
                                 <IconButton  onClick={() => handleDrawerOpen()} sx={{
                                     color: theme.palette.secondary.main,
                                     display: {xs:'block', md:'none'}
                                 }} >
                                     <DragHandleIcon/>
                                 </IconButton>
-                                <IconButton sx={{color: theme.palette.secondary.main}} onClick={() => logout()}>
-                                    <LogoutIcon/>
-                                </IconButton>
+
                             </Box>
                         </Box>
                     </Toolbar>

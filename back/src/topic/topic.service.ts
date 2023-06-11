@@ -49,6 +49,9 @@ export class TopicService {
           client: true,
           createdBy: true,
         },
+        orderBy: {
+            createdAt: 'desc',
+        }
       })
       .then((data) => {
         return data;

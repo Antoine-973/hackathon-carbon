@@ -55,7 +55,7 @@ export default function ({id,valide, response, author, createdAt, negativeVote, 
                         <ThumbUp/>
                 </IconButton>
                 <Typography >
-                    {positiveVotes.length}
+                    {positiveVotes?.length ? positiveVotes?.length : 0}
                 </Typography>
 
                 <IconButton
@@ -83,7 +83,7 @@ export default function ({id,valide, response, author, createdAt, negativeVote, 
                         <ThumbDown/>
                 </IconButton>
                 <Typography>
-                    {negativeVotes.length}
+                    {negativeVotes?.length ? negativeVotes?.length : 0}
                 </Typography>
             </Box>
         </Stack>

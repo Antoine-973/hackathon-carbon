@@ -12,7 +12,7 @@ export class CommentService {
       return prisma.comment.create({
         data: {
           positiveVote: {create:[]},
-            negativeVote: {create:[]},
+          negativeVote: {create:[]},
           content: createCommentDto.content,
           createdBy: {
             connect: {
@@ -25,6 +25,12 @@ export class CommentService {
             },
           },
         },
+
+        include: {
+            createdBy: true,
+            positiveVote: true,
+            negativeVote: true,
+        }
       });
     } catch (e) {
       return e;
@@ -36,6 +42,9 @@ export class CommentService {
       return prisma.comment.findMany({
         include: {
           createdBy: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       });
     } catch (e) {
