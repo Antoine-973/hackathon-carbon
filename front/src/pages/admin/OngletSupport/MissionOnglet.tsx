@@ -61,7 +61,7 @@ export const MissionOnglet = () => {
     return (
         loading ? <Loader/> :
             <Grid container direction={"row"}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} >
                     <h2>Ajout d'une mission</h2>
                     <Box
                         component="form"
@@ -204,7 +204,7 @@ export const MissionOnglet = () => {
                                                 <span style={{fontWeight:"bold"}}>
                                                     Consultant : &nbsp;
                                                 </span>
-                                                {mission.user.firstname +" "+ mission.user.lastname}
+                                                {mission?.user?.firstname +" "+ mission?.user?.lastname}
                                             </Typography>
                                             <Typography >
                                                 <span style={{fontWeight:"bold"}}>

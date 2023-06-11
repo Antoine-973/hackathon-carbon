@@ -45,7 +45,7 @@ export const ClientOnglet = () => {
     return (
         loading ? <Loader/> :
             <Grid container direction={"row"}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} >
                     <h2>Ajout d'un client</h2>
                     <Box
                         component="form"

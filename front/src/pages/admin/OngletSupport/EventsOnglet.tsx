@@ -45,7 +45,7 @@ export const EventsOnglet = () => {
     return (
         loading ? <Loader/> :
             <Grid container direction={"row"}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} >
                     <h2>Ajout d'un évènement</h2>
                     <Box
                         component="form"
