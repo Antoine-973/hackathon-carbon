@@ -12,6 +12,7 @@ async function main() {
             firstname: 'Falcon',
             lastname: 'Sultan',
             role: 'ROLE_CONSULTANT',
+            expertise: 'Carbon Poli',
             password: hashedPassword,
             recruitmentAt: new Date(),
             createdAt: new Date(),
@@ -22,6 +23,7 @@ async function main() {
             firstname: 'Jade',
             lastname: 'Mine',
             role: 'ROLE_ADMIN',
+            expertise: 'Carbon Poli',
             password: hashedPassword,
             recruitmentAt: new Date(),
             createdAt: new Date(),
@@ -30,6 +32,7 @@ async function main() {
         {
             email: 'support@carbon.com',
             firstname: 'Pierre',
+            expertise: 'Carbon Poli',
             lastname: 'Rash',
             role: 'ROLE_SUPPPORT',
             password: hashedPassword,
@@ -44,26 +47,31 @@ async function main() {
             title: 'Conférence JS vs PHP',
             description: 'Conférence sur les langages de programmation',
             date: new Date(),
+            participants: []
         },
         {
             title: 'Visionnage de la finale de la coupe du monde',
             description: 'Visionnage de la finale de la coupe du monde rdv 18h en salle commune',
             date: new Date(),
+            participants: []
         },
         {
             title: 'Conférence sur le développement durable',
             description: 'Conférence sur le développement durable',
             date: new Date(),
+            participants: []
         },
         {
             title: 'Repas de noël',
             description: 'CNOEL15',
             date: new Date(),
+            participants: []
         },
         {
             title: 'Le jour est enfin venu...',
             description: 'Lancer de ballots de paille annuel',
             date: new Date(),
+            participants: []
         },
     ]
 
@@ -136,8 +144,6 @@ async function main() {
             title: 'C#',
             description: 'C# est un langage de programmation orienté objet, commercialisé par Microsoft depuis 2002 et destiné à développer sur la plateforme Microsoft .NET. Le langage C# est très proche du Java dont il reprend en grande partie la syntaxe et les concepts.',
         },
-
-
     ]
 
     const formations = [
@@ -169,6 +175,35 @@ async function main() {
         },
     ];
 
+    const clients = [
+        {
+            title: 'Airbus',
+            email: 'airbus@airbus.fr',
+            description: 'Airbus est un constructeur aéronautique européen dont le siège social se trouve à Blagnac, dans la banlieue de Toulouse, en France. Airbus est le principal constructeur aéronautique mondial.',
+        },
+        {
+            title: 'Air France',
+            email: 'conact@airfrance.fr',
+            description: 'Air France est la compagnie aérienne nationale française. Elle dessert les principaux aéroports français ainsi que de nombreuses destinations à l\'étranger. Elle fait partie du groupe Air France-KLM.',
+
+        },
+        {
+            title: 'PMU',
+            email: 'contact@pmu.fr',
+            description: 'Le PMU est une entreprise française de paris hippiques dont les activités sont la conception, la promotion, la commercialisation et le traitement des paris sur les courses de chevaux.',
+        },
+        {
+            title: 'La Poste',
+            email: 'contact@laspote.net',
+            description: 'La Poste est une entreprise française, principale opérateur postal du pays, à la fois opérateur de services postaux (courrier, colis et express), banque, assurance, opérateur de téléphonie mobile, fournisseur de services numériques et de solutions commerce, collecte et vente de données.',
+        },
+        {
+            title: 'Fnac',
+            email: 'contact@fnac.fr',
+            description: 'Fnac est une chaîne de magasins française spécialisée dans la distribution de produits culturels et électroniques grand public. Elle est issue de la fusion des chaînes Fnac et Darty.',
+        }
+    ]
+
     for (let user of users) {
         const hashedPassword = await bcrypt.hash(user.password, 10);
         await prisma.user.create({
@@ -180,8 +215,9 @@ async function main() {
                 password: hashedPassword,
                 recruitmentAt: user.recruitmentAt,
                 createdAt: new Date(),
+                niveau: 42,
                 updatedAt: new Date(),
-                expertise: "Argile Fragile",
+                expertise: user.expertise,
                 bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
             },
         });
@@ -193,6 +229,7 @@ async function main() {
                 email: `user` + i + `@carbon.com`,
                 firstname: `user` + i,
                 lastname: `user` + i,
+                niveau: 10,
                 role: 'ROLE_CONSULTANT',
                 password: hashedPassword,
                 recruitmentAt: new Date(),
@@ -204,8 +241,72 @@ async function main() {
             },
         });
     }
+    for (let i = 41; i <= 80; i++) {
+        await prisma.user.create({
+            data: {
+                email: `user` + i + `@carbon.com`,
+                firstname: `user` + i,
+                lastname: `user` + i,
+                role: 'ROLE_CONSULTANT',
+                niveau: 35,
+                password: hashedPassword,
+                recruitmentAt: new Date(),
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                expertise: "Terre Cuite",
+                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
+
+            },
+        });
+    }
+    for (let i = 81; i <= 120; i++) {
+        await prisma.user.create({
+            data: {
+                email: `user` + i + `@carbon.com`,
+                firstname: `user` + i,
+                lastname: `user` + i,
+                role: 'ROLE_CONSULTANT',
+                password: hashedPassword,
+                recruitmentAt: new Date(),
+                createdAt: new Date(),
+                niveau: 85,
+                updatedAt: new Date(),
+                expertise: "Céramique Etincelante",
+                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
+
+            },
+        });
+    }
+    for (let i = 121; i <= 130; i++) {
+        await prisma.user.create({
+            data: {
+                email: `user` + i + `@carbon.com`,
+                firstname: `user` + i,
+                lastname: `user` + i,
+                role: 'ROLE_CONSULTANT',
+                password: hashedPassword,
+                recruitmentAt: new Date(),
+                createdAt: new Date(),
+                niveau: 98,
+                updatedAt: new Date(),
+                expertise: "Carbon Poli",
+                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
+
+            },
+        });
+    }
+
+    for (let client of clients) {
+        await prisma.client.create({
+            data: {
+                title: client.title,
+                email: client.email,
+                description: client.description,
+            },
+        });
+    }
     
-    for (let i = 1; i <= 40; i++) {
+    for (let i = 6; i <= 40; i++) {
         await prisma.client.create({
             data: {
                 title: `client` + i,
@@ -309,6 +410,17 @@ async function main() {
         await prisma.topic.create({
             data: {
                 title: `topic` + i,
+                createdById: i+3,
+                content: i + `Description du topic : lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.`,
+                note: i + 13,
+            },
+        });
+    }
+
+    for (let i = 1; i <= 4; i++) {
+        await prisma.topic.create({
+            data: {
+                title: `Topic with Client` + i,
                 createdById: i+3,
                 content: i + `Description du topic : lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.`,
                 note: i + 13,

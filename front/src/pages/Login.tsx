@@ -37,6 +37,7 @@ export const Login = () => {
                 <TextField
                     id="email"
                     label="Email"
+                    color={'secondary'}
                     variant="outlined"
                     onChange={(e) => setEmail(e.target.value)}
                     sx={{
@@ -45,7 +46,9 @@ export const Login = () => {
                     }}
                 />
                 <TextField
+                    type={'password'}
                     id="mot_de_passe"
+                    color={'secondary'}
                     label="Mot de passe"
                     variant="outlined"
                     onChange={(e) => setPassword(e.target.value)}

@@ -104,6 +104,7 @@ export default function HomePage() {
                                 {
                                     article &&
                                     <Article
+                                        link={article.link}
                                         key={article.id}
                                         title={article.title}
                                         description={article.description}

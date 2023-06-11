@@ -54,8 +54,10 @@ export default function () {
                     return true ;
                 if (forum.clientId === null)
                     return true ;
-                const clients = user.missions.map((mission) => mission.clientId) ;
-                return clients.includes(forum.clientId) ;
+
+                const clients = user?.missions?.map((mission) => mission.clientId) ;
+                if (clients) return clients.includes(forum.clientId) ;
+
             });
 
             setForums(forumData);
