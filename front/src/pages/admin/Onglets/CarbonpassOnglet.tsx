@@ -33,7 +33,8 @@ export const CarbonpassOnglet = () => {
 
     const [carbonPasses, setCarbonPasses] = useState<any>([])
     const [activePass, setActivePass] = useState<any>({})
-    const [rewards, setRewards] = useState<any>([])
+    const [rewards, setRewards] = useState<any>([]);
+    const [selectedReward, setSelectedReward] = useState<any>(null);
 
     const getRewards = () => {
         RewardService.getRewards()
@@ -131,7 +132,7 @@ export const CarbonpassOnglet = () => {
                                     <TableRow>
                                         <TableCell>Rewards</TableCell>
                                         {activePass.stages && activePass.stages.map((stage: any) => {
-                                            return <TableCell align="right">{stage.position}</TableCell>
+                                            return <TableCell key={stage.id} align="right">{stage.position}</TableCell>
                                         }
                                         )}
                                     </TableRow>
@@ -148,8 +149,15 @@ export const CarbonpassOnglet = () => {
                                                     </TableCell>
                                                     {activePass.stages && activePass.stages.map((stage: any) => {
                                                             return (
-                                                                <TableCell align="right">
-                                                                    <input type="checkbox"/>
+                                                                <TableCell key={stage.id} align="right">
+                                                                    <input onClick={(evt) => {
+                                                                        if(evt.target.checked){
+                                                                            setSelectedReward([selectedReward, {rewardId: reward.id, stageId: stage.id}].flat()) ;
+                                                                            return ;
+                                                                        }
+
+                                                                    }}
+                                                                           type="checkbox"/>
                                                                 </TableCell>
                                                             )
                                                         }
@@ -161,7 +169,18 @@ export const CarbonpassOnglet = () => {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+
                     }
+                    <Button sx={{mt:2}} variant="contained" color="success" onClick={() => {
+                        for (const item of selectedReward) {
+                            if(item !== null){
+                                RewardService.patchReward(item.rewardId, item.stageId)
+                            }
+                        }
+                    }}>
+                        Ajouter les récompenses
+                    </Button>
+
                 </>
             }
             {createPassIsOpen &&

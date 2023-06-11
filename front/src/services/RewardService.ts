@@ -37,4 +37,20 @@ export const RewardService = {
             return error;
         }
     },
+
+    patchReward: async (id: number, stageId: any) => {
+        try {
+            const response = await fetch(ServicesBases.apiUrl+'/reward/'+id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({stageId: stageId})
+            });
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+    }
 }

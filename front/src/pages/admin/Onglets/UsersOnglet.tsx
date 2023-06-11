@@ -294,7 +294,7 @@ export const UsersOnglet = () => {
                                     return null
                                 }
                                 return (
-                                    <Grid item xs={12} md={6}>
+                                    <Grid key={user.id} item xs={12} md={6}>
                                         <Card style={{margin: 10, padding: 10}} key={key}>
                                             <Grid container direction={"row"} alignItems={"center"}>
                                                 <p>{user.firstname + " " + user.lastname}</p>
