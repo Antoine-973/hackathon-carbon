@@ -9,6 +9,9 @@ async function main() {
     const users = [
         {
             email: 'consultant@carbon.com',
+            description: 'Je suis un consultant',
+            phone: '0606060606',
+            localisation: 'Paris',
             firstname: 'Falcon',
             lastname: 'Sultan',
             role: 'ROLE_CONSULTANT',
@@ -20,6 +23,9 @@ async function main() {
         },
         {
             email: 'admin@carbon.com',
+            description: 'Je suis un admin',
+            phone: '0606060606',
+            localisation: 'Paris',
             firstname: 'Jade',
             lastname: 'Mine',
             role: 'ROLE_ADMIN',
@@ -31,6 +37,9 @@ async function main() {
         },
         {
             email: 'support@carbon.com',
+            description: 'Je suis un support',
+            phone: '0606060606',
+            localisation: 'Paris',
             firstname: 'Pierre',
             expertise: 'Carbon Poli',
             lastname: 'Rash',
@@ -209,6 +218,9 @@ async function main() {
         await prisma.user.create({
             data: {
                 email: user.email,
+                description: user.description,
+                phone: user.phone,
+                localisation: user.localisation,
                 firstname: user.firstname,
                 lastname: user.lastname,
                 role: user.role,
@@ -218,7 +230,7 @@ async function main() {
                 niveau: 42,
                 updatedAt: new Date(),
                 expertise: user.expertise,
-                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
+                
             },
         });
     }
@@ -227,6 +239,9 @@ async function main() {
         await prisma.user.create({
             data: {
                 email: `user` + i + `@carbon.com`,
+                description: `Je suis user` + i,
+                phone: '0606060606',
+                localisation: 'Paris',
                 firstname: `user` + i,
                 lastname: `user` + i,
                 niveau: 10,
@@ -236,7 +251,7 @@ async function main() {
                 createdAt: new Date(),
                 updatedAt: new Date(),
                 expertise: "Argile Fragile",
-                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
+                
 
             },
         });
@@ -245,6 +260,9 @@ async function main() {
         await prisma.user.create({
             data: {
                 email: `user` + i + `@carbon.com`,
+                description: `Je suis user` + i,
+                phone: '0606060606',
+                localisation: 'Paris',
                 firstname: `user` + i,
                 lastname: `user` + i,
                 role: 'ROLE_CONSULTANT',
@@ -254,8 +272,6 @@ async function main() {
                 createdAt: new Date(),
                 updatedAt: new Date(),
                 expertise: "Terre Cuite",
-                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
-
             },
         });
     }
@@ -263,6 +279,9 @@ async function main() {
         await prisma.user.create({
             data: {
                 email: `user` + i + `@carbon.com`,
+                description: `Je suis user` + i,
+                phone: '0606060606',
+                localisation: 'Paris',
                 firstname: `user` + i,
                 lastname: `user` + i,
                 role: 'ROLE_CONSULTANT',
@@ -272,8 +291,6 @@ async function main() {
                 niveau: 85,
                 updatedAt: new Date(),
                 expertise: "Céramique Etincelante",
-                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
-
             },
         });
     }
@@ -281,6 +298,9 @@ async function main() {
         await prisma.user.create({
             data: {
                 email: `user` + i + `@carbon.com`,
+                description: `Je suis user` + i,
+                phone: '0606060606',
+                localisation: 'Paris',
                 firstname: `user` + i,
                 lastname: `user` + i,
                 role: 'ROLE_CONSULTANT',
@@ -290,8 +310,6 @@ async function main() {
                 niveau: 98,
                 updatedAt: new Date(),
                 expertise: "Carbon Poli",
-                bio: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.",
-
             },
         });
     }

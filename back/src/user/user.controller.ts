@@ -1,12 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards, SetMetadata } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth.guard';
-import { Public } from 'src/authentication/decorators/public.decorator';
-import { Role } from './role.enum';
-import { Roles } from './role/decorator/roles.decorator';
-import { RolesGuard } from './role/guard/role.guard';
+import {Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
+import {UserService} from './user.service';
+import {CreateUserDto} from './dto/create-user.dto';
+import {UpdateUserDto} from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {

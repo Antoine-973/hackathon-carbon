@@ -31,6 +31,6 @@ export class UpdateUserDto {
   expertise?: string;
 
   @IsOptional()
-  bio?: string;
+  description?: string;
   
 }

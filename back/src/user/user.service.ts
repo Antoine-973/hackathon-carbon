@@ -34,7 +34,7 @@ export class UserService {
         votes: { create: [] },
         technologies: { create: [] },
         expertise: createUserDto.expertise,
-        bio: createUserDto.bio,
+        description: createUserDto.description,
       },
     });
   }
@@ -45,7 +45,11 @@ export class UserService {
         id,
       },
       include: {
-        missions: true,
+        missions: {
+            include: {
+              client: true,
+            }
+        },
         formations: true,
         events: true,
         topics: true,
@@ -77,7 +81,7 @@ export class UserService {
         niveau: updateUserDto.niveau,
         recruitmentAt: updateUserDto.recruitmentAt,
         expertise: updateUserDto.expertise,
-        bio: updateUserDto.bio,
+        description: updateUserDto.description,
       },
     });
   }
