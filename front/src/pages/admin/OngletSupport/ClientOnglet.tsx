@@ -3,7 +3,7 @@ import {Box, Button, Card, Grid, TextField, Typography} from "@mui/material";
 import {Clear} from "@mui/icons-material";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {ArticlesServices} from "../../../services/ArticlesServices";
+import {ArticlesServices} from "../../../services/ArticlesServices.ts";
 import {ClientService} from "../../../services/ClientService";
 
 export const ClientOnglet = () => {

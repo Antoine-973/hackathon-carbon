@@ -11,6 +11,8 @@ export class CommentService {
     try {
       return prisma.comment.create({
         data: {
+          positiveVote: {create:[]},
+            negativeVote: {create:[]},
           content: createCommentDto.content,
           createdBy: {
             connect: {
@@ -74,8 +76,6 @@ export class CommentService {
               id: updateCommentDto.topicId,
             },
           },
-          positiveVote: updateCommentDto.positiveVote,
-          negativeVote: updateCommentDto.negativeVote,
         },
       });
     } catch (e) {
@@ -95,37 +95,7 @@ export class CommentService {
     }
   }
 
-  upvote(id: number) {
-    try {
-      return prisma.comment.update({
-        where: {
-          id: id,
-        },
-        data: {
-          positiveVote: {
-            increment: 1,
-          },
-        },
-      });
-    } catch (e) {
-      return e;
-    }
-  }
 
-  downvote(id: number) {
-    try {
-      return prisma.comment.update({
-        where: {
-          id: id,
-        },
-        data: {
-          negativeVote: {
-            increment: 1,
-          },
-        },
-      });
-    } catch (e) {
-      return e;
-    }
-  }
+
+
 }

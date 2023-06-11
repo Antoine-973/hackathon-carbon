@@ -84,7 +84,7 @@ export const DocumentsOnglet = () => {
                             marginY: 5,
                         }}>
                             <Button color={"secondary"} variant={"contained"}
-                                    onClick={() => window.location.href = urls.global}>
+                                    onClick={() =>  window.open(urls.global,'_blank')}>
                                 Accéder aux documents
                             </Button>
                         </Grid>
@@ -166,7 +166,7 @@ export const DocumentsOnglet = () => {
                                 onChange={(e) => setToDelete(e.target.value)}
                             >
                                 {
-                                    documents.map((document, key) => {
+                                    documents &&  documents.length >0 && documents.map((document, key) => {
                                         return <MenuItem key={key} value={document.id}>
                                             {document.category + " - " + document.title}
                                         </MenuItem>
@@ -197,7 +197,7 @@ export const DocumentsOnglet = () => {
                                 if (document.category === CATEGORIES.GLO) {
                                     return <Button key={document.id} sx={{margin: 2}} color={"info"}
                                                    variant={"contained"}
-                                                   onClick={() => window.location.href = document.link}>
+                                                   onClick={() => window.open(document.link,'_blank')}>
                                         {document.title}
                                     </Button>
                                 }
@@ -219,7 +219,7 @@ export const DocumentsOnglet = () => {
                                 if (document.category === CATEGORIES.RH) {
                                     return <Button key={document.id} sx={{margin: 2}} color={"info"}
                                                    variant={"contained"}
-                                                   onClick={() => window.location.href = document.link}>
+                                                   onClick={() =>  window.open(document.link,'_blank')}>
                                         {document.title}
                                     </Button>
                                 }
@@ -241,7 +241,7 @@ export const DocumentsOnglet = () => {
                                 if (document.category === CATEGORIES.COM) {
                                     return <Button key={document.id} sx={{margin: 2}} color={"info"}
                                                    variant={"contained"}
-                                                   onClick={() => window.location.href = document.link}>
+                                                   onClick={() =>  window.open(document.link,'_blank')}>
                                         {document.title}
                                     </Button>
                                 }

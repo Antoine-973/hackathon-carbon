@@ -21,10 +21,12 @@ interface ForumQuizz {
 interface Reponse {
     title: string;
     description: string;
-    positiveVote: number;
-    negativeVote: number;
+    positiveVote: any;
+    negativeVote: any;
     valide: boolean;
 }
+
+
 export default function ForumQuizz () {
 
     const [forum,setForum] = useState(null);
@@ -89,6 +91,7 @@ export default function ForumQuizz () {
                                 return(
                                     <ResponseForum
                                         key={reponse.id}
+                                        id={reponse.id}
                                         valide={reponse.valide}
                                         response={reponse.content}
                                         author={reponse.createdBy}

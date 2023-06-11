@@ -1,4 +1,4 @@
-import {ServicesBases} from "./servicesBases";
+import {ServicesBases} from "./servicesBases.ts";
 
 export const ClientService = {
     getAll: async () => {

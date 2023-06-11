@@ -70,7 +70,10 @@ export class TopicService {
           comments: {
             include: {
                 createdBy: true,
+                positiveVote: true,
+                negativeVote: true,
             }
+
           },
         },
       });

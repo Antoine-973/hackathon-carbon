@@ -1,4 +1,4 @@
-import {ServicesBases} from "./servicesBases";
+import {ServicesBases} from "./servicesBases.ts";
 
 export const MissionService = {
     getAll: async () => {

@@ -2,7 +2,7 @@ import {RewardCard} from '../components/assets/rewardCard';
 import {Container, Grid, Stack, Typography,Box} from "@mui/material";
 import {useEffect, useState} from "react";
 import {FormationServices} from "../services/FormationServices.ts";
-import {ArticlesServices} from "../services/ArticlesServices";
+import {ArticlesServices} from "../services/ArticlesServices.ts";
 import Loader from "../components/loader/Loader.tsx";
 import MonCarbonCard from '../components/card/MonCarbonCard';
 import Article from "../components/Article";

@@ -80,9 +80,8 @@ export const FormationPage = () => {
                 <Container>
                     <Grid container>
                             <SideNav links={[
-                                {name: 'Général', path: '/forum'},
-                                {name: 'Utilisateur', path: '/forum/user/:id'},
-                                {name: 'Client', path: '/forum/client/:id'},
+                                {name: 'Général', path: '/formation'},
+
                             ]}/>
                         <Grid item xs={10}>
                             <FilterBar

@@ -1,5 +1,5 @@
 import {Box, Button, Stack, TextField} from "@mui/material";
-import AuthService from "../services/AuthService";
+import AuthService from "../services/AuthService.ts";
 import {useState} from "react";
 import {useAuthContext} from "../providers/AuthProvider.tsx";
 import {useNavigate} from "react-router-dom";

@@ -22,6 +22,7 @@ model User {
   formations    Formation[]
   events        Event[]
   topics        Topic[]
+  votes         Vote[]
   comments      Comment[]
   mentor        User?        @relation("MentorToUser", fields: [mentorId], references: [id])
   mentorId      Int?
@@ -29,7 +30,6 @@ model User {
   studentsId    Int?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
-  userId        Int?
   expertise     String
   bio           String
 }
@@ -115,12 +115,24 @@ model Comment {
   createdBy      User     @relation(fields: [createdById], references: [id])
   createdById    Int
   final_response Boolean  @default(false)
-  positiveVote   Int?
-  negativeVote   Int?
+  positiveVote   Vote[]  @relation("PositiveVoteToComment")
+  negativeVote   Vote[] @relation("NegativeVoteToComment")
   topic          Topic    @relation(fields: [topicId], references: [id])
   topicId        Int
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+}
+
+model Vote {
+  id Int     @id @default(autoincrement())
+  positiveComment   Comment?  @relation("PositiveVoteToComment",fields: [positiveCommentId], references: [id])
+  positiveCommentId Int?
+  negativeComment   Comment?  @relation("NegativeVoteToComment",fields: [negativeCommentId], references: [id])
+  negativeCommentId Int?
+  voter     User     @relation(fields: [voterId], references: [id])
+  voterId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Pass {

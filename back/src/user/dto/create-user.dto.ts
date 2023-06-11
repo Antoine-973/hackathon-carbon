@@ -1,4 +1,4 @@
-import { Comment, Event, Formation, Mission, Topic } from '@prisma/client';
+import { Comment, Event, Formation, Mission, Vote, Topic } from '@prisma/client';
 import { IsEmail } from 'class-validator';
 
 export class CreateUserDto {
@@ -28,6 +28,8 @@ export class CreateUserDto {
   topics: Topic[];
 
   comments: Comment[];
+
+  votes: Vote[];
 
   expertise: string;
 
