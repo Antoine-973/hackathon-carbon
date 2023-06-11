@@ -1,4 +1,14 @@
-import {Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Grid, IconButton, Typography} from "@mui/material";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Avatar,
+    Card,
+    Chip,
+    Grid,
+    IconButton,
+    Typography
+} from "@mui/material";
 import {Edit, Email, ExpandMore, LocalPhone} from '@mui/icons-material';
 import React, {SyntheticEvent, useEffect, useState} from "react";
 import CarbonPass from "../../components/CarbonPass/CarbonPass.tsx";
@@ -78,8 +88,12 @@ export default function ProfilePage() {
                                         <Grid item>
                                             <Grid container alignItems={"center"} gap={1}>
                                                 <CircularStatic level={data.niveau}/>
+                                                <Chip size={'small'} color={'secondary'}  sx={{
+                                                    marginRight: 1
+                                                }} label={data.expertise}></Chip>
                                                 <Typography variant="h5"
-                                                            fontWeight={"bold"}>{data.firstname} {data.lastname}</Typography>
+                                                            fontWeight={"bold"}>{data.firstname} {data.lastname}
+                                                </Typography>
                                                 <a href={"mailto:" + data.email}>
                                                     <Email fontSize={"small"} color={"info"}/>
                                                 </a>
