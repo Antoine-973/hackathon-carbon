@@ -402,6 +402,8 @@ async function main() {
                 title: `mission` + i,
                 description: i + `Description de la mission : lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nisl nisl ultricies nisl, nec ultricies nisl nisl nec nisl.`,
                 clientId: i,
+                startAt: new Date(),
+                endAt: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
             },
         });
     }
