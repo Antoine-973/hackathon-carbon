@@ -43,7 +43,7 @@ async function main() {
             firstname: 'Pierre',
             expertise: 'Carbon Poli',
             lastname: 'Rash',
-            role: 'ROLE_SUPPPORT',
+            role: 'ROLE_SUPPORT',
             password: hashedPassword,
             recruitmentAt: new Date(),
             createdAt: new Date(),
