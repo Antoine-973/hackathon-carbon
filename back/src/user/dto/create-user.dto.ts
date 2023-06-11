@@ -28,4 +28,8 @@ export class CreateUserDto {
   topics: Topic[];
 
   comments: Comment[];
+
+  expertise: string;
+
+  bio: string;
 }

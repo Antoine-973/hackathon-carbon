@@ -1,8 +1,11 @@
 import {Box,Typography,Stack} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 
-export default function Article ({image, title, description}: {image: string, title: string, description: string}) {
+
+export default function Article ({image, title, description, link}: {image: string, title: string, description: string, link: string}) {
     const theme = useTheme();
+
+
     return (
         <Box
             sx={{
@@ -17,6 +20,7 @@ export default function Article ({image, title, description}: {image: string, ti
                 cursor: 'pointer',
                 border: '2px solid ' + theme.palette.info.main,
             }}
+            onClick={() => { window.open(link, '_blank') }}
         >
             <Stack sx={{
                 paddingTop:2,
@@ -27,7 +31,13 @@ export default function Article ({image, title, description}: {image: string, ti
                 <Typography variant={'h2'} componant={'p'}>
                     {title}
                 </Typography>
-                <Typography>
+                <Typography sx={{
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    display: 'block',
+                    width: '400px',
+                }}>
                     {description}
                 </Typography>
             </Stack>

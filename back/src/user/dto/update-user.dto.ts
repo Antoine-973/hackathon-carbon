@@ -26,4 +26,11 @@ export class UpdateUserDto {
 
   @IsOptional()
   recruitmentAt?: Date;
+
+  @IsOptional()
+  expertise?: string;
+
+  @IsOptional()
+  bio?: string;
+  
 }

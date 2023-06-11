@@ -12,7 +12,12 @@ export class EventsService {
     create(createEventDto: CreateEventDto) {
         try {
             return prisma.event.create({
-                data: createEventDto
+                data: {
+                    ...createEventDto,
+                    participants: {
+                        create: []
+                    }
+                }
             });
         } catch (error) {
             console.error(error);

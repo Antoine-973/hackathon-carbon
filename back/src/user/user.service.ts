@@ -32,6 +32,8 @@ export class UserService {
         topics: { create: [] },
         comments: { create: [] },
         technologies: { create: [] },
+        expertise: createUserDto.expertise,
+        bio: createUserDto.bio,
       },
     });
   }
@@ -72,6 +74,8 @@ export class UserService {
         salary: updateUserDto.salary,
         niveau: updateUserDto.niveau,
         recruitmentAt: updateUserDto.recruitmentAt,
+        expertise: updateUserDto.expertise,
+        bio: updateUserDto.bio,
       },
     });
   }

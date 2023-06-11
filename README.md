@@ -16,6 +16,9 @@ docker compose exec back npx prisma migrate dev
 docker compose exec back npx prisma generate
 ```
 ```bash
+docker compose exec back npm run prisma:seed
+```
+```bash
 docker compose exec back npm run start:dev
 ```
 

@@ -13,7 +13,8 @@ export default function CardEvent({id,date,title, description}: {id:number, date
             sx={{
                 backgroundColor: theme.palette.info.main,
                 borderRadius: '10px',
-                Width: '200px',
+                width: '200px',
+                height:'150px',
                 px:2,
                 py:2,
                 cursor: 'pointer',
@@ -25,7 +26,7 @@ export default function CardEvent({id,date,title, description}: {id:number, date
                 <Typography variant={'caption'} sx={{pb:2}}>
                     {new Date(date).toLocaleDateString()}
                 </Typography>
-                <Typography fontWeight={'bold'} >
+                <Typography textAlign={'center'} fontWeight={'bold'} >
                     {title}
                 </Typography>
                 <Typography sx={{
